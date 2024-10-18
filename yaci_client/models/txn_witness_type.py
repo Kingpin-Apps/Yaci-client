@@ -1,0 +1,13 @@
+from enum import Enum
+
+
+class TxnWitnessType(str, Enum):
+    BOOTSTRAP_WITNESS = "BOOTSTRAP_WITNESS"
+    BYRON_PK_WITNESS = "BYRON_PK_WITNESS"
+    BYRON_REDEEM_WITNESS = "BYRON_REDEEM_WITNESS"
+    BYRON_SCRIPT_WITNESS = "BYRON_SCRIPT_WITNESS"
+    BYRON_UNKNOWN_WITNESS = "BYRON_UNKNOWN_WITNESS"
+    VKEY_WITNESS = "VKEY_WITNESS"
+
+    def __str__(self) -> str:
+        return str(self.value)

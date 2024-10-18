@@ -1,0 +1,86 @@
+[tool.poetry]
+name = "yaci_client"
+version = "1.0"
+description = "A client library for accessing Yaci Store API"
+authors = ["Hareem Adderley <haddderley@kingpinapps.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+httpx = ">=0.20.0,<0.28.0"
+attrs = ">=21.3.0"
+python-dateutil = "^2.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+black = "^24.8.0"
+flake8 = "^7.1.1"
+mypy = "^1.11.2"
+ruff = "^0.6.3"
+faker = "^28.4.1"
+pytest-cov = "^5.0.0"
+isort = "^5.13.2"
+flake8-pyproject = "^1.2.3"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-p no:cacheprovider"
+
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+version_files = [
+    "yaci_client/__init__.py:__version__",
+    "pyproject.toml:version"
+]
+update_changelog_on_bump = true
+style = [
+    ["qmark", "fg:#ff9d00 bold"],
+    ["question", "bold"],
+    ["answer", "fg:#ff9d00 bold"],
+    ["pointer", "fg:#ff9d00 bold"],
+    ["highlighted", "fg:#ff9d00 bold"],
+    ["selected", "fg:#cc5454"],
+    ["separator", "fg:#cc5454"],
+    ["instruction", ""],
+    ["text", ""],
+    ["disabled", "fg:#858585 italic"]
+]
+
+[tool.flake8]
+ignore = ['E231', 'E241', 'D203', 'E126', 'W503', 'E203', 'E501']
+exclude = ['.git', '__pycache__', 'build', 'E126', 'W503', 'E203']
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-line-length = 120
+count = true
+
+
+[tool.ruff]
+line-length = 120
+lint.ignore = [
+    "E501",
+    "F841",
+]
+
+
+[tool.isort]
+profile = "black"
+
+
+[tool.mypy]
+ignore_missing_imports = true
+disable_error_code = ["str-bytes-safe"]
+python_version = 3.8
+
+

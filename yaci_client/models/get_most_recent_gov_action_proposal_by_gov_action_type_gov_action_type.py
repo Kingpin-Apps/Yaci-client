@@ -1,0 +1,14 @@
+from enum import Enum
+
+
+class GetMostRecentGovActionProposalByGovActionTypeGovActionType(str, Enum):
+    HARD_FORK_INITIATION_ACTION = "HARD_FORK_INITIATION_ACTION"
+    INFO_ACTION = "INFO_ACTION"
+    NEW_CONSTITUTION = "NEW_CONSTITUTION"
+    NO_CONFIDENCE = "NO_CONFIDENCE"
+    PARAMETER_CHANGE_ACTION = "PARAMETER_CHANGE_ACTION"
+    TREASURY_WITHDRAWALS_ACTION = "TREASURY_WITHDRAWALS_ACTION"
+    UPDATE_COMMITTEE = "UPDATE_COMMITTEE"
+
+    def __str__(self) -> str:
+        return str(self.value)

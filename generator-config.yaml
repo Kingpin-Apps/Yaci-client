@@ -1,0 +1,4 @@
+content_type_overrides:
+  '*/*': application/json
+  application/cbor: application/json
+  text/plain: application/json

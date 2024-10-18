@@ -1,0 +1,5749 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Yaci Store API",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/bloxbean/yaci-store"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account API",
+      "description": "APIs for account related operations. This is an experimental module. Some apis may not be stable."
+    },
+    {
+      "name": "Local Epoch Service",
+      "description": "Get epoch params directly from local Cardano Node through n2c local query."
+    },
+    {
+      "name": "Asset API",
+      "description": "APIs for address asset related operations."
+    }
+  ],
+  "paths": {
+    "/api/v1/utxos": {
+      "post": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "operationId": "getUtxos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/UtxoKey"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressUtxo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/utils/txs/evaluate": {
+      "post": {
+        "tags": [
+          "Utilities"
+        ],
+        "operationId": "evaluateTx",
+        "requestBody": {
+          "content": {
+            "application/cbor": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tx/submit": {
+      "post": {
+        "tags": [
+          "Tx Submission Service"
+        ],
+        "operationId": "submitTx_1",
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/cbor": {
+              "schema": {
+                "type": "string",
+                "format": "byte"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/utxos/{txHash}/{index}": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "operationId": "getUtxo",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressUtxo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transactions List",
+        "description": "Return list of transaction information by paging parameters.",
+        "operationId": "getTransactions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transaction Information",
+        "description": "Get detailed information about a specific transaction.",
+        "operationId": "getTransaction",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/witnesses": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transaction Witnesses",
+        "description": "Return list of witnesses of a specific transaction.",
+        "operationId": "getTransactionWitnesses",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxnWitness"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/withdrawals": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Get withdrawals by transaction",
+        "description": "Get withdrawals by transaction",
+        "operationId": "getWithdrawalsByTransaction",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Withdrawal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/utxos": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transaction UTxOs",
+        "description": "Return the UTxOs of a specific transaction.",
+        "operationId": "getTransactionInputsOutputs",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TxInputsOutputs"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/scripts": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "operationId": "getTxContractDetails",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxContractDetails"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/redeemers": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "operationId": "getTxRedeemers",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxRedeemerDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/metadata": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transaction Metadata Labels",
+        "description": "Get a list of metadata labels included in a specific transaction.",
+        "operationId": "getMetadataByTxHash",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxMetadataLabelDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/{txHash}/metadata/cbor": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Transaction Metadata CBOR",
+        "description": "Get a list of metadata CBOR included in a specific transaction.",
+        "operationId": "getMetadataCborByTxHash",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxMetadataLabelCBORDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/withdrawals": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Get withdrawals",
+        "description": "Get withdrawals",
+        "operationId": "getWithdrawals",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Withdrawal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/txs/metadata/labels/{label}": {
+      "get": {
+        "tags": [
+          "Transaction Service"
+        ],
+        "summary": "Metadata Labels",
+        "description": "Get a list of metadata Label included by a specific label.",
+        "operationId": "getMetadataByLabel",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MetadataLabelDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stake/registrations": {
+      "get": {
+        "tags": [
+          "Account Service"
+        ],
+        "description": "Get stake address registrations by page number and count",
+        "operationId": "getStakeRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StakeRegistrationDetail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stake/deregistrations": {
+      "get": {
+        "tags": [
+          "Account Service"
+        ],
+        "description": "Get stake de-registrations by page number and count",
+        "operationId": "getStakeDeRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StakeRegistrationDetail"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stake/delegations": {
+      "get": {
+        "tags": [
+          "Account Service"
+        ],
+        "description": "Get stake delegations by page number and count",
+        "operationId": "getStakeDelegations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Delegation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/{scriptHash}": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getScriptByHash",
+        "parameters": [
+          {
+            "name": "scriptHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/{scriptHash}/json": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getScriptJsonByHash",
+        "parameters": [
+          {
+            "name": "scriptHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptJsonDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/{scriptHash}/details": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getScriptDetailsByHash",
+        "parameters": [
+          {
+            "name": "scriptHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/{scriptHash}/cbor": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getScriptCborByHash",
+        "parameters": [
+          {
+            "name": "scriptHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScriptCborDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/datum/{datumHash}": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getDatumJsonByHash",
+        "parameters": [
+          {
+            "name": "datumHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonNode"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scripts/datum/{datumHash}/cbor": {
+      "get": {
+        "tags": [
+          "Script Service"
+        ],
+        "operationId": "getDatumCborByHash",
+        "parameters": [
+          {
+            "name": "datumHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonNode"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pools/retirements": {
+      "get": {
+        "tags": [
+          "Pool Service"
+        ],
+        "description": "Get pool retirements by page number and count",
+        "operationId": "getRetirements",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PoolRetirement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pools/registrations": {
+      "get": {
+        "tags": [
+          "Pool Service"
+        ],
+        "description": "Get pool registrations by page number and count",
+        "operationId": "getPoolRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PoolRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/network/param-proposals": {
+      "get": {
+        "tags": [
+          "Network Service"
+        ],
+        "summary": "Param Update Proposals",
+        "description": "Get all parameter update proposals submitted to the chain starting Shelley era.",
+        "operationId": "getProtocolParamProposals",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProtocolParamsProposal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mir": {
+      "get": {
+        "tags": [
+          "MIR Service"
+        ],
+        "summary": "MIR Summary",
+        "description": "Get mir summaries by page number and count.",
+        "operationId": "getMIRSummaries",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MoveInstataneousRewardSummary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mir/mir/txs/{txHash}": {
+      "get": {
+        "tags": [
+          "MIR Service"
+        ],
+        "summary": "MIR Information",
+        "description": "Get MIR by tx hash.",
+        "operationId": "getMIRByTxHash",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MoveInstataneousReward"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/votes": {
+      "get": {
+        "tags": [
+          "VotingProcedure Service"
+        ],
+        "description": "Get voting procedure list",
+        "operationId": "getVotingProcedureList",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VotingProcedureDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/votes/txs/{txHash}": {
+      "get": {
+        "tags": [
+          "VotingProcedure Service"
+        ],
+        "description": "Get voting procedure list by transaction hash",
+        "operationId": "getVotingProcedureByTx",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VotingProcedureDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/votes/id/{id}": {
+      "get": {
+        "tags": [
+          "VotingProcedure Service"
+        ],
+        "description": "Get voting procedure by id",
+        "operationId": "getVotingProcedureById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VotingProcedureDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get governance action proposal list",
+        "operationId": "getGovActionProposalList",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GovActionProposal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/{txHash}": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get governance action proposal list by transaction hash",
+        "operationId": "getGovActionProposalByTx",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GovActionProposal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/{txHash}/{indexInTx}/votes": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get voting procedure list for a governance action proposal",
+        "operationId": "getVotingProceduresForGovActionProposal",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "indexInTx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VotingProcedure"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/{txHash}/votes": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get voting procedure list by transaction hash of governance action proposal",
+        "operationId": "getVotingProceduresByGovActionProposalTx",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VotingProcedure"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/return-address/{address}": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get governance action proposal list by return address",
+        "operationId": "getGovActionProposalByReturnAddress",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GovActionProposal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/latest/gov-action-type/{govActionType}": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get most recent governance action proposal for a specific type",
+        "operationId": "getMostRecentGovActionProposalByGovActionType",
+        "parameters": [
+          {
+            "name": "govActionType",
+            "in": "path",
+            "description": "Governance action type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PARAMETER_CHANGE_ACTION",
+                "HARD_FORK_INITIATION_ACTION",
+                "TREASURY_WITHDRAWALS_ACTION",
+                "NO_CONFIDENCE",
+                "UPDATE_COMMITTEE",
+                "NEW_CONSTITUTION",
+                "INFO_ACTION"
+              ]
+            },
+            "example": "PARAMETER_CHANGE_ACTION"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GovActionProposal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/proposals/gov-action-type/{govActionType}": {
+      "get": {
+        "tags": [
+          "GovActionProposal Service"
+        ],
+        "description": "Get governance action proposal list by governance action type",
+        "operationId": "getGovActionProposalByGovActionType",
+        "parameters": [
+          {
+            "name": "govActionType",
+            "in": "path",
+            "description": "Governance action type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PARAMETER_CHANGE_ACTION",
+                "HARD_FORK_INITIATION_ACTION",
+                "TREASURY_WITHDRAWALS_ACTION",
+                "NO_CONFIDENCE",
+                "UPDATE_COMMITTEE",
+                "NEW_CONSTITUTION",
+                "INFO_ACTION"
+              ]
+            },
+            "example": "PARAMETER_CHANGE_ACTION"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GovActionProposal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/dreps/updates": {
+      "get": {
+        "tags": [
+          "DRep Service"
+        ],
+        "description": "Get dRep updates by page number and count",
+        "operationId": "getDRepUpdates",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DRepRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/dreps/registrations": {
+      "get": {
+        "tags": [
+          "DRep Service"
+        ],
+        "description": "Get dRep registrations by page number and count",
+        "operationId": "getDRepRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DRepRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/dreps/deregistrations": {
+      "get": {
+        "tags": [
+          "DRep Service"
+        ],
+        "description": "Get dRep de-registrations by page number and count",
+        "operationId": "getDRepDeRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DRepRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/delegation-votes": {
+      "get": {
+        "tags": [
+          "Delegation Vote Service"
+        ],
+        "description": "Get delegation votes by page number and count",
+        "operationId": "getDelegations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DelegationVote"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/delegation-votes/drep/{dRepId}": {
+      "get": {
+        "tags": [
+          "Delegation Vote Service"
+        ],
+        "description": "Get delegations by DRep ID",
+        "operationId": "getDelegationsOfDRep",
+        "parameters": [
+          {
+            "name": "dRepId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DelegationVote"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/delegation-votes/address/{address}": {
+      "get": {
+        "tags": [
+          "Delegation Vote Service"
+        ],
+        "description": "Get delegations by address",
+        "operationId": "getDelegationsByAddress",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DelegationVote"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/committees/registrations": {
+      "get": {
+        "tags": [
+          "Committee Service"
+        ],
+        "description": "Get committee registrations by page number and count",
+        "operationId": "getCommitteeRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommitteeRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/governance/committees/deregistrations": {
+      "get": {
+        "tags": [
+          "Committee Service"
+        ],
+        "description": "Get committee de-registrations by page number and count",
+        "operationId": "getCommitteeDeRegistrations",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommitteeDeRegistration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs": {
+      "get": {
+        "tags": [
+          "Epoch Service"
+        ],
+        "summary": "Epoch List",
+        "description": "Get epochs by page number and count.",
+        "operationId": "getEpochs",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpochsPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/{number}": {
+      "get": {
+        "tags": [
+          "Epoch Service"
+        ],
+        "summary": "Specific Epoch Information",
+        "description": "Get the information of a specific epoch.",
+        "operationId": "getEpochByNumber",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Epoch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/{number}/parameters": {
+      "get": {
+        "tags": [
+          "Local Epoch Service"
+        ],
+        "summary": "Get protocol parameters for an epoch if exists. It fetches the protocol parameters from the local node through n2c local query. If the protocol param doesn't exist for an old epoch, it return status code 404.",
+        "operationId": "getProtocolParams",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProtocolParamsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/parameters": {
+      "get": {
+        "tags": [
+          "Local Epoch Service"
+        ],
+        "summary": "Latest Epoch's Protocol Parameters",
+        "description": "Get the protocol parameters of the latest epoch. It fetches the protocol parameters from the local node through n2c local query.",
+        "operationId": "getProtocolParams_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProtocolParamsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/latest": {
+      "get": {
+        "tags": [
+          "Local Epoch Service"
+        ],
+        "summary": "Get the latest epoch no",
+        "operationId": "getLatestEpoch",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpochNo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/latest/parameters": {
+      "get": {
+        "tags": [
+          "Local Epoch Service"
+        ],
+        "summary": "Latest Epoch's Protocol Parameters",
+        "description": "Get the protocol parameters of the latest epoch. It fetches the protocol parameters from the local node through n2c local query.",
+        "operationId": "getLatestProtocolParams",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProtocolParamsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/epochs/latest/details": {
+      "get": {
+        "tags": [
+          "Epoch Service"
+        ],
+        "summary": "Latest Epoch Information",
+        "description": "Get the information of the current epoch.",
+        "operationId": "getLatestEpoch_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpochContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks": {
+      "get": {
+        "tags": [
+          "Block Service"
+        ],
+        "summary": "Block List",
+        "description": "Get blocks by page number and count.",
+        "operationId": "getBlocks",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlocksPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks/{numberOrHash}": {
+      "get": {
+        "tags": [
+          "Block Service"
+        ],
+        "summary": "Block Information by Number or Hash",
+        "description": "Get block information by number or hash.",
+        "operationId": "getBlockByNumber",
+        "parameters": [
+          {
+            "name": "numberOrHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks/{block}/txs": {
+      "get": {
+        "tags": [
+          "Block Service"
+        ],
+        "summary": "Block Transactions",
+        "description": "Get a list of all transactions included in the provided block.",
+        "operationId": "getTransactions_1",
+        "parameters": [
+          {
+            "name": "block",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionSummary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks/pool/{poolId}": {
+      "get": {
+        "tags": [
+          "Block Service"
+        ],
+        "summary": "Slot Leader Block List",
+        "description": "Get blocks of slot leader in a specific epoch.",
+        "operationId": "getBlocksBySlotLeaderEpoch",
+        "parameters": [
+          {
+            "name": "poolId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "epoch",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PoolBlock"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks/latest": {
+      "get": {
+        "tags": [
+          "Block Service"
+        ],
+        "summary": "Latest Block",
+        "description": "Get the Latest Block Information.",
+        "operationId": "getLatestBlock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/{unit}/addresses": {
+      "get": {
+        "tags": [
+          "Asset API"
+        ],
+        "description": "Get addresses by asset",
+        "operationId": "getAddressesByAsset",
+        "parameters": [
+          {
+            "name": "unit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "asc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AddressAssetBalanceDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/utxos/unit/{unit}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Asset UTxOs by Unit",
+        "description": "Get all UTxOs information of an asset.",
+        "operationId": "getAssetUtxos",
+        "parameters": [
+          {
+            "name": "unit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Utxo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/unit/{unit}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Asset History by Unit",
+        "description": "Returns the Mint / Burn History of an asset by unit.",
+        "operationId": "getAssetTxsByUnit",
+        "parameters": [
+          {
+            "name": "unit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxAsset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/txs/{txHash}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Assets History by Tx Hash",
+        "description": "Returns the Mint / Burn History for all assets included in a transaction.",
+        "operationId": "getAssetTxsByTx",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxAsset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/supply/unit/{unit}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Assets Supply by Unit",
+        "description": "Returns the entire supply of a specific asset by unit.",
+        "operationId": "getSupplyByUnit",
+        "parameters": [
+          {
+            "name": "unit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitSupply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/supply/policy/{policy}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Assets Supply by Policy",
+        "description": "Returns the entire assets supply of a specific policy.",
+        "operationId": "getSupplyByPolicy",
+        "parameters": [
+          {
+            "name": "policy",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicySupply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/supply/fingerprint/{fingerprint}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Assets Supply by Fingerprint",
+        "description": "Returns the entire supply of a specific asset by fingerprint.",
+        "operationId": "getSupplyByFingerprint",
+        "parameters": [
+          {
+            "name": "fingerprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FingerprintSupply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/policy/{policyId}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Asset History by Policy",
+        "description": "Returns the Mint / Burn History for all assets included in a policy.",
+        "operationId": "getAssetTxsByPolicyId",
+        "parameters": [
+          {
+            "name": "policyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxAsset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assets/fingerprint/{fingerprint}": {
+      "get": {
+        "tags": [
+          "Asset Service"
+        ],
+        "summary": "Asset History by Fingerprint",
+        "description": "Returns the Mint / Burn History of an asset by fingerprint.",
+        "operationId": "getAssetTxsByFingerprint",
+        "parameters": [
+          {
+            "name": "fingerprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxAsset"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{address}/{unit}/{timeInSec}/balance": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Get current balance at an address at a specific time. This is an experimental feature.",
+        "operationId": "getAddressBalanceAtTime",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "unit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeInSec",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressBalanceDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{address}/utxos": {
+      "get": {
+        "tags": [
+          "Address Service"
+        ],
+        "summary": "Get UTxOs for an address or address verification key hash (addr_vkh). If the address is a stake address, it will return UTXOs for all base addresses associated with the stake address",
+        "operationId": "getUtxos_1",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Utxo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{address}/utxos/{asset}": {
+      "get": {
+        "tags": [
+          "Address Service"
+        ],
+        "summary": "Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the address is a stake address, it will return UTXOs for all base addresses associated with the stake address",
+        "operationId": "getUtxosForAsset",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "asset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Utxo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{address}/balance": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Get current balance at an address",
+        "operationId": "getAddressBalance",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressBalanceDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/addresses/{address}/amounts": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Get amounts at an address. For stake address, only lovelace is returned.It calculates the current balance at the address by aggregating all currrent utxos for the stake address. It may be slow for addresses with too many utxos.",
+        "operationId": "getAddressAmounts",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Amount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{stakeAddress}": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Obtain information about a specific stake account.It gets stake account balance from aggregated stake account balance if aggregation is enabled, otherwise it calculates the current lovelace balance by aggregating all current utxos for the stake addressand get rewards amount directly from node.",
+        "operationId": "getStakeAccountDetails",
+        "parameters": [
+          {
+            "name": "stakeAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StakeAccountInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{stakeAddress}/{timeInSec}/balance": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Get current balance at a stake address at a specific time. This is an experimental feature.",
+        "operationId": "getStakeAddressBalanceAtTime",
+        "parameters": [
+          {
+            "name": "stakeAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeInSec",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StakeAddressBalance"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{stakeAddress}/withdrawals": {
+      "get": {
+        "tags": [
+          "Account Service"
+        ],
+        "summary": "Get withdrawals by stake address",
+        "description": "Get withdrawals by stake address",
+        "operationId": "getWithdrawalsByAccount",
+        "parameters": [
+          {
+            "name": "stakeAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Withdrawal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/{stakeAddress}/balance": {
+      "get": {
+        "tags": [
+          "Account API"
+        ],
+        "description": "Get current balance at a stake address",
+        "operationId": "getStakeAddressBalance",
+        "parameters": [
+          {
+            "name": "stakeAddress",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StakeAddressBalance"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UtxoKey": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AddressUtxo": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "owner_addr": {
+            "type": "string"
+          },
+          "owner_stake_addr": {
+            "type": "string"
+          },
+          "owner_payment_credential": {
+            "type": "string"
+          },
+          "owner_stake_credential": {
+            "type": "string"
+          },
+          "lovelace_amount": {
+            "type": "integer"
+          },
+          "amounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amt"
+            }
+          },
+          "data_hash": {
+            "type": "string"
+          },
+          "inline_datum": {
+            "type": "string"
+          },
+          "script_ref": {
+            "type": "string"
+          },
+          "reference_script_hash": {
+            "type": "string"
+          },
+          "is_collateral_return": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Amt": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "policy_id": {
+            "type": "string"
+          },
+          "asset_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        }
+      },
+      "TransactionPage": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transaction_summaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionSummary"
+            }
+          }
+        }
+      },
+      "TransactionSummary": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "output_addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total_output": {
+            "type": "integer"
+          },
+          "fee": {
+            "type": "integer"
+          }
+        }
+      },
+      "JsonNode": {
+        "type": "object"
+      },
+      "TransactionDetails": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "block_height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          },
+          "utxo_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total_output": {
+            "type": "integer"
+          },
+          "fees": {
+            "type": "integer"
+          },
+          "ttl": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "auxiliary_data_hash": {
+            "type": "string"
+          },
+          "validity_interval_start": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "script_data_hash": {
+            "type": "string"
+          },
+          "collateral_inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          },
+          "required_signers": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "netowrk_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "collateral_return": {
+            "$ref": "#/components/schemas/TxOuput"
+          },
+          "total_collateral": {
+            "type": "integer"
+          },
+          "reference_inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          },
+          "invalid": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TxOuput": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "amounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amt"
+            }
+          },
+          "dataHash": {
+            "type": "string"
+          },
+          "inlineDatum": {
+            "type": "string"
+          },
+          "referenceScriptHash": {
+            "type": "string"
+          }
+        }
+      },
+      "TxUtxo": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "stake_address": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amt"
+            }
+          },
+          "data_hash": {
+            "type": "string"
+          },
+          "inline_datum": {
+            "type": "string"
+          },
+          "script_ref": {
+            "type": "string"
+          },
+          "reference_script_hash": {
+            "type": "string"
+          },
+          "inline_datum_json": {
+            "$ref": "#/components/schemas/JsonNode"
+          }
+        }
+      },
+      "TxnWitness": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pub_key": {
+            "type": "string"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "pub_keyhash": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "BOOTSTRAP_WITNESS",
+              "VKEY_WITNESS",
+              "BYRON_PK_WITNESS",
+              "BYRON_REDEEM_WITNESS",
+              "BYRON_SCRIPT_WITNESS",
+              "BYRON_UNKNOWN_WITNESS"
+            ]
+          },
+          "additional_data": {
+            "$ref": "#/components/schemas/JsonNode"
+          }
+        }
+      },
+      "Withdrawal": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "address": {
+            "type": "string"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TxInputsOutputs": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TxUtxo"
+            }
+          }
+        }
+      },
+      "ExUnits": {
+        "type": "object",
+        "properties": {
+          "mem": {
+            "type": "integer"
+          },
+          "steps": {
+            "type": "integer"
+          }
+        }
+      },
+      "Redeemer": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "enum": [
+              "spend",
+              "mint",
+              "cert",
+              "reward",
+              "voting",
+              "proposing"
+            ]
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "string"
+          },
+          "ex_units": {
+            "$ref": "#/components/schemas/ExUnits"
+          }
+        }
+      },
+      "TxContractDetails": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "script_hash": {
+            "type": "string"
+          },
+          "script_content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "NATIVE_SCRIPT",
+              "PLUTUS_V1",
+              "PLUTUS_V2",
+              "PLUTUS_V3"
+            ]
+          },
+          "redeemer": {
+            "$ref": "#/components/schemas/Redeemer"
+          },
+          "datum": {
+            "type": "string"
+          },
+          "datum_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "TxRedeemerDto": {
+        "type": "object",
+        "properties": {
+          "tx_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "script_hash": {
+            "type": "string"
+          },
+          "datum_hash": {
+            "type": "string"
+          },
+          "redeemer_data_hash": {
+            "type": "string"
+          },
+          "unit_mem": {
+            "type": "string"
+          },
+          "unit_steps": {
+            "type": "string"
+          }
+        }
+      },
+      "TxMetadataLabelDto": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string"
+          },
+          "body": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "json_metadata": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TxMetadataLabelCBORDto": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "MetadataLabelDto": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "json_metadata": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "cbor_metadata": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "StakeRegistrationDetail": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "credential": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "STAKE_REGISTRATION",
+              "STAKE_DEREGISTRATION",
+              "STAKE_DELEGATION",
+              "POOL_REGISTRATION",
+              "POOL_RETIREMENT",
+              "GENESIS_KEY_DELEGATION",
+              "MOVE_INSTATENEOUS_REWARDS_CERT",
+              "REG_CERT",
+              "UNREG_CERT",
+              "VOTE_DELEG_CERT",
+              "STAKE_VOTE_DELEG_CERT",
+              "STAKE_REG_DELEG_CERT",
+              "VOTE_REG_DELEG_CERT",
+              "STAKE_VOTE_REG_DELEG_CERT",
+              "AUTH_COMMITTEE_HOT_CERT",
+              "RESIGN_COMMITTEE_COLD_CERT",
+              "REG_DREP_CERT",
+              "UNREG_DREP_CERT",
+              "UPDATE_DREP_CERT"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "Delegation": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "credential": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "pool_id": {
+            "type": "string"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "ScriptDto": {
+        "type": "object",
+        "properties": {
+          "script_hash": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "timelock",
+              "plutusV1",
+              "plutusV2",
+              "plutusV3"
+            ]
+          },
+          "serialised_size": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ScriptJsonDto": {
+        "type": "object",
+        "properties": {
+          "json": {
+            "$ref": "#/components/schemas/JsonNode"
+          }
+        }
+      },
+      "ScriptDetailDto": {
+        "type": "object",
+        "properties": {
+          "script_hash": {
+            "type": "string"
+          },
+          "script_type": {
+            "type": "string",
+            "enum": [
+              "timelock",
+              "plutusV1",
+              "plutusV2",
+              "plutusV3"
+            ]
+          },
+          "content": {
+            "$ref": "#/components/schemas/JsonNode"
+          }
+        }
+      },
+      "ScriptCborDto": {
+        "type": "object",
+        "properties": {
+          "cbor": {
+            "type": "string"
+          }
+        }
+      },
+      "PoolRetirement": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pool_id": {
+            "type": "string"
+          },
+          "retirement_epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          },
+          "pool_id_bech32": {
+            "type": "string"
+          }
+        }
+      },
+      "PoolRegistration": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pool_id": {
+            "type": "string"
+          },
+          "vrf_key_hash": {
+            "type": "string"
+          },
+          "pledge": {
+            "type": "integer"
+          },
+          "cost": {
+            "type": "integer"
+          },
+          "margin": {
+            "type": "number",
+            "format": "double"
+          },
+          "reward_account": {
+            "type": "string"
+          },
+          "pool_owners": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relays": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Relay"
+            }
+          },
+          "metadata_url": {
+            "type": "string"
+          },
+          "metadata_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          },
+          "reward_account_bech32": {
+            "type": "string"
+          },
+          "pool_id_bech32": {
+            "type": "string"
+          }
+        }
+      },
+      "Relay": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ipv4": {
+            "type": "string"
+          },
+          "ipv6": {
+            "type": "string"
+          },
+          "dnsName": {
+            "type": "string"
+          }
+        }
+      },
+      "DrepVoteThresholds": {
+        "type": "object",
+        "properties": {
+          "dvt_motion_no_confidence": {
+            "type": "number"
+          },
+          "dvt_committee_normal": {
+            "type": "number"
+          },
+          "dvt_committee_no_confidence": {
+            "type": "number"
+          },
+          "dvt_update_to_constitution": {
+            "type": "number"
+          },
+          "dvt_hard_fork_initiation": {
+            "type": "number"
+          },
+          "dvt_ppnetwork_group": {
+            "type": "number"
+          },
+          "dvt_ppeconomic_group": {
+            "type": "number"
+          },
+          "dvt_pptechnical_group": {
+            "type": "number"
+          },
+          "dvt_ppgov_group": {
+            "type": "number"
+          },
+          "dvt_treasury_withdrawal": {
+            "type": "number"
+          }
+        }
+      },
+      "PoolVotingThresholds": {
+        "type": "object",
+        "properties": {
+          "pvt_motion_no_confidence": {
+            "type": "number"
+          },
+          "pvt_committee_normal": {
+            "type": "number"
+          },
+          "pvt_committee_no_confidence": {
+            "type": "number"
+          },
+          "pvt_hard_fork_initiation": {
+            "type": "number"
+          },
+          "pvt_ppsecurity_group": {
+            "type": "number"
+          }
+        }
+      },
+      "ProtocolParams": {
+        "type": "object",
+        "properties": {
+          "min_fee_a": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_fee_b": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_block_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_tx_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_block_header_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "key_deposit": {
+            "type": "integer"
+          },
+          "pool_deposit": {
+            "type": "integer"
+          },
+          "max_epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pool_pledge_influence": {
+            "type": "number"
+          },
+          "expansion_rate": {
+            "type": "number"
+          },
+          "treasury_growth_rate": {
+            "type": "number"
+          },
+          "decentralisation_param": {
+            "type": "number"
+          },
+          "extra_entropy": {
+            "type": "string"
+          },
+          "protocol_major_ver": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "protocol_minor_ver": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_utxo": {
+            "type": "integer"
+          },
+          "min_pool_cost": {
+            "type": "integer"
+          },
+          "ada_per_utxo_byte": {
+            "type": "integer"
+          },
+          "cost_models": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "cost_models_hash": {
+            "type": "string"
+          },
+          "price_mem": {
+            "type": "number"
+          },
+          "price_step": {
+            "type": "number"
+          },
+          "max_tx_ex_mem": {
+            "type": "integer"
+          },
+          "max_tx_ex_steps": {
+            "type": "integer"
+          },
+          "max_block_ex_mem": {
+            "type": "integer"
+          },
+          "max_block_ex_steps": {
+            "type": "integer"
+          },
+          "max_val_size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "collateral_percent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_collateral_inputs": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pool_voting_thresholds": {
+            "$ref": "#/components/schemas/PoolVotingThresholds"
+          },
+          "drep_voting_thresholds": {
+            "$ref": "#/components/schemas/DrepVoteThresholds"
+          },
+          "committee_min_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "committee_max_term_length": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gov_action_lifetime": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gov_action_deposit": {
+            "type": "integer"
+          },
+          "drep_deposit": {
+            "type": "integer"
+          },
+          "drep_activity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_fee_ref_script_cost_per_byte": {
+            "type": "number"
+          },
+          "nopt": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ProtocolParamsProposal": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "key_hash": {
+            "type": "string"
+          },
+          "target_epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "params": {
+            "$ref": "#/components/schemas/ProtocolParams"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "era": {
+            "type": "string",
+            "enum": [
+              "Byron",
+              "Shelley",
+              "Allegra",
+              "Mary",
+              "Alonzo",
+              "Babbage",
+              "Conway"
+            ]
+          }
+        }
+      },
+      "MoveInstataneousRewardSummary": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pot": {
+            "type": "string",
+            "enum": [
+              "RESERVES",
+              "TREASURY"
+            ]
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total_stake_keys": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total_rewards": {
+            "type": "integer"
+          }
+        }
+      },
+      "MoveInstataneousReward": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pot": {
+            "type": "string",
+            "enum": [
+              "RESERVES",
+              "TREASURY"
+            ]
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "credential": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "VotingProcedureDto": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "voter_type": {
+            "type": "string",
+            "enum": [
+              "CONSTITUTIONAL_COMMITTEE_HOT_KEY_HASH",
+              "CONSTITUTIONAL_COMMITTEE_HOT_SCRIPT_HASH",
+              "DREP_KEY_HASH",
+              "DREP_SCRIPT_HASH",
+              "STAKING_POOL_KEY_HASH"
+            ]
+          },
+          "voter_hash": {
+            "type": "string"
+          },
+          "gov_action_tx_hash": {
+            "type": "string"
+          },
+          "gov_action_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vote": {
+            "type": "string",
+            "enum": [
+              "NO",
+              "YES",
+              "ABSTAIN"
+            ]
+          },
+          "anchor_url": {
+            "type": "string"
+          },
+          "anchor_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "drep_id": {
+            "type": "string"
+          }
+        }
+      },
+      "GovActionProposal": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deposit": {
+            "type": "integer"
+          },
+          "return_address": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "PARAMETER_CHANGE_ACTION",
+              "HARD_FORK_INITIATION_ACTION",
+              "TREASURY_WITHDRAWALS_ACTION",
+              "NO_CONFIDENCE",
+              "UPDATE_COMMITTEE",
+              "NEW_CONSTITUTION",
+              "INFO_ACTION"
+            ]
+          },
+          "details": {
+            "$ref": "#/components/schemas/JsonNode"
+          },
+          "anchor_url": {
+            "type": "string"
+          },
+          "anchor_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "VotingProcedure": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "voter_type": {
+            "type": "string",
+            "enum": [
+              "CONSTITUTIONAL_COMMITTEE_HOT_KEY_HASH",
+              "CONSTITUTIONAL_COMMITTEE_HOT_SCRIPT_HASH",
+              "DREP_KEY_HASH",
+              "DREP_SCRIPT_HASH",
+              "STAKING_POOL_KEY_HASH"
+            ]
+          },
+          "voter_hash": {
+            "type": "string"
+          },
+          "gov_action_tx_hash": {
+            "type": "string"
+          },
+          "gov_action_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vote": {
+            "type": "string",
+            "enum": [
+              "NO",
+              "YES",
+              "ABSTAIN"
+            ]
+          },
+          "anchor_url": {
+            "type": "string"
+          },
+          "anchor_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "DRepRegistration": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "STAKE_REGISTRATION",
+              "STAKE_DEREGISTRATION",
+              "STAKE_DELEGATION",
+              "POOL_REGISTRATION",
+              "POOL_RETIREMENT",
+              "GENESIS_KEY_DELEGATION",
+              "MOVE_INSTATENEOUS_REWARDS_CERT",
+              "REG_CERT",
+              "UNREG_CERT",
+              "VOTE_DELEG_CERT",
+              "STAKE_VOTE_DELEG_CERT",
+              "STAKE_REG_DELEG_CERT",
+              "VOTE_REG_DELEG_CERT",
+              "STAKE_VOTE_REG_DELEG_CERT",
+              "AUTH_COMMITTEE_HOT_CERT",
+              "RESIGN_COMMITTEE_COLD_CERT",
+              "REG_DREP_CERT",
+              "UNREG_DREP_CERT",
+              "UPDATE_DREP_CERT"
+            ]
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deposit": {
+            "type": "integer"
+          },
+          "drep_hash": {
+            "type": "string"
+          },
+          "drep_id": {
+            "type": "string"
+          },
+          "anchor_url": {
+            "type": "string"
+          },
+          "anchor_hash": {
+            "type": "string"
+          },
+          "cred_type": {
+            "type": "string",
+            "enum": [
+              "ADDR_KEYHASH",
+              "SCRIPTHASH"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "DelegationVote": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "address": {
+            "type": "string"
+          },
+          "drep_hash": {
+            "type": "string"
+          },
+          "drep_id": {
+            "type": "string"
+          },
+          "drep_type": {
+            "type": "string",
+            "enum": [
+              "ADDR_KEYHASH",
+              "SCRIPTHASH",
+              "ABSTAIN",
+              "NO_CONFIDENCE"
+            ]
+          },
+          "credential": {
+            "type": "string"
+          },
+          "cred_type": {
+            "type": "string",
+            "enum": [
+              "ADDR_KEYHASH",
+              "SCRIPTHASH"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CommitteeRegistration": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cold_key": {
+            "type": "string"
+          },
+          "hot_key": {
+            "type": "string"
+          },
+          "cred_type": {
+            "type": "string",
+            "enum": [
+              "ADDR_KEYHASH",
+              "SCRIPTHASH"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CommitteeDeRegistration": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "cert_index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "anchor_url": {
+            "type": "string"
+          },
+          "anchor_hash": {
+            "type": "string"
+          },
+          "cold_key": {
+            "type": "string"
+          },
+          "cred_type": {
+            "type": "string",
+            "enum": [
+              "ADDR_KEYHASH",
+              "SCRIPTHASH"
+            ]
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Epoch": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transaction_count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total_output": {
+            "type": "integer"
+          },
+          "total_fees": {
+            "type": "integer"
+          },
+          "start_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "end_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "max_slot": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "EpochsPage": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "epochs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Epoch"
+            }
+          }
+        }
+      },
+      "ProtocolParamsDto": {
+        "type": "object",
+        "properties": {
+          "min_fee_a": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_fee_b": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_block_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_tx_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "max_block_header_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "key_deposit": {
+            "type": "string"
+          },
+          "pool_deposit": {
+            "type": "string"
+          },
+          "a0": {
+            "type": "number"
+          },
+          "rho": {
+            "type": "number"
+          },
+          "tau": {
+            "type": "number"
+          },
+          "decentralisation_param": {
+            "type": "number"
+          },
+          "extra_entropy": {
+            "type": "string"
+          },
+          "protocol_major_ver": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "protocol_minor_ver": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_utxo": {
+            "type": "string"
+          },
+          "min_pool_cost": {
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "cost_models": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "price_mem": {
+            "type": "number"
+          },
+          "price_step": {
+            "type": "number"
+          },
+          "max_tx_ex_mem": {
+            "type": "string"
+          },
+          "max_tx_ex_steps": {
+            "type": "string"
+          },
+          "max_block_ex_mem": {
+            "type": "string"
+          },
+          "max_block_ex_steps": {
+            "type": "string"
+          },
+          "max_val_size": {
+            "type": "string"
+          },
+          "collateral_percent": {
+            "type": "number"
+          },
+          "max_collateral_inputs": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "coins_per_utxo_size": {
+            "type": "string"
+          },
+          "coins_per_utxo_word": {
+            "type": "string",
+            "deprecated": true
+          },
+          "pvt_motion_no_confidence": {
+            "type": "number"
+          },
+          "pvt_committee_normal": {
+            "type": "number"
+          },
+          "pvt_committee_no_confidence": {
+            "type": "number"
+          },
+          "pvt_hard_fork_initiation": {
+            "type": "number"
+          },
+          "dvt_motion_no_confidence": {
+            "type": "number"
+          },
+          "dvt_committee_normal": {
+            "type": "number"
+          },
+          "dvt_committee_no_confidence": {
+            "type": "number"
+          },
+          "dvt_update_to_constitution": {
+            "type": "number"
+          },
+          "dvt_hard_fork_initiation": {
+            "type": "number"
+          },
+          "dvt_ppnetwork_group": {
+            "type": "number"
+          },
+          "dvt_ppeconomic_group": {
+            "type": "number"
+          },
+          "dvt_pptechnical_group": {
+            "type": "number"
+          },
+          "dvt_ppgov_group": {
+            "type": "number"
+          },
+          "dvt_treasury_withdrawal": {
+            "type": "number"
+          },
+          "committee_min_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "committee_max_term_length": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gov_action_lifetime": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gov_action_deposit": {
+            "type": "integer"
+          },
+          "drep_deposit": {
+            "type": "integer"
+          },
+          "drep_activity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min_fee_ref_script_cost_per_byte": {
+            "type": "number"
+          },
+          "e_max": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "n_opt": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EpochNo": {
+        "type": "object",
+        "properties": {
+          "epoch": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "EpochContent": {
+        "type": "object",
+        "properties": {
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "last_block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "output": {
+            "type": "string"
+          },
+          "fees": {
+            "type": "string"
+          }
+        }
+      },
+      "BlockSummary": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "era": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "output": {
+            "type": "integer"
+          },
+          "fees": {
+            "type": "integer"
+          },
+          "slot_leader": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "issuer_vkey": {
+            "type": "string"
+          }
+        }
+      },
+      "BlocksPage": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BlockSummary"
+            }
+          }
+        }
+      },
+      "BlockDto": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "era": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "epoch_slot": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slot_leader": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "output": {
+            "type": "integer"
+          },
+          "fees": {
+            "type": "integer"
+          },
+          "block_vrf": {
+            "type": "string"
+          },
+          "op_cert": {
+            "type": "string"
+          },
+          "op_cert_counter": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "op_cert_kes_period": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "op_cert_sigma": {
+            "type": "string"
+          },
+          "previous_block": {
+            "type": "string"
+          },
+          "issuer_vkey": {
+            "type": "string"
+          },
+          "nonce_vrf": {
+            "$ref": "#/components/schemas/Vrf"
+          },
+          "leader_vrf": {
+            "$ref": "#/components/schemas/Vrf"
+          },
+          "vrf_result": {
+            "$ref": "#/components/schemas/Vrf"
+          },
+          "block_body_hash": {
+            "type": "string"
+          },
+          "protocol_version": {
+            "type": "string"
+          }
+        }
+      },
+      "Vrf": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string"
+          },
+          "proof": {
+            "type": "string"
+          }
+        }
+      },
+      "PoolBlock": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pool_id": {
+            "type": "string"
+          }
+        }
+      },
+      "AddressAssetBalanceDto": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "Amount": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        }
+      },
+      "Utxo": {
+        "type": "object",
+        "properties": {
+          "tx_hash": {
+            "type": "string"
+          },
+          "output_index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amount"
+            }
+          },
+          "data_hash": {
+            "type": "string"
+          },
+          "inline_datum": {
+            "type": "string"
+          },
+          "reference_script_hash": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "TxAsset": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tx_hash": {
+            "type": "string"
+          },
+          "policy": {
+            "type": "string"
+          },
+          "asset_name": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "mint_type": {
+            "type": "string",
+            "enum": [
+              "MINT",
+              "BURN"
+            ]
+          }
+        }
+      },
+      "UnitSupply": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "supply": {
+            "type": "integer"
+          }
+        }
+      },
+      "PolicySupply": {
+        "type": "object",
+        "properties": {
+          "policy": {
+            "type": "string"
+          },
+          "supply": {
+            "type": "integer"
+          }
+        }
+      },
+      "FingerprintSupply": {
+        "type": "object",
+        "properties": {
+          "fingerprint": {
+            "type": "string"
+          },
+          "supply": {
+            "type": "integer"
+          }
+        }
+      },
+      "AddressBalanceDto": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "address": {
+            "type": "string"
+          },
+          "amounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amt"
+            }
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "last_balance_calculation_block": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "StakeAccountInfo": {
+        "type": "object",
+        "properties": {
+          "stake_address": {
+            "type": "string"
+          },
+          "controlled_amount": {
+            "type": "integer"
+          },
+          "withdrawable_amount": {
+            "type": "integer"
+          },
+          "pool_id": {
+            "type": "string"
+          }
+        }
+      },
+      "StakeAddressBalance": {
+        "type": "object",
+        "properties": {
+          "block_number": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "address": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "epoch": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    }
+  }
+}
