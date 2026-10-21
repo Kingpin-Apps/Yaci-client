@@ -141,7 +141,7 @@ client.set_httpx_client(httpx.Client(base_url="https://localhost:8080", proxy="h
 pip install yaci-client
 ```
 
-It needs Python 3.11 or newer and works with httpx up to 0.28.
+It needs Python 3.11 or newer and works with httpx 0.25.1 up to 0.28.
 
 ## Development
 

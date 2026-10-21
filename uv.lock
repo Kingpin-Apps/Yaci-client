@@ -1447,8 +1447,8 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "attrs", specifier = ">=21.3.0" },
-    { name = "httpx", specifier = ">=0.20.0,<0.29.0" },
+    { name = "attrs", specifier = ">=22.2.0" },
+    { name = "httpx", specifier = ">=0.25.1,<0.29.0" },
     { name = "python-dateutil", specifier = ">=2.8.0" },
 ]
 
