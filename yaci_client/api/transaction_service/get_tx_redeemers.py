@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     tx_hash: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/txs/{tx_hash}/redeemers".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/txs/{tx_hash}/redeemers",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["TxRedeemerDto"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["TxRedeemerDto"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -42,8 +38,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["TxRedeemerDto"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["TxRedeemerDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +51,8 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxRedeemerDto"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TxRedeemerDto"]]:
     """
     Args:
         tx_hash (str):
@@ -83,8 +79,8 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxRedeemerDto"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TxRedeemerDto"] | None:
     """
     Args:
         tx_hash (str):
@@ -106,8 +102,8 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxRedeemerDto"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TxRedeemerDto"]]:
     """
     Args:
         tx_hash (str):
@@ -132,8 +128,8 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxRedeemerDto"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TxRedeemerDto"] | None:
     """
     Args:
         tx_hash (str):

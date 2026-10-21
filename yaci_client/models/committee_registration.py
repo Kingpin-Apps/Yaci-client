@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -31,18 +27,18 @@ class CommitteeRegistration:
         epoch (Union[Unset, int]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    cold_key: Union[Unset, str] = UNSET
-    hot_key: Union[Unset, str] = UNSET
-    cred_type: Union[Unset, CommitteeRegistrationCredType] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    cold_key: Unset | str = UNSET
+    hot_key: Unset | str = UNSET
+    cred_type: Unset | CommitteeRegistrationCredType = UNSET
+    epoch: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -57,13 +53,13 @@ class CommitteeRegistration:
 
         hot_key = self.hot_key
 
-        cred_type: Union[Unset, str] = UNSET
+        cred_type: Unset | str = UNSET
         if not isinstance(self.cred_type, Unset):
             cred_type = self.cred_type.value
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -88,7 +84,7 @@ class CommitteeRegistration:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
@@ -105,7 +101,7 @@ class CommitteeRegistration:
         hot_key = d.pop("hot_key", UNSET)
 
         _cred_type = d.pop("cred_type", UNSET)
-        cred_type: Union[Unset, CommitteeRegistrationCredType]
+        cred_type: Unset | CommitteeRegistrationCredType
         if isinstance(_cred_type, Unset):
             cred_type = UNSET
         else:
@@ -129,7 +125,7 @@ class CommitteeRegistration:
         return committee_registration
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

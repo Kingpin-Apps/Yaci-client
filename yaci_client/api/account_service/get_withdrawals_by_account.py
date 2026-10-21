@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,11 +12,11 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     stake_address: str,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -24,20 +24,16 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/accounts/{stake_address}/withdrawals".format(
-            stake_address=stake_address,
-        ),
+        "url": f"/api/v1/accounts/{stake_address}/withdrawals",
         "params": params,
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Withdrawal"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["Withdrawal"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -53,9 +49,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Withdrawal"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["Withdrawal"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,10 +61,10 @@ def _build_response(
 def sync_detailed(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["Withdrawal"]]:
     """Get withdrawals by stake address
 
      Get withdrawals by stake address
@@ -104,10 +98,10 @@ def sync_detailed(
 def sync(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["Withdrawal"] | None:
     """Get withdrawals by stake address
 
      Get withdrawals by stake address
@@ -136,10 +130,10 @@ def sync(
 async def asyncio_detailed(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["Withdrawal"]]:
     """Get withdrawals by stake address
 
      Get withdrawals by stake address
@@ -171,10 +165,10 @@ async def asyncio_detailed(
 async def asyncio(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["Withdrawal"] | None:
     """Get withdrawals by stake address
 
      Get withdrawals by stake address

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -18,20 +18,18 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     gov_action_type: GetGovActionProposalByGovActionTypeGovActionType,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetGovActionProposalByGovActionTypeOrder
-    ] = GetGovActionProposalByGovActionTypeOrder.DESC,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetGovActionProposalByGovActionTypeOrder = GetGovActionProposalByGovActionTypeOrder.DESC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["count"] = count
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -39,11 +37,9 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/proposals/gov-action-type/{gov_action_type}".format(
-            gov_action_type=gov_action_type,
-        ),
+        "url": f"/api/v1/governance/proposals/gov-action-type/{gov_action_type}",
         "params": params,
     }
 
@@ -51,8 +47,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["GovActionProposal"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["GovActionProposal"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -69,8 +65,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["GovActionProposal"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["GovActionProposal"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,13 +78,11 @@ def _build_response(
 def sync_detailed(
     gov_action_type: GetGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetGovActionProposalByGovActionTypeOrder
-    ] = GetGovActionProposalByGovActionTypeOrder.DESC,
-) -> Response[List["GovActionProposal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetGovActionProposalByGovActionTypeOrder = GetGovActionProposalByGovActionTypeOrder.DESC,
+) -> Response[list["GovActionProposal"]]:
     """Get governance action proposal list by governance action type
 
     Args:
@@ -123,13 +117,11 @@ def sync_detailed(
 def sync(
     gov_action_type: GetGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetGovActionProposalByGovActionTypeOrder
-    ] = GetGovActionProposalByGovActionTypeOrder.DESC,
-) -> Optional[List["GovActionProposal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetGovActionProposalByGovActionTypeOrder = GetGovActionProposalByGovActionTypeOrder.DESC,
+) -> list["GovActionProposal"] | None:
     """Get governance action proposal list by governance action type
 
     Args:
@@ -159,13 +151,11 @@ def sync(
 async def asyncio_detailed(
     gov_action_type: GetGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetGovActionProposalByGovActionTypeOrder
-    ] = GetGovActionProposalByGovActionTypeOrder.DESC,
-) -> Response[List["GovActionProposal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetGovActionProposalByGovActionTypeOrder = GetGovActionProposalByGovActionTypeOrder.DESC,
+) -> Response[list["GovActionProposal"]]:
     """Get governance action proposal list by governance action type
 
     Args:
@@ -198,13 +188,11 @@ async def asyncio_detailed(
 async def asyncio(
     gov_action_type: GetGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetGovActionProposalByGovActionTypeOrder
-    ] = GetGovActionProposalByGovActionTypeOrder.DESC,
-) -> Optional[List["GovActionProposal"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetGovActionProposalByGovActionTypeOrder = GetGovActionProposalByGovActionTypeOrder.DESC,
+) -> list["GovActionProposal"] | None:
     """Get governance action proposal list by governance action type
 
     Args:

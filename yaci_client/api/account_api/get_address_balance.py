@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     address: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/addresses/{address}/balance".format(
-            address=address,
-        ),
+        "url": f"/api/v1/addresses/{address}/balance",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[AddressBalanceDto]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> AddressBalanceDto | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = AddressBalanceDto.from_dict(response.json())
 
@@ -36,9 +32,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[AddressBalanceDto]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[AddressBalanceDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def _build_response(
 def sync_detailed(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[AddressBalanceDto]:
     """Get current balance at an address
 
@@ -79,8 +73,8 @@ def sync_detailed(
 def sync(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[AddressBalanceDto]:
+    client: AuthenticatedClient | Client,
+) -> AddressBalanceDto | None:
     """Get current balance at an address
 
     Args:
@@ -103,7 +97,7 @@ def sync(
 async def asyncio_detailed(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[AddressBalanceDto]:
     """Get current balance at an address
 
@@ -130,8 +124,8 @@ async def asyncio_detailed(
 async def asyncio(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[AddressBalanceDto]:
+    client: AuthenticatedClient | Client,
+) -> AddressBalanceDto | None:
     """Get current balance at an address
 
     Args:

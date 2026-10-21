@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -32,15 +29,15 @@ class TxMetadataLabelDto:
         slot (Union[Unset, int]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    label: Union[Unset, str] = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    label: Unset | str = UNSET
     body: Union[Unset, "JsonNode"] = UNSET
     json_metadata: Union[Unset, "JsonNode"] = UNSET
-    slot: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    slot: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         block_number = self.block_number
 
@@ -48,17 +45,17 @@ class TxMetadataLabelDto:
 
         label = self.label
 
-        body: Union[Unset, Dict[str, Any]] = UNSET
+        body: Unset | dict[str, Any] = UNSET
         if not isinstance(self.body, Unset):
             body = self.body.to_dict()
 
-        json_metadata: Union[Unset, Dict[str, Any]] = UNSET
+        json_metadata: Unset | dict[str, Any] = UNSET
         if not isinstance(self.json_metadata, Unset):
             json_metadata = self.json_metadata.to_dict()
 
         slot = self.slot
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -77,7 +74,7 @@ class TxMetadataLabelDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
         d = src_dict.copy()
@@ -88,14 +85,14 @@ class TxMetadataLabelDto:
         label = d.pop("label", UNSET)
 
         _body = d.pop("body", UNSET)
-        body: Union[Unset, JsonNode]
+        body: Unset | JsonNode
         if isinstance(_body, Unset):
             body = UNSET
         else:
             body = JsonNode.from_dict(_body)
 
         _json_metadata = d.pop("json_metadata", UNSET)
-        json_metadata: Union[Unset, JsonNode]
+        json_metadata: Unset | JsonNode
         if isinstance(_json_metadata, Unset):
             json_metadata = UNSET
         else:
@@ -116,7 +113,7 @@ class TxMetadataLabelDto:
         return tx_metadata_label_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     number: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/epochs/{number}".format(
-            number=number,
-        ),
+        "url": f"/api/v1/epochs/{number}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Epoch]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Epoch | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = Epoch.from_dict(response.json())
 
@@ -36,9 +32,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Epoch]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Epoch]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def _build_response(
 def sync_detailed(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[Epoch]:
     """Specific Epoch Information
 
@@ -81,8 +75,8 @@ def sync_detailed(
 def sync(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Epoch]:
+    client: AuthenticatedClient | Client,
+) -> Epoch | None:
     """Specific Epoch Information
 
      Get the information of a specific epoch.
@@ -107,7 +101,7 @@ def sync(
 async def asyncio_detailed(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[Epoch]:
     """Specific Epoch Information
 
@@ -136,8 +130,8 @@ async def asyncio_detailed(
 async def asyncio(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Epoch]:
+    client: AuthenticatedClient | Client,
+) -> Epoch | None:
     """Specific Epoch Information
 
      Get the information of a specific epoch.

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,22 +12,17 @@ from ...types import Response
 def _get_kwargs(
     tx_hash: str,
     index: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/utxos/{tx_hash}/{index}".format(
-            tx_hash=tx_hash,
-            index=index,
-        ),
+        "url": f"/api/v1/utxos/{tx_hash}/{index}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[AddressUtxo]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> AddressUtxo | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = AddressUtxo.from_dict(response.json())
 
@@ -38,9 +33,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[AddressUtxo]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[AddressUtxo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +46,7 @@ def sync_detailed(
     tx_hash: str,
     index: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[AddressUtxo]:
     """
     Args:
@@ -84,8 +77,8 @@ def sync(
     tx_hash: str,
     index: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[AddressUtxo]:
+    client: AuthenticatedClient | Client,
+) -> AddressUtxo | None:
     """
     Args:
         tx_hash (str):
@@ -110,7 +103,7 @@ async def asyncio_detailed(
     tx_hash: str,
     index: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[AddressUtxo]:
     """
     Args:
@@ -139,8 +132,8 @@ async def asyncio(
     tx_hash: str,
     index: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[AddressUtxo]:
+    client: AuthenticatedClient | Client,
+) -> AddressUtxo | None:
     """
     Args:
         tx_hash (str):

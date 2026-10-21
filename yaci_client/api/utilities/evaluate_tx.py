@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,10 +11,10 @@ from ...types import Response
 def _get_kwargs(
     *,
     body: str,
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/api/v1/utils/txs/evaluate",
     }
@@ -28,13 +28,8 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[dict]:
-    if (
-        response.status_code == HTTPStatus.OK
-        or response.status_code == HTTPStatus.ACCEPTED
-    ):
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> dict | None:
+    if response.status_code == HTTPStatus.OK or response.status_code == HTTPStatus.ACCEPTED:
         response_200 = response.json()
         return response_200
     if client.raise_on_unexpected_status:
@@ -43,9 +38,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[dict]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[dict]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -56,7 +49,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: str,
 ) -> Response[dict]:
     """
@@ -84,9 +77,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: str,
-) -> Optional[dict]:
+) -> dict | None:
     """
     Args:
         body (str):
@@ -107,7 +100,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: str,
 ) -> Response[dict]:
     """
@@ -133,9 +126,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: str,
-) -> Optional[dict]:
+) -> dict | None:
     """
     Args:
         body (str):

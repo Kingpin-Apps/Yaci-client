@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -32,17 +28,17 @@ class MoveInstataneousRewardSummary:
         total_rewards (Union[Unset, int]):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    pot: Union[Unset, MoveInstataneousRewardSummaryPot] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    total_stake_keys: Union[Unset, int] = UNSET
-    total_rewards: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_hash: Unset | str = UNSET
+    slot: Unset | int = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    pot: Unset | MoveInstataneousRewardSummaryPot = UNSET
+    cert_index: Unset | int = UNSET
+    total_stake_keys: Unset | int = UNSET
+    total_rewards: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         tx_hash = self.tx_hash
 
         slot = self.slot
@@ -51,7 +47,7 @@ class MoveInstataneousRewardSummary:
 
         block_time = self.block_time
 
-        pot: Union[Unset, str] = UNSET
+        pot: Unset | str = UNSET
         if not isinstance(self.pot, Unset):
             pot = self.pot.value
 
@@ -61,7 +57,7 @@ class MoveInstataneousRewardSummary:
 
         total_rewards = self.total_rewards
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -84,7 +80,7 @@ class MoveInstataneousRewardSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
@@ -95,7 +91,7 @@ class MoveInstataneousRewardSummary:
         block_time = d.pop("block_time", UNSET)
 
         _pot = d.pop("pot", UNSET)
-        pot: Union[Unset, MoveInstataneousRewardSummaryPot]
+        pot: Unset | MoveInstataneousRewardSummaryPot
         if isinstance(_pot, Unset):
             pot = UNSET
         else:
@@ -122,7 +118,7 @@ class MoveInstataneousRewardSummary:
         return move_instataneous_reward_summary
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

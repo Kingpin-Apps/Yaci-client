@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -37,19 +34,19 @@ class TxUtxo:
         inline_datum_json (Union[Unset, JsonNode]):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    output_index: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    stake_address: Union[Unset, str] = UNSET
-    amount: Union[Unset, List["Amt"]] = UNSET
-    data_hash: Union[Unset, str] = UNSET
-    inline_datum: Union[Unset, str] = UNSET
-    script_ref: Union[Unset, str] = UNSET
-    reference_script_hash: Union[Unset, str] = UNSET
+    tx_hash: Unset | str = UNSET
+    output_index: Unset | int = UNSET
+    address: Unset | str = UNSET
+    stake_address: Unset | str = UNSET
+    amount: Unset | list["Amt"] = UNSET
+    data_hash: Unset | str = UNSET
+    inline_datum: Unset | str = UNSET
+    script_ref: Unset | str = UNSET
+    reference_script_hash: Unset | str = UNSET
     inline_datum_json: Union[Unset, "JsonNode"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         tx_hash = self.tx_hash
 
@@ -59,7 +56,7 @@ class TxUtxo:
 
         stake_address = self.stake_address
 
-        amount: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amount: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amount, Unset):
             amount = []
             for amount_item_data in self.amount:
@@ -74,11 +71,11 @@ class TxUtxo:
 
         reference_script_hash = self.reference_script_hash
 
-        inline_datum_json: Union[Unset, Dict[str, Any]] = UNSET
+        inline_datum_json: Unset | dict[str, Any] = UNSET
         if not isinstance(self.inline_datum_json, Unset):
             inline_datum_json = self.inline_datum_json.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -105,7 +102,7 @@ class TxUtxo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
         from ..models.json_node import JsonNode
 
@@ -134,7 +131,7 @@ class TxUtxo:
         reference_script_hash = d.pop("reference_script_hash", UNSET)
 
         _inline_datum_json = d.pop("inline_datum_json", UNSET)
-        inline_datum_json: Union[Unset, JsonNode]
+        inline_datum_json: Unset | JsonNode
         if isinstance(_inline_datum_json, Unset):
             inline_datum_json = UNSET
         else:
@@ -157,7 +154,7 @@ class TxUtxo:
         return tx_utxo
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

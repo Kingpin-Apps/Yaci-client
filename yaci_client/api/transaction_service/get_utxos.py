@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,11 +12,11 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: List["UtxoKey"],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    body: list["UtxoKey"],
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/api/v1/utxos",
     }
@@ -33,9 +33,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["AddressUtxo"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["AddressUtxo"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -51,9 +49,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["AddressUtxo"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["AddressUtxo"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,9 +60,9 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Response[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list["UtxoKey"],
+) -> Response[list["AddressUtxo"]]:
     """
     Args:
         body (List['UtxoKey']):
@@ -92,9 +88,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Optional[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list["UtxoKey"],
+) -> list["AddressUtxo"] | None:
     """
     Args:
         body (List['UtxoKey']):
@@ -115,9 +111,9 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Response[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list["UtxoKey"],
+) -> Response[list["AddressUtxo"]]:
     """
     Args:
         body (List['UtxoKey']):
@@ -141,9 +137,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Optional[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list["UtxoKey"],
+) -> list["AddressUtxo"] | None:
     """
     Args:
         body (List['UtxoKey']):

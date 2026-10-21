@@ -1,86 +1,113 @@
-[tool.poetry]
-name = "yaci_client"
-version = "1.0"
-description = "A client library for accessing Yaci Store API"
-authors = ["Hareem Adderley <haddderley@kingpinapps.com>"]
+[project]
+name = "yaci-client"
+version = "1.0.0"
+description = "A client library for accessing the Yaci Store API"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Hareem Adderley", email = "hadderley@kingpinapps.com" }]
+requires-python = ">=3.11"
+keywords = ["cardano", "yaci", "yaci-store", "yaci-devkit", "openapi"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Typing :: Typed",
+]
+dependencies = [
+    # 22.2 adds the `alias` argument the generated client passes to attrs.field().
+    "attrs>=22.2.0",
+    # 0.25.1 is the first release on httpcore 1.x without `import cgi`: older ones fail on Python 3.13+.
+    "httpx>=0.25.1,<0.29.0",
+    "python-dateutil>=2.8.0",
+]
 
+[project.urls]
+Homepage = "https://github.com/Kingpin-Apps/Yaci-client"
+Source = "https://github.com/Kingpin-Apps/Yaci-client"
+Issues = "https://github.com/Kingpin-Apps/Yaci-client/issues"
+Changelog = "https://github.com/Kingpin-Apps/Yaci-client/blob/main/CHANGELOG.md"
 
-[tool.poetry.dependencies]
-python = "^3.8.1"
-httpx = ">=0.20.0,<0.28.0"
-attrs = ">=21.3.0"
-python-dateutil = "^2.8.0"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.2"
-black = "^24.8.0"
-flake8 = "^7.1.1"
-mypy = "^1.11.2"
-ruff = "^0.6.3"
-faker = "^28.4.1"
-pytest-cov = "^5.0.0"
-isort = "^5.13.2"
-flake8-pyproject = "^1.2.3"
-
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+    "commitizen>=4.8",
+    "pre-commit>=4.3",
+]
+lint = [
+    "ruff>=0.17",
+    "ty>=0.0.90",
+]
+test = [
+    "pytest>=8.4",
+    "pytest-asyncio>=1.2",
+    "pytest-cov>=7",
+]
+generate = [
+    # 0.28 drops the `Unset` import from submit_tx_1, so stay on 0.27 until that is fixed upstream.
+    "openapi-python-client>=0.27.1,<0.28",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.13.4,<0.14"]
+build-backend = "uv_build"
 
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.uv.build-backend]
+# The package sits at the repository root rather than under src/.
+module-root = ""
 
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = "-p no:cacheprovider"
+minversion = "8.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = ["-ra", "--strict-markers"]
+# Every warning fails the test that raised it: deprecations are caught early.
+filterwarnings = ["error"]
 
+[tool.coverage.run]
+source = ["yaci_client"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = ["dist"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "ASYNC", "PT"]
+# E501: generated docstrings carry long descriptions from the OpenAPI spec.
+# UP042, SIM108: the generator's own style for enums and response parsing.
+ignore = ["E501", "UP042", "SIM108"]
+
+[tool.ty.environment]
+python-version = "3.11"
+
+[tool.ty.src]
+include = ["yaci_client", "tests", "example.py"]
+
+[tool.ty.terminal]
+error-on-warning = true
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.0"
-version_files = [
-    "yaci_client/__init__.py:__version__",
-    "pyproject.toml:version"
-]
+version_provider = "uv"
+tag_format = "v$version"
 update_changelog_on_bump = true
-style = [
-    ["qmark", "fg:#ff9d00 bold"],
-    ["question", "bold"],
-    ["answer", "fg:#ff9d00 bold"],
-    ["pointer", "fg:#ff9d00 bold"],
-    ["highlighted", "fg:#ff9d00 bold"],
-    ["selected", "fg:#cc5454"],
-    ["separator", "fg:#cc5454"],
-    ["instruction", ""],
-    ["text", ""],
-    ["disabled", "fg:#858585 italic"]
-]
-
-[tool.flake8]
-ignore = ['E231', 'E241', 'D203', 'E126', 'W503', 'E203', 'E501']
-exclude = ['.git', '__pycache__', 'build', 'E126', 'W503', 'E203']
-per-file-ignores = [
-    '__init__.py:F401',
-]
-max-line-length = 120
-count = true
-
-
-[tool.ruff]
-line-length = 120
-lint.ignore = [
-    "E501",
-    "F841",
-]
-
-
-[tool.isort]
-profile = "black"
-
-
-[tool.mypy]
-ignore_missing_imports = true
-disable_error_code = ["str-bytes-safe"]
-python_version = 3.8
-
-
+major_version_zero = false
+version_files = ["yaci_client/__init__.py:__version__"]

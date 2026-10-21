@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -51,34 +48,34 @@ class BlockDto:
         protocol_version (Union[Unset, str]):
     """
 
-    time: Union[Unset, int] = UNSET
-    height: Union[Unset, int] = UNSET
-    number: Union[Unset, int] = UNSET
-    hash_: Union[Unset, str] = UNSET
-    slot: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    era: Union[Unset, int] = UNSET
-    epoch_slot: Union[Unset, int] = UNSET
-    slot_leader: Union[Unset, str] = UNSET
-    size: Union[Unset, int] = UNSET
-    tx_count: Union[Unset, int] = UNSET
-    output: Union[Unset, int] = UNSET
-    fees: Union[Unset, int] = UNSET
-    block_vrf: Union[Unset, str] = UNSET
-    op_cert: Union[Unset, str] = UNSET
-    op_cert_counter: Union[Unset, int] = UNSET
-    op_cert_kes_period: Union[Unset, int] = UNSET
-    op_cert_sigma: Union[Unset, str] = UNSET
-    previous_block: Union[Unset, str] = UNSET
-    issuer_vkey: Union[Unset, str] = UNSET
+    time: Unset | int = UNSET
+    height: Unset | int = UNSET
+    number: Unset | int = UNSET
+    hash_: Unset | str = UNSET
+    slot: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    era: Unset | int = UNSET
+    epoch_slot: Unset | int = UNSET
+    slot_leader: Unset | str = UNSET
+    size: Unset | int = UNSET
+    tx_count: Unset | int = UNSET
+    output: Unset | int = UNSET
+    fees: Unset | int = UNSET
+    block_vrf: Unset | str = UNSET
+    op_cert: Unset | str = UNSET
+    op_cert_counter: Unset | int = UNSET
+    op_cert_kes_period: Unset | int = UNSET
+    op_cert_sigma: Unset | str = UNSET
+    previous_block: Unset | str = UNSET
+    issuer_vkey: Unset | str = UNSET
     nonce_vrf: Union[Unset, "Vrf"] = UNSET
     leader_vrf: Union[Unset, "Vrf"] = UNSET
     vrf_result: Union[Unset, "Vrf"] = UNSET
-    block_body_hash: Union[Unset, str] = UNSET
-    protocol_version: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_body_hash: Unset | str = UNSET
+    protocol_version: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         time = self.time
 
@@ -120,15 +117,15 @@ class BlockDto:
 
         issuer_vkey = self.issuer_vkey
 
-        nonce_vrf: Union[Unset, Dict[str, Any]] = UNSET
+        nonce_vrf: Unset | dict[str, Any] = UNSET
         if not isinstance(self.nonce_vrf, Unset):
             nonce_vrf = self.nonce_vrf.to_dict()
 
-        leader_vrf: Union[Unset, Dict[str, Any]] = UNSET
+        leader_vrf: Unset | dict[str, Any] = UNSET
         if not isinstance(self.leader_vrf, Unset):
             leader_vrf = self.leader_vrf.to_dict()
 
-        vrf_result: Union[Unset, Dict[str, Any]] = UNSET
+        vrf_result: Unset | dict[str, Any] = UNSET
         if not isinstance(self.vrf_result, Unset):
             vrf_result = self.vrf_result.to_dict()
 
@@ -136,7 +133,7 @@ class BlockDto:
 
         protocol_version = self.protocol_version
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if time is not UNSET:
@@ -193,7 +190,7 @@ class BlockDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.vrf import Vrf
 
         d = src_dict.copy()
@@ -238,21 +235,21 @@ class BlockDto:
         issuer_vkey = d.pop("issuer_vkey", UNSET)
 
         _nonce_vrf = d.pop("nonce_vrf", UNSET)
-        nonce_vrf: Union[Unset, Vrf]
+        nonce_vrf: Unset | Vrf
         if isinstance(_nonce_vrf, Unset):
             nonce_vrf = UNSET
         else:
             nonce_vrf = Vrf.from_dict(_nonce_vrf)
 
         _leader_vrf = d.pop("leader_vrf", UNSET)
-        leader_vrf: Union[Unset, Vrf]
+        leader_vrf: Unset | Vrf
         if isinstance(_leader_vrf, Unset):
             leader_vrf = UNSET
         else:
             leader_vrf = Vrf.from_dict(_leader_vrf)
 
         _vrf_result = d.pop("vrf_result", UNSET)
-        vrf_result: Union[Unset, Vrf]
+        vrf_result: Unset | Vrf
         if isinstance(_vrf_result, Unset):
             vrf_result = UNSET
         else:
@@ -294,7 +291,7 @@ class BlockDto:
         return block_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

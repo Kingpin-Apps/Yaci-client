@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -25,13 +21,13 @@ class Relay:
         dns_name (Union[Unset, str]):
     """
 
-    port: Union[Unset, int] = UNSET
-    ipv4: Union[Unset, str] = UNSET
-    ipv6: Union[Unset, str] = UNSET
-    dns_name: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    port: Unset | int = UNSET
+    ipv4: Unset | str = UNSET
+    ipv6: Unset | str = UNSET
+    dns_name: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         port = self.port
 
         ipv4 = self.ipv4
@@ -40,7 +36,7 @@ class Relay:
 
         dns_name = self.dns_name
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if port is not UNSET:
@@ -55,7 +51,7 @@ class Relay:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         port = d.pop("port", UNSET)
 
@@ -76,7 +72,7 @@ class Relay:
         return relay
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

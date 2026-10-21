@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     number: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/epochs/{number}/parameters".format(
-            number=number,
-        ),
+        "url": f"/api/v1/epochs/{number}/parameters",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[ProtocolParamsDto]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> ProtocolParamsDto | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = ProtocolParamsDto.from_dict(response.json())
 
@@ -36,9 +32,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[ProtocolParamsDto]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[ProtocolParamsDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def _build_response(
 def sync_detailed(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[ProtocolParamsDto]:
     """Get protocol parameters for an epoch if exists. It fetches the protocol parameters from the local
     node through n2c local query. If the protocol param doesn't exist for an old epoch, it return status
@@ -81,8 +75,8 @@ def sync_detailed(
 def sync(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[ProtocolParamsDto]:
+    client: AuthenticatedClient | Client,
+) -> ProtocolParamsDto | None:
     """Get protocol parameters for an epoch if exists. It fetches the protocol parameters from the local
     node through n2c local query. If the protocol param doesn't exist for an old epoch, it return status
     code 404.
@@ -107,7 +101,7 @@ def sync(
 async def asyncio_detailed(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[ProtocolParamsDto]:
     """Get protocol parameters for an epoch if exists. It fetches the protocol parameters from the local
     node through n2c local query. If the protocol param doesn't exist for an old epoch, it return status
@@ -136,8 +130,8 @@ async def asyncio_detailed(
 async def asyncio(
     number: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[ProtocolParamsDto]:
+    client: AuthenticatedClient | Client,
+) -> ProtocolParamsDto | None:
     """Get protocol parameters for an epoch if exists. It fetches the protocol parameters from the local
     node through n2c local query. If the protocol param doesn't exist for an old epoch, it return status
     code 404.

@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -25,13 +21,13 @@ class StakeAccountInfo:
         pool_id (Union[Unset, str]):
     """
 
-    stake_address: Union[Unset, str] = UNSET
-    controlled_amount: Union[Unset, int] = UNSET
-    withdrawable_amount: Union[Unset, int] = UNSET
-    pool_id: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    stake_address: Unset | str = UNSET
+    controlled_amount: Unset | int = UNSET
+    withdrawable_amount: Unset | int = UNSET
+    pool_id: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         stake_address = self.stake_address
 
         controlled_amount = self.controlled_amount
@@ -40,7 +36,7 @@ class StakeAccountInfo:
 
         pool_id = self.pool_id
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if stake_address is not UNSET:
@@ -55,7 +51,7 @@ class StakeAccountInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         stake_address = d.pop("stake_address", UNSET)
 
@@ -76,7 +72,7 @@ class StakeAccountInfo:
         return stake_account_info
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

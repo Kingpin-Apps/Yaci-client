@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -32,15 +28,15 @@ class AddressBalanceDto:
         last_balance_calculation_block (Union[Unset, int]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    amounts: Union[Unset, List["Amt"]] = UNSET
-    slot: Union[Unset, int] = UNSET
-    last_balance_calculation_block: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    address: Unset | str = UNSET
+    amounts: Unset | list["Amt"] = UNSET
+    slot: Unset | int = UNSET
+    last_balance_calculation_block: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         block_number = self.block_number
 
@@ -48,7 +44,7 @@ class AddressBalanceDto:
 
         address = self.address
 
-        amounts: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amounts: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -59,7 +55,7 @@ class AddressBalanceDto:
 
         last_balance_calculation_block = self.last_balance_calculation_block
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -73,14 +69,12 @@ class AddressBalanceDto:
         if slot is not UNSET:
             field_dict["slot"] = slot
         if last_balance_calculation_block is not UNSET:
-            field_dict["last_balance_calculation_block"] = (
-                last_balance_calculation_block
-            )
+            field_dict["last_balance_calculation_block"] = last_balance_calculation_block
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
 
         d = src_dict.copy()
@@ -114,7 +108,7 @@ class AddressBalanceDto:
         return address_balance_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

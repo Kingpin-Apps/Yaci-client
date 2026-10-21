@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -31,15 +28,15 @@ class Redeemer:
         ex_units (Union[Unset, ExUnits]):
     """
 
-    tag: Union[Unset, RedeemerTag] = UNSET
-    index: Union[Unset, int] = UNSET
-    data: Union[Unset, str] = UNSET
+    tag: Unset | RedeemerTag = UNSET
+    index: Unset | int = UNSET
+    data: Unset | str = UNSET
     ex_units: Union[Unset, "ExUnits"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
-        tag: Union[Unset, str] = UNSET
+        tag: Unset | str = UNSET
         if not isinstance(self.tag, Unset):
             tag = self.tag.value
 
@@ -47,11 +44,11 @@ class Redeemer:
 
         data = self.data
 
-        ex_units: Union[Unset, Dict[str, Any]] = UNSET
+        ex_units: Unset | dict[str, Any] = UNSET
         if not isinstance(self.ex_units, Unset):
             ex_units = self.ex_units.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tag is not UNSET:
@@ -66,12 +63,12 @@ class Redeemer:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.ex_units import ExUnits
 
         d = src_dict.copy()
         _tag = d.pop("tag", UNSET)
-        tag: Union[Unset, RedeemerTag]
+        tag: Unset | RedeemerTag
         if isinstance(_tag, Unset):
             tag = UNSET
         else:
@@ -82,7 +79,7 @@ class Redeemer:
         data = d.pop("data", UNSET)
 
         _ex_units = d.pop("ex_units", UNSET)
-        ex_units: Union[Unset, ExUnits]
+        ex_units: Unset | ExUnits
         if isinstance(_ex_units, Unset):
             ex_units = UNSET
         else:
@@ -99,7 +96,7 @@ class Redeemer:
         return redeemer
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

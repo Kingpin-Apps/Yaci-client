@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,30 +25,30 @@ class TxInputsOutputs:
         outputs (Union[Unset, List['TxUtxo']]):
     """
 
-    hash_: Union[Unset, str] = UNSET
-    inputs: Union[Unset, List["TxUtxo"]] = UNSET
-    outputs: Union[Unset, List["TxUtxo"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    hash_: Unset | str = UNSET
+    inputs: Unset | list["TxUtxo"] = UNSET
+    outputs: Unset | list["TxUtxo"] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         hash_ = self.hash_
 
-        inputs: Union[Unset, List[Dict[str, Any]]] = UNSET
+        inputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.inputs, Unset):
             inputs = []
             for inputs_item_data in self.inputs:
                 inputs_item = inputs_item_data.to_dict()
                 inputs.append(inputs_item)
 
-        outputs: Union[Unset, List[Dict[str, Any]]] = UNSET
+        outputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.outputs, Unset):
             outputs = []
             for outputs_item_data in self.outputs:
                 outputs_item = outputs_item_data.to_dict()
                 outputs.append(outputs_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if hash_ is not UNSET:
@@ -65,7 +61,7 @@ class TxInputsOutputs:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.tx_utxo import TxUtxo
 
         d = src_dict.copy()
@@ -95,7 +91,7 @@ class TxInputsOutputs:
         return tx_inputs_outputs
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

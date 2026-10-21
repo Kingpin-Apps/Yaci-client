@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,21 +14,17 @@ from ...types import Response
 
 def _get_kwargs(
     gov_action_type: GetMostRecentGovActionProposalByGovActionTypeGovActionType,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/proposals/latest/gov-action-type/{gov_action_type}".format(
-            gov_action_type=gov_action_type,
-        ),
+        "url": f"/api/v1/governance/proposals/latest/gov-action-type/{gov_action_type}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[GovActionProposal]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> GovActionProposal | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = GovActionProposal.from_dict(response.json())
 
@@ -39,9 +35,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[GovActionProposal]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[GovActionProposal]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +47,7 @@ def _build_response(
 def sync_detailed(
     gov_action_type: GetMostRecentGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[GovActionProposal]:
     """Get most recent governance action proposal for a specific type
 
@@ -82,8 +76,8 @@ def sync_detailed(
 def sync(
     gov_action_type: GetMostRecentGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[GovActionProposal]:
+    client: AuthenticatedClient | Client,
+) -> GovActionProposal | None:
     """Get most recent governance action proposal for a specific type
 
     Args:
@@ -106,7 +100,7 @@ def sync(
 async def asyncio_detailed(
     gov_action_type: GetMostRecentGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[GovActionProposal]:
     """Get most recent governance action proposal for a specific type
 
@@ -133,8 +127,8 @@ async def asyncio_detailed(
 async def asyncio(
     gov_action_type: GetMostRecentGovActionProposalByGovActionTypeGovActionType,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[GovActionProposal]:
+    client: AuthenticatedClient | Client,
+) -> GovActionProposal | None:
     """Get most recent governance action proposal for a specific type
 
     Args:

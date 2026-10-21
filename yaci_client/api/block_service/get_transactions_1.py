@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,19 @@ from ...types import Response
 
 def _get_kwargs(
     block: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/blocks/{block}/txs".format(
-            block=block,
-        ),
+        "url": f"/api/v1/blocks/{block}/txs",
     }
 
     return _kwargs
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["TransactionSummary"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["TransactionSummary"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -42,8 +40,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["TransactionSummary"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["TransactionSummary"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +53,8 @@ def _build_response(
 def sync_detailed(
     block: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TransactionSummary"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TransactionSummary"]]:
     """Block Transactions
 
      Get a list of all transactions included in the provided block.
@@ -86,8 +84,8 @@ def sync_detailed(
 def sync(
     block: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TransactionSummary"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TransactionSummary"] | None:
     """Block Transactions
 
      Get a list of all transactions included in the provided block.
@@ -112,8 +110,8 @@ def sync(
 async def asyncio_detailed(
     block: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TransactionSummary"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TransactionSummary"]]:
     """Block Transactions
 
      Get a list of all transactions included in the provided block.
@@ -141,8 +139,8 @@ async def asyncio_detailed(
 async def asyncio(
     block: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TransactionSummary"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TransactionSummary"] | None:
     """Block Transactions
 
      Get a list of all transactions included in the provided block.

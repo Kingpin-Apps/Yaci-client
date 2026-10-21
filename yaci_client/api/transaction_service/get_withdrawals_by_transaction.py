@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     tx_hash: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/txs/{tx_hash}/withdrawals".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/txs/{tx_hash}/withdrawals",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Withdrawal"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["Withdrawal"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -41,9 +37,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Withdrawal"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["Withdrawal"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +49,8 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["Withdrawal"]]:
     """Get withdrawals by transaction
 
      Get withdrawals by transaction
@@ -86,8 +80,8 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+) -> list["Withdrawal"] | None:
     """Get withdrawals by transaction
 
      Get withdrawals by transaction
@@ -112,8 +106,8 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["Withdrawal"]]:
     """Get withdrawals by transaction
 
      Get withdrawals by transaction
@@ -141,8 +135,8 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+) -> list["Withdrawal"] | None:
     """Get withdrawals by transaction
 
      Get withdrawals by transaction

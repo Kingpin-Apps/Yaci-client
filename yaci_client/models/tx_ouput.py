@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -31,18 +27,18 @@ class TxOuput:
         reference_script_hash (Union[Unset, str]):
     """
 
-    address: Union[Unset, str] = UNSET
-    amounts: Union[Unset, List["Amt"]] = UNSET
-    data_hash: Union[Unset, str] = UNSET
-    inline_datum: Union[Unset, str] = UNSET
-    reference_script_hash: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    address: Unset | str = UNSET
+    amounts: Unset | list["Amt"] = UNSET
+    data_hash: Unset | str = UNSET
+    inline_datum: Unset | str = UNSET
+    reference_script_hash: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         address = self.address
 
-        amounts: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amounts: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -55,7 +51,7 @@ class TxOuput:
 
         reference_script_hash = self.reference_script_hash
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if address is not UNSET:
@@ -72,7 +68,7 @@ class TxOuput:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
 
         d = src_dict.copy()
@@ -103,7 +99,7 @@ class TxOuput:
         return tx_ouput
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,11 +11,11 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/stake/delegations",
         "params": params,
@@ -32,9 +32,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Delegation"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["Delegation"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -50,9 +48,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Delegation"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["Delegation"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,10 +59,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Delegation"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["Delegation"]]:
     """Get stake delegations by page number and count
 
     Args:
@@ -95,10 +91,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Delegation"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["Delegation"] | None:
     """Get stake delegations by page number and count
 
     Args:
@@ -122,10 +118,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Delegation"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["Delegation"]]:
     """Get stake delegations by page number and count
 
     Args:
@@ -152,10 +148,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Delegation"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["Delegation"] | None:
     """Get stake delegations by page number and count
 
     Args:

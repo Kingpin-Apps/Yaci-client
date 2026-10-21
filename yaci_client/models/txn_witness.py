@@ -1,9 +1,7 @@
+import builtins
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -34,16 +32,16 @@ class TxnWitness:
         additional_data (Union[Unset, JsonNode]):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    index: Union[Unset, int] = UNSET
-    pub_key: Union[Unset, str] = UNSET
-    signature: Union[Unset, str] = UNSET
-    pub_keyhash: Union[Unset, str] = UNSET
-    type: Union[Unset, TxnWitnessType] = UNSET
+    tx_hash: Unset | str = UNSET
+    index: Unset | int = UNSET
+    pub_key: Unset | str = UNSET
+    signature: Unset | str = UNSET
+    pub_keyhash: Unset | str = UNSET
+    type: Unset | TxnWitnessType = UNSET
     additional_data: Union[Unset, "JsonNode"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         tx_hash = self.tx_hash
 
@@ -55,15 +53,15 @@ class TxnWitness:
 
         pub_keyhash = self.pub_keyhash
 
-        type: Union[Unset, str] = UNSET
+        type: Unset | str = UNSET
         if not isinstance(self.type, Unset):
             type = self.type.value
 
-        additional_data: Union[Unset, Dict[str, Any]] = UNSET
+        additional_data: Unset | dict[str, Any] = UNSET
         if not isinstance(self.additional_data, Unset):
             additional_data = self.additional_data.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -84,7 +82,7 @@ class TxnWitness:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
         d = src_dict.copy()
@@ -99,14 +97,14 @@ class TxnWitness:
         pub_keyhash = d.pop("pub_keyhash", UNSET)
 
         _type = d.pop("type", UNSET)
-        type: Union[Unset, TxnWitnessType]
+        type: Unset | TxnWitnessType
         if isinstance(_type, Unset):
             type = UNSET
         else:
             type = TxnWitnessType(_type)
 
         _additional_data = d.pop("additional_data", UNSET)
-        additional_data: Union[Unset, JsonNode]
+        additional_data: Unset | JsonNode
         if isinstance(_additional_data, Unset):
             additional_data = UNSET
         else:
@@ -126,7 +124,7 @@ class TxnWitness:
         return txn_witness
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

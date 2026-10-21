@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -36,19 +32,19 @@ class Utxo:
         block_time (Union[Unset, int]):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    output_index: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    amount: Union[Unset, List["Amount"]] = UNSET
-    data_hash: Union[Unset, str] = UNSET
-    inline_datum: Union[Unset, str] = UNSET
-    reference_script_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_hash: Unset | str = UNSET
+    output_index: Unset | int = UNSET
+    address: Unset | str = UNSET
+    amount: Unset | list["Amount"] = UNSET
+    data_hash: Unset | str = UNSET
+    inline_datum: Unset | str = UNSET
+    reference_script_hash: Unset | str = UNSET
+    epoch: Unset | int = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         tx_hash = self.tx_hash
 
@@ -56,7 +52,7 @@ class Utxo:
 
         address = self.address
 
-        amount: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amount: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amount, Unset):
             amount = []
             for amount_item_data in self.amount:
@@ -75,7 +71,7 @@ class Utxo:
 
         block_time = self.block_time
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -102,7 +98,7 @@ class Utxo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amount import Amount
 
         d = src_dict.copy()
@@ -148,7 +144,7 @@ class Utxo:
         return utxo
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

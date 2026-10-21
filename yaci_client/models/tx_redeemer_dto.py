@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -28,16 +24,16 @@ class TxRedeemerDto:
         unit_steps (Union[Unset, str]):
     """
 
-    tx_index: Union[Unset, int] = UNSET
-    purpose: Union[Unset, str] = UNSET
-    script_hash: Union[Unset, str] = UNSET
-    datum_hash: Union[Unset, str] = UNSET
-    redeemer_data_hash: Union[Unset, str] = UNSET
-    unit_mem: Union[Unset, str] = UNSET
-    unit_steps: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_index: Unset | int = UNSET
+    purpose: Unset | str = UNSET
+    script_hash: Unset | str = UNSET
+    datum_hash: Unset | str = UNSET
+    redeemer_data_hash: Unset | str = UNSET
+    unit_mem: Unset | str = UNSET
+    unit_steps: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         tx_index = self.tx_index
 
         purpose = self.purpose
@@ -52,7 +48,7 @@ class TxRedeemerDto:
 
         unit_steps = self.unit_steps
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_index is not UNSET:
@@ -73,7 +69,7 @@ class TxRedeemerDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         tx_index = d.pop("tx_index", UNSET)
 
@@ -103,7 +99,7 @@ class TxRedeemerDto:
         return tx_redeemer_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

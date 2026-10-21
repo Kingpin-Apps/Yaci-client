@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -9,9 +9,9 @@ from ...models.epoch_content import EpochContent
 from ...types import Response
 
 
-def _get_kwargs() -> Dict[str, Any]:
+def _get_kwargs() -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/epochs/latest/details",
     }
@@ -19,9 +19,7 @@ def _get_kwargs() -> Dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[EpochContent]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> EpochContent | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = EpochContent.from_dict(response.json())
 
@@ -32,9 +30,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[EpochContent]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[EpochContent]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -45,7 +41,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[EpochContent]:
     """Latest Epoch Information
 
@@ -70,8 +66,8 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[EpochContent]:
+    client: AuthenticatedClient | Client,
+) -> EpochContent | None:
     """Latest Epoch Information
 
      Get the information of the current epoch.
@@ -91,7 +87,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[EpochContent]:
     """Latest Epoch Information
 
@@ -114,8 +110,8 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[EpochContent]:
+    client: AuthenticatedClient | Client,
+) -> EpochContent | None:
     """Latest Epoch Information
 
      Get the information of the current epoch.

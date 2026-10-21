@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,18 +12,18 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[Unset, GetDRepDeRegistrationsOrder] = GetDRepDeRegistrationsOrder.DESC,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepDeRegistrationsOrder = GetDRepDeRegistrationsOrder.DESC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["count"] = count
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/governance/dreps/deregistrations",
         "params": params,
@@ -41,8 +41,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["DRepRegistration"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["DRepRegistration"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -59,8 +59,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["DRepRegistration"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["DRepRegistration"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,11 +71,11 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[Unset, GetDRepDeRegistrationsOrder] = GetDRepDeRegistrationsOrder.DESC,
-) -> Response[List["DRepRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepDeRegistrationsOrder = GetDRepDeRegistrationsOrder.DESC,
+) -> Response[list["DRepRegistration"]]:
     """Get dRep de-registrations by page number and count
 
     Args:
@@ -107,11 +107,11 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[Unset, GetDRepDeRegistrationsOrder] = GetDRepDeRegistrationsOrder.DESC,
-) -> Optional[List["DRepRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepDeRegistrationsOrder = GetDRepDeRegistrationsOrder.DESC,
+) -> list["DRepRegistration"] | None:
     """Get dRep de-registrations by page number and count
 
     Args:
@@ -138,11 +138,11 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[Unset, GetDRepDeRegistrationsOrder] = GetDRepDeRegistrationsOrder.DESC,
-) -> Response[List["DRepRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepDeRegistrationsOrder = GetDRepDeRegistrationsOrder.DESC,
+) -> Response[list["DRepRegistration"]]:
     """Get dRep de-registrations by page number and count
 
     Args:
@@ -172,11 +172,11 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[Unset, GetDRepDeRegistrationsOrder] = GetDRepDeRegistrationsOrder.DESC,
-) -> Optional[List["DRepRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepDeRegistrationsOrder = GetDRepDeRegistrationsOrder.DESC,
+) -> list["DRepRegistration"] | None:
     """Get dRep de-registrations by page number and count
 
     Args:

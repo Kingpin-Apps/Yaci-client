@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -28,16 +24,16 @@ class EpochContent:
         fees (Union[Unset, str]):
     """
 
-    epoch: Union[Unset, int] = UNSET
-    first_block_time: Union[Unset, int] = UNSET
-    last_block_time: Union[Unset, int] = UNSET
-    block_count: Union[Unset, int] = UNSET
-    tx_count: Union[Unset, int] = UNSET
-    output: Union[Unset, str] = UNSET
-    fees: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    epoch: Unset | int = UNSET
+    first_block_time: Unset | int = UNSET
+    last_block_time: Unset | int = UNSET
+    block_count: Unset | int = UNSET
+    tx_count: Unset | int = UNSET
+    output: Unset | str = UNSET
+    fees: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         epoch = self.epoch
 
         first_block_time = self.first_block_time
@@ -52,7 +48,7 @@ class EpochContent:
 
         fees = self.fees
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if epoch is not UNSET:
@@ -73,7 +69,7 @@ class EpochContent:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         epoch = d.pop("epoch", UNSET)
 
@@ -103,7 +99,7 @@ class EpochContent:
         return epoch_content
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

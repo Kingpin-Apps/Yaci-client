@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -37,23 +33,23 @@ class VotingProcedure:
         epoch (Union[Unset, int]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    id: Union[Unset, str] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    voter_type: Union[Unset, VotingProcedureVoterType] = UNSET
-    voter_hash: Union[Unset, str] = UNSET
-    gov_action_tx_hash: Union[Unset, str] = UNSET
-    gov_action_index: Union[Unset, int] = UNSET
-    vote: Union[Unset, VotingProcedureVote] = UNSET
-    anchor_url: Union[Unset, str] = UNSET
-    anchor_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    id: Unset | str = UNSET
+    tx_hash: Unset | str = UNSET
+    index: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    voter_type: Unset | VotingProcedureVoterType = UNSET
+    voter_hash: Unset | str = UNSET
+    gov_action_tx_hash: Unset | str = UNSET
+    gov_action_index: Unset | int = UNSET
+    vote: Unset | VotingProcedureVote = UNSET
+    anchor_url: Unset | str = UNSET
+    anchor_hash: Unset | str = UNSET
+    epoch: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -66,7 +62,7 @@ class VotingProcedure:
 
         slot = self.slot
 
-        voter_type: Union[Unset, str] = UNSET
+        voter_type: Unset | str = UNSET
         if not isinstance(self.voter_type, Unset):
             voter_type = self.voter_type.value
 
@@ -76,7 +72,7 @@ class VotingProcedure:
 
         gov_action_index = self.gov_action_index
 
-        vote: Union[Unset, str] = UNSET
+        vote: Unset | str = UNSET
         if not isinstance(self.vote, Unset):
             vote = self.vote.value
 
@@ -86,7 +82,7 @@ class VotingProcedure:
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -121,7 +117,7 @@ class VotingProcedure:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
@@ -136,7 +132,7 @@ class VotingProcedure:
         slot = d.pop("slot", UNSET)
 
         _voter_type = d.pop("voter_type", UNSET)
-        voter_type: Union[Unset, VotingProcedureVoterType]
+        voter_type: Unset | VotingProcedureVoterType
         if isinstance(_voter_type, Unset):
             voter_type = UNSET
         else:
@@ -149,7 +145,7 @@ class VotingProcedure:
         gov_action_index = d.pop("gov_action_index", UNSET)
 
         _vote = d.pop("vote", UNSET)
-        vote: Union[Unset, VotingProcedureVote]
+        vote: Unset | VotingProcedureVote
         if isinstance(_vote, Unset):
             vote = UNSET
         else:
@@ -182,7 +178,7 @@ class VotingProcedure:
         return voting_procedure
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

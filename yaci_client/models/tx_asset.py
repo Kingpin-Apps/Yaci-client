@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -32,19 +28,19 @@ class TxAsset:
         mint_type (Union[Unset, TxAssetMintType]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    policy: Union[Unset, str] = UNSET
-    asset_name: Union[Unset, str] = UNSET
-    unit: Union[Unset, str] = UNSET
-    fingerprint: Union[Unset, str] = UNSET
-    quantity: Union[Unset, int] = UNSET
-    mint_type: Union[Unset, TxAssetMintType] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    policy: Unset | str = UNSET
+    asset_name: Unset | str = UNSET
+    unit: Unset | str = UNSET
+    fingerprint: Unset | str = UNSET
+    quantity: Unset | int = UNSET
+    mint_type: Unset | TxAssetMintType = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -63,11 +59,11 @@ class TxAsset:
 
         quantity = self.quantity
 
-        mint_type: Union[Unset, str] = UNSET
+        mint_type: Unset | str = UNSET
         if not isinstance(self.mint_type, Unset):
             mint_type = self.mint_type.value
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -94,7 +90,7 @@ class TxAsset:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
@@ -115,7 +111,7 @@ class TxAsset:
         quantity = d.pop("quantity", UNSET)
 
         _mint_type = d.pop("mint_type", UNSET)
-        mint_type: Union[Unset, TxAssetMintType]
+        mint_type: Unset | TxAssetMintType
         if isinstance(_mint_type, Unset):
             mint_type = UNSET
         else:
@@ -138,7 +134,7 @@ class TxAsset:
         return tx_asset
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

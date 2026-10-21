@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -36,18 +33,18 @@ class ProtocolParamsProposal:
         era (Union[Unset, ProtocolParamsProposalEra]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    key_hash: Union[Unset, str] = UNSET
-    target_epoch: Union[Unset, int] = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    key_hash: Unset | str = UNSET
+    target_epoch: Unset | int = UNSET
     params: Union[Unset, "ProtocolParams"] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    era: Union[Unset, ProtocolParamsProposalEra] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    era: Unset | ProtocolParamsProposalEra = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         block_number = self.block_number
 
@@ -59,7 +56,7 @@ class ProtocolParamsProposal:
 
         target_epoch = self.target_epoch
 
-        params: Union[Unset, Dict[str, Any]] = UNSET
+        params: Unset | dict[str, Any] = UNSET
         if not isinstance(self.params, Unset):
             params = self.params.to_dict()
 
@@ -67,11 +64,11 @@ class ProtocolParamsProposal:
 
         slot = self.slot
 
-        era: Union[Unset, str] = UNSET
+        era: Unset | str = UNSET
         if not isinstance(self.era, Unset):
             era = self.era.value
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -96,7 +93,7 @@ class ProtocolParamsProposal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.protocol_params import ProtocolParams
 
         d = src_dict.copy()
@@ -111,7 +108,7 @@ class ProtocolParamsProposal:
         target_epoch = d.pop("target_epoch", UNSET)
 
         _params = d.pop("params", UNSET)
-        params: Union[Unset, ProtocolParams]
+        params: Unset | ProtocolParams
         if isinstance(_params, Unset):
             params = UNSET
         else:
@@ -122,7 +119,7 @@ class ProtocolParamsProposal:
         slot = d.pop("slot", UNSET)
 
         _era = d.pop("era", UNSET)
-        era: Union[Unset, ProtocolParamsProposalEra]
+        era: Unset | ProtocolParamsProposalEra
         if isinstance(_era, Unset):
             era = UNSET
         else:
@@ -144,7 +141,7 @@ class ProtocolParamsProposal:
         return protocol_params_proposal
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

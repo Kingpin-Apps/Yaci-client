@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -67,48 +64,48 @@ class ProtocolParams:
         nopt (Union[Unset, int]):
     """
 
-    min_fee_a: Union[Unset, int] = UNSET
-    min_fee_b: Union[Unset, int] = UNSET
-    max_block_size: Union[Unset, int] = UNSET
-    max_tx_size: Union[Unset, int] = UNSET
-    max_block_header_size: Union[Unset, int] = UNSET
-    key_deposit: Union[Unset, int] = UNSET
-    pool_deposit: Union[Unset, int] = UNSET
-    max_epoch: Union[Unset, int] = UNSET
-    pool_pledge_influence: Union[Unset, float] = UNSET
-    expansion_rate: Union[Unset, float] = UNSET
-    treasury_growth_rate: Union[Unset, float] = UNSET
-    decentralisation_param: Union[Unset, float] = UNSET
-    extra_entropy: Union[Unset, str] = UNSET
-    protocol_major_ver: Union[Unset, int] = UNSET
-    protocol_minor_ver: Union[Unset, int] = UNSET
-    min_utxo: Union[Unset, int] = UNSET
-    min_pool_cost: Union[Unset, int] = UNSET
-    ada_per_utxo_byte: Union[Unset, int] = UNSET
+    min_fee_a: Unset | int = UNSET
+    min_fee_b: Unset | int = UNSET
+    max_block_size: Unset | int = UNSET
+    max_tx_size: Unset | int = UNSET
+    max_block_header_size: Unset | int = UNSET
+    key_deposit: Unset | int = UNSET
+    pool_deposit: Unset | int = UNSET
+    max_epoch: Unset | int = UNSET
+    pool_pledge_influence: Unset | float = UNSET
+    expansion_rate: Unset | float = UNSET
+    treasury_growth_rate: Unset | float = UNSET
+    decentralisation_param: Unset | float = UNSET
+    extra_entropy: Unset | str = UNSET
+    protocol_major_ver: Unset | int = UNSET
+    protocol_minor_ver: Unset | int = UNSET
+    min_utxo: Unset | int = UNSET
+    min_pool_cost: Unset | int = UNSET
+    ada_per_utxo_byte: Unset | int = UNSET
     cost_models: Union[Unset, "ProtocolParamsCostModels"] = UNSET
-    cost_models_hash: Union[Unset, str] = UNSET
-    price_mem: Union[Unset, float] = UNSET
-    price_step: Union[Unset, float] = UNSET
-    max_tx_ex_mem: Union[Unset, int] = UNSET
-    max_tx_ex_steps: Union[Unset, int] = UNSET
-    max_block_ex_mem: Union[Unset, int] = UNSET
-    max_block_ex_steps: Union[Unset, int] = UNSET
-    max_val_size: Union[Unset, int] = UNSET
-    collateral_percent: Union[Unset, int] = UNSET
-    max_collateral_inputs: Union[Unset, int] = UNSET
+    cost_models_hash: Unset | str = UNSET
+    price_mem: Unset | float = UNSET
+    price_step: Unset | float = UNSET
+    max_tx_ex_mem: Unset | int = UNSET
+    max_tx_ex_steps: Unset | int = UNSET
+    max_block_ex_mem: Unset | int = UNSET
+    max_block_ex_steps: Unset | int = UNSET
+    max_val_size: Unset | int = UNSET
+    collateral_percent: Unset | int = UNSET
+    max_collateral_inputs: Unset | int = UNSET
     pool_voting_thresholds: Union[Unset, "PoolVotingThresholds"] = UNSET
     drep_voting_thresholds: Union[Unset, "DrepVoteThresholds"] = UNSET
-    committee_min_size: Union[Unset, int] = UNSET
-    committee_max_term_length: Union[Unset, int] = UNSET
-    gov_action_lifetime: Union[Unset, int] = UNSET
-    gov_action_deposit: Union[Unset, int] = UNSET
-    drep_deposit: Union[Unset, int] = UNSET
-    drep_activity: Union[Unset, int] = UNSET
-    min_fee_ref_script_cost_per_byte: Union[Unset, float] = UNSET
-    nopt: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    committee_min_size: Unset | int = UNSET
+    committee_max_term_length: Unset | int = UNSET
+    gov_action_lifetime: Unset | int = UNSET
+    gov_action_deposit: Unset | int = UNSET
+    drep_deposit: Unset | int = UNSET
+    drep_activity: Unset | int = UNSET
+    min_fee_ref_script_cost_per_byte: Unset | float = UNSET
+    nopt: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         min_fee_a = self.min_fee_a
 
@@ -146,7 +143,7 @@ class ProtocolParams:
 
         ada_per_utxo_byte = self.ada_per_utxo_byte
 
-        cost_models: Union[Unset, Dict[str, Any]] = UNSET
+        cost_models: Unset | dict[str, Any] = UNSET
         if not isinstance(self.cost_models, Unset):
             cost_models = self.cost_models.to_dict()
 
@@ -170,11 +167,11 @@ class ProtocolParams:
 
         max_collateral_inputs = self.max_collateral_inputs
 
-        pool_voting_thresholds: Union[Unset, Dict[str, Any]] = UNSET
+        pool_voting_thresholds: Unset | dict[str, Any] = UNSET
         if not isinstance(self.pool_voting_thresholds, Unset):
             pool_voting_thresholds = self.pool_voting_thresholds.to_dict()
 
-        drep_voting_thresholds: Union[Unset, Dict[str, Any]] = UNSET
+        drep_voting_thresholds: Unset | dict[str, Any] = UNSET
         if not isinstance(self.drep_voting_thresholds, Unset):
             drep_voting_thresholds = self.drep_voting_thresholds.to_dict()
 
@@ -194,7 +191,7 @@ class ProtocolParams:
 
         nopt = self.nopt
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if min_fee_a is not UNSET:
@@ -272,16 +269,14 @@ class ProtocolParams:
         if drep_activity is not UNSET:
             field_dict["drep_activity"] = drep_activity
         if min_fee_ref_script_cost_per_byte is not UNSET:
-            field_dict["min_fee_ref_script_cost_per_byte"] = (
-                min_fee_ref_script_cost_per_byte
-            )
+            field_dict["min_fee_ref_script_cost_per_byte"] = min_fee_ref_script_cost_per_byte
         if nopt is not UNSET:
             field_dict["nopt"] = nopt
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.drep_vote_thresholds import DrepVoteThresholds
         from ..models.pool_voting_thresholds import PoolVotingThresholds
         from ..models.protocol_params_cost_models import ProtocolParamsCostModels
@@ -324,7 +319,7 @@ class ProtocolParams:
         ada_per_utxo_byte = d.pop("ada_per_utxo_byte", UNSET)
 
         _cost_models = d.pop("cost_models", UNSET)
-        cost_models: Union[Unset, ProtocolParamsCostModels]
+        cost_models: Unset | ProtocolParamsCostModels
         if isinstance(_cost_models, Unset):
             cost_models = UNSET
         else:
@@ -351,22 +346,18 @@ class ProtocolParams:
         max_collateral_inputs = d.pop("max_collateral_inputs", UNSET)
 
         _pool_voting_thresholds = d.pop("pool_voting_thresholds", UNSET)
-        pool_voting_thresholds: Union[Unset, PoolVotingThresholds]
+        pool_voting_thresholds: Unset | PoolVotingThresholds
         if isinstance(_pool_voting_thresholds, Unset):
             pool_voting_thresholds = UNSET
         else:
-            pool_voting_thresholds = PoolVotingThresholds.from_dict(
-                _pool_voting_thresholds
-            )
+            pool_voting_thresholds = PoolVotingThresholds.from_dict(_pool_voting_thresholds)
 
         _drep_voting_thresholds = d.pop("drep_voting_thresholds", UNSET)
-        drep_voting_thresholds: Union[Unset, DrepVoteThresholds]
+        drep_voting_thresholds: Unset | DrepVoteThresholds
         if isinstance(_drep_voting_thresholds, Unset):
             drep_voting_thresholds = UNSET
         else:
-            drep_voting_thresholds = DrepVoteThresholds.from_dict(
-                _drep_voting_thresholds
-            )
+            drep_voting_thresholds = DrepVoteThresholds.from_dict(_drep_voting_thresholds)
 
         committee_min_size = d.pop("committee_min_size", UNSET)
 
@@ -380,9 +371,7 @@ class ProtocolParams:
 
         drep_activity = d.pop("drep_activity", UNSET)
 
-        min_fee_ref_script_cost_per_byte = d.pop(
-            "min_fee_ref_script_cost_per_byte", UNSET
-        )
+        min_fee_ref_script_cost_per_byte = d.pop("min_fee_ref_script_cost_per_byte", UNSET)
 
         nopt = d.pop("nopt", UNSET)
 
@@ -432,7 +421,7 @@ class ProtocolParams:
         return protocol_params
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,11 +11,11 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/mir",
         "params": params,
@@ -33,15 +33,13 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["MoveInstataneousRewardSummary"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["MoveInstataneousRewardSummary"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = MoveInstataneousRewardSummary.from_dict(
-                response_200_item_data
-            )
+            response_200_item = MoveInstataneousRewardSummary.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -53,8 +51,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["MoveInstataneousRewardSummary"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["MoveInstataneousRewardSummary"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,10 +63,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["MoveInstataneousRewardSummary"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["MoveInstataneousRewardSummary"]]:
     """MIR Summary
 
      Get mir summaries by page number and count.
@@ -99,10 +97,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["MoveInstataneousRewardSummary"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["MoveInstataneousRewardSummary"] | None:
     """MIR Summary
 
      Get mir summaries by page number and count.
@@ -128,10 +126,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["MoveInstataneousRewardSummary"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> Response[list["MoveInstataneousRewardSummary"]]:
     """MIR Summary
 
      Get mir summaries by page number and count.
@@ -160,10 +158,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["MoveInstataneousRewardSummary"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+) -> list["MoveInstataneousRewardSummary"] | None:
     """MIR Summary
 
      Get mir summaries by page number and count.

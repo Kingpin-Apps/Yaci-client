@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,20 +15,18 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     tx_hash: str,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProceduresByGovActionProposalTxOrder = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["count"] = count
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -36,11 +34,9 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/proposals/{tx_hash}/votes".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/governance/proposals/{tx_hash}/votes",
         "params": params,
     }
 
@@ -48,8 +44,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["VotingProcedure"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["VotingProcedure"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -66,8 +62,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["VotingProcedure"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["VotingProcedure"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,13 +75,11 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Response[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProceduresByGovActionProposalTxOrder = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> Response[list["VotingProcedure"]]:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
@@ -120,13 +114,11 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Optional[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProceduresByGovActionProposalTxOrder = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> list["VotingProcedure"] | None:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
@@ -156,13 +148,11 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Response[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProceduresByGovActionProposalTxOrder = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> Response[list["VotingProcedure"]]:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
@@ -195,13 +185,11 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Optional[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProceduresByGovActionProposalTxOrder = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> list["VotingProcedure"] | None:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:

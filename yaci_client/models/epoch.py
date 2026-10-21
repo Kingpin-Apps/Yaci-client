@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,17 +25,17 @@ class Epoch:
         max_slot (Union[Unset, int]):
     """
 
-    number: Union[Unset, int] = UNSET
-    block_count: Union[Unset, int] = UNSET
-    transaction_count: Union[Unset, int] = UNSET
-    total_output: Union[Unset, int] = UNSET
-    total_fees: Union[Unset, int] = UNSET
-    start_time: Union[Unset, int] = UNSET
-    end_time: Union[Unset, int] = UNSET
-    max_slot: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    number: Unset | int = UNSET
+    block_count: Unset | int = UNSET
+    transaction_count: Unset | int = UNSET
+    total_output: Unset | int = UNSET
+    total_fees: Unset | int = UNSET
+    start_time: Unset | int = UNSET
+    end_time: Unset | int = UNSET
+    max_slot: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         number = self.number
 
         block_count = self.block_count
@@ -56,7 +52,7 @@ class Epoch:
 
         max_slot = self.max_slot
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if number is not UNSET:
@@ -79,7 +75,7 @@ class Epoch:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         number = d.pop("number", UNSET)
 
@@ -112,7 +108,7 @@ class Epoch:
         return epoch
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

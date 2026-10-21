@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -31,19 +27,19 @@ class PoolRetirement:
         pool_id_bech32 (Union[Unset, str]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    pool_id: Union[Unset, str] = UNSET
-    retirement_epoch: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_hash: Union[Unset, str] = UNSET
-    pool_id_bech32: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    pool_id: Unset | str = UNSET
+    retirement_epoch: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    block_hash: Unset | str = UNSET
+    pool_id_bech32: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -64,7 +60,7 @@ class PoolRetirement:
 
         pool_id_bech32 = self.pool_id_bech32
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -91,7 +87,7 @@ class PoolRetirement:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
@@ -130,7 +126,7 @@ class PoolRetirement:
         return pool_retirement
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

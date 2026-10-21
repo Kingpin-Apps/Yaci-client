@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,18 +14,18 @@ def _get_kwargs(
     address: str,
     asset: str,
     *,
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Dict[str, Any]:
+    count: Unset | int = 10,
+    page: Unset | int = 0,
+    order: Unset | GetUtxosForAssetOrder = GetUtxosForAssetOrder.ASC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["count"] = count
 
     params["page"] = page
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -33,21 +33,16 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/addresses/{address}/utxos/{asset}".format(
-            address=address,
-            asset=asset,
-        ),
+        "url": f"/api/v1/addresses/{address}/utxos/{asset}",
         "params": params,
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Utxo"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["Utxo"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -63,9 +58,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Utxo"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["Utxo"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,11 +71,11 @@ def sync_detailed(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Response[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: Unset | int = 10,
+    page: Unset | int = 0,
+    order: Unset | GetUtxosForAssetOrder = GetUtxosForAssetOrder.ASC,
+) -> Response[list["Utxo"]]:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -121,11 +114,11 @@ def sync(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Optional[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: Unset | int = 10,
+    page: Unset | int = 0,
+    order: Unset | GetUtxosForAssetOrder = GetUtxosForAssetOrder.ASC,
+) -> list["Utxo"] | None:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -159,11 +152,11 @@ async def asyncio_detailed(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Response[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: Unset | int = 10,
+    page: Unset | int = 0,
+    order: Unset | GetUtxosForAssetOrder = GetUtxosForAssetOrder.ASC,
+) -> Response[list["Utxo"]]:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -200,11 +193,11 @@ async def asyncio(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Optional[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: Unset | int = 10,
+    page: Unset | int = 0,
+    order: Unset | GetUtxosForAssetOrder = GetUtxosForAssetOrder.ASC,
+) -> list["Utxo"] | None:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address

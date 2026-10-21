@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     tx_hash: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/assets/txs/{tx_hash}".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/assets/txs/{tx_hash}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["TxAsset"]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["TxAsset"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -41,9 +37,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["TxAsset"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["TxAsset"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +49,8 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxAsset"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TxAsset"]]:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -86,8 +80,8 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxAsset"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TxAsset"] | None:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -112,8 +106,8 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxAsset"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list["TxAsset"]]:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -141,8 +135,8 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxAsset"]]:
+    client: AuthenticatedClient | Client,
+) -> list["TxAsset"] | None:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,22 +12,17 @@ from ...types import Response
 def _get_kwargs(
     stake_address: str,
     time_in_sec: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/accounts/{stake_address}/{time_in_sec}/balance".format(
-            stake_address=stake_address,
-            time_in_sec=time_in_sec,
-        ),
+        "url": f"/api/v1/accounts/{stake_address}/{time_in_sec}/balance",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[StakeAddressBalance]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> StakeAddressBalance | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = StakeAddressBalance.from_dict(response.json())
 
@@ -38,9 +33,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[StakeAddressBalance]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[StakeAddressBalance]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +46,7 @@ def sync_detailed(
     stake_address: str,
     time_in_sec: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[StakeAddressBalance]:
     """Get current balance at a stake address at a specific time. This is an experimental feature.
 
@@ -85,8 +78,8 @@ def sync(
     stake_address: str,
     time_in_sec: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[StakeAddressBalance]:
+    client: AuthenticatedClient | Client,
+) -> StakeAddressBalance | None:
     """Get current balance at a stake address at a specific time. This is an experimental feature.
 
     Args:
@@ -112,7 +105,7 @@ async def asyncio_detailed(
     stake_address: str,
     time_in_sec: int,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[StakeAddressBalance]:
     """Get current balance at a stake address at a specific time. This is an experimental feature.
 
@@ -142,8 +135,8 @@ async def asyncio(
     stake_address: str,
     time_in_sec: int,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[StakeAddressBalance]:
+    client: AuthenticatedClient | Client,
+) -> StakeAddressBalance | None:
     """Get current balance at a stake address at a specific time. This is an experimental feature.
 
     Args:

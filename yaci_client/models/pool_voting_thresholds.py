@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -26,14 +22,14 @@ class PoolVotingThresholds:
         pvt_ppsecurity_group (Union[Unset, float]):
     """
 
-    pvt_motion_no_confidence: Union[Unset, float] = UNSET
-    pvt_committee_normal: Union[Unset, float] = UNSET
-    pvt_committee_no_confidence: Union[Unset, float] = UNSET
-    pvt_hard_fork_initiation: Union[Unset, float] = UNSET
-    pvt_ppsecurity_group: Union[Unset, float] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    pvt_motion_no_confidence: Unset | float = UNSET
+    pvt_committee_normal: Unset | float = UNSET
+    pvt_committee_no_confidence: Unset | float = UNSET
+    pvt_hard_fork_initiation: Unset | float = UNSET
+    pvt_ppsecurity_group: Unset | float = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         pvt_motion_no_confidence = self.pvt_motion_no_confidence
 
         pvt_committee_normal = self.pvt_committee_normal
@@ -44,7 +40,7 @@ class PoolVotingThresholds:
 
         pvt_ppsecurity_group = self.pvt_ppsecurity_group
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if pvt_motion_no_confidence is not UNSET:
@@ -61,7 +57,7 @@ class PoolVotingThresholds:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         pvt_motion_no_confidence = d.pop("pvt_motion_no_confidence", UNSET)
 
@@ -85,7 +81,7 @@ class PoolVotingThresholds:
         return pool_voting_thresholds
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
     cast,
 )
 
@@ -46,28 +42,28 @@ class PoolRegistration:
         pool_id_bech32 (Union[Unset, str]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    pool_id: Union[Unset, str] = UNSET
-    vrf_key_hash: Union[Unset, str] = UNSET
-    pledge: Union[Unset, int] = UNSET
-    cost: Union[Unset, int] = UNSET
-    margin: Union[Unset, float] = UNSET
-    reward_account: Union[Unset, str] = UNSET
-    pool_owners: Union[Unset, List[str]] = UNSET
-    relays: Union[Unset, List["Relay"]] = UNSET
-    metadata_url: Union[Unset, str] = UNSET
-    metadata_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_hash: Union[Unset, str] = UNSET
-    reward_account_bech32: Union[Unset, str] = UNSET
-    pool_id_bech32: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    pool_id: Unset | str = UNSET
+    vrf_key_hash: Unset | str = UNSET
+    pledge: Unset | int = UNSET
+    cost: Unset | int = UNSET
+    margin: Unset | float = UNSET
+    reward_account: Unset | str = UNSET
+    pool_owners: Unset | list[str] = UNSET
+    relays: Unset | list["Relay"] = UNSET
+    metadata_url: Unset | str = UNSET
+    metadata_hash: Unset | str = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    block_hash: Unset | str = UNSET
+    reward_account_bech32: Unset | str = UNSET
+    pool_id_bech32: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         block_number = self.block_number
 
@@ -89,11 +85,11 @@ class PoolRegistration:
 
         reward_account = self.reward_account
 
-        pool_owners: Union[Unset, List[str]] = UNSET
+        pool_owners: Unset | list[str] = UNSET
         if not isinstance(self.pool_owners, Unset):
             pool_owners = self.pool_owners
 
-        relays: Union[Unset, List[Dict[str, Any]]] = UNSET
+        relays: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.relays, Unset):
             relays = []
             for relays_item_data in self.relays:
@@ -114,7 +110,7 @@ class PoolRegistration:
 
         pool_id_bech32 = self.pool_id_bech32
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -159,7 +155,7 @@ class PoolRegistration:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.relay import Relay
 
         d = src_dict.copy()
@@ -183,7 +179,7 @@ class PoolRegistration:
 
         reward_account = d.pop("reward_account", UNSET)
 
-        pool_owners = cast(List[str], d.pop("pool_owners", UNSET))
+        pool_owners = cast(list[str], d.pop("pool_owners", UNSET))
 
         relays = []
         _relays = d.pop("relays", UNSET)
@@ -232,7 +228,7 @@ class PoolRegistration:
         return pool_registration
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

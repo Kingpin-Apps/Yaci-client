@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,12 +12,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     unit: str,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Dict[str, Any]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    sort: Unset | str = "asc",
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -27,11 +27,9 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/assets/{unit}/addresses".format(
-            unit=unit,
-        ),
+        "url": f"/api/v1/assets/{unit}/addresses",
         "params": params,
     }
 
@@ -39,8 +37,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["AddressAssetBalanceDto"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["AddressAssetBalanceDto"] | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
@@ -57,8 +55,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["AddressAssetBalanceDto"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["AddressAssetBalanceDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,11 +68,11 @@ def _build_response(
 def sync_detailed(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Response[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    sort: Unset | str = "asc",
+) -> Response[list["AddressAssetBalanceDto"]]:
     """Get addresses by asset
 
     Args:
@@ -108,11 +106,11 @@ def sync_detailed(
 def sync(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Optional[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    sort: Unset | str = "asc",
+) -> list["AddressAssetBalanceDto"] | None:
     """Get addresses by asset
 
     Args:
@@ -141,11 +139,11 @@ def sync(
 async def asyncio_detailed(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Response[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    sort: Unset | str = "asc",
+) -> Response[list["AddressAssetBalanceDto"]]:
     """Get addresses by asset
 
     Args:
@@ -177,11 +175,11 @@ async def asyncio_detailed(
 async def asyncio(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Optional[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    sort: Unset | str = "asc",
+) -> list["AddressAssetBalanceDto"] | None:
     """Get addresses by asset
 
     Args:

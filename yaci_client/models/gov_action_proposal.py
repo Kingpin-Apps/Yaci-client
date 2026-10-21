@@ -1,9 +1,7 @@
+import builtins
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -39,21 +37,21 @@ class GovActionProposal:
         epoch (Union[Unset, int]):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    deposit: Union[Unset, int] = UNSET
-    return_address: Union[Unset, str] = UNSET
-    type: Union[Unset, GovActionProposalType] = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    index: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    deposit: Unset | int = UNSET
+    return_address: Unset | str = UNSET
+    type: Unset | GovActionProposalType = UNSET
     details: Union[Unset, "JsonNode"] = UNSET
-    anchor_url: Union[Unset, str] = UNSET
-    anchor_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    anchor_url: Unset | str = UNSET
+    anchor_hash: Unset | str = UNSET
+    epoch: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         block_number = self.block_number
 
@@ -69,11 +67,11 @@ class GovActionProposal:
 
         return_address = self.return_address
 
-        type: Union[Unset, str] = UNSET
+        type: Unset | str = UNSET
         if not isinstance(self.type, Unset):
             type = self.type.value
 
-        details: Union[Unset, Dict[str, Any]] = UNSET
+        details: Unset | dict[str, Any] = UNSET
         if not isinstance(self.details, Unset):
             details = self.details.to_dict()
 
@@ -83,7 +81,7 @@ class GovActionProposal:
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -114,7 +112,7 @@ class GovActionProposal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
         d = src_dict.copy()
@@ -133,14 +131,14 @@ class GovActionProposal:
         return_address = d.pop("return_address", UNSET)
 
         _type = d.pop("type", UNSET)
-        type: Union[Unset, GovActionProposalType]
+        type: Unset | GovActionProposalType
         if isinstance(_type, Unset):
             type = UNSET
         else:
             type = GovActionProposalType(_type)
 
         _details = d.pop("details", UNSET)
-        details: Union[Unset, JsonNode]
+        details: Unset | JsonNode
         if isinstance(_details, Unset):
             details = UNSET
         else:
@@ -171,7 +169,7 @@ class GovActionProposal:
         return gov_action_proposal
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

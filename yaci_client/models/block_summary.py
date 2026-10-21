@@ -1,10 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -32,20 +28,20 @@ class BlockSummary:
         issuer_vkey (Union[Unset, str]):
     """
 
-    time: Union[Unset, int] = UNSET
-    number: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    era: Union[Unset, int] = UNSET
-    output: Union[Unset, int] = UNSET
-    fees: Union[Unset, int] = UNSET
-    slot_leader: Union[Unset, str] = UNSET
-    size: Union[Unset, int] = UNSET
-    tx_count: Union[Unset, int] = UNSET
-    issuer_vkey: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    time: Unset | int = UNSET
+    number: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    era: Unset | int = UNSET
+    output: Unset | int = UNSET
+    fees: Unset | int = UNSET
+    slot_leader: Unset | str = UNSET
+    size: Unset | int = UNSET
+    tx_count: Unset | int = UNSET
+    issuer_vkey: Unset | str = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         time = self.time
 
         number = self.number
@@ -68,7 +64,7 @@ class BlockSummary:
 
         issuer_vkey = self.issuer_vkey
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if time is not UNSET:
@@ -97,7 +93,7 @@ class BlockSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         d = src_dict.copy()
         time = d.pop("time", UNSET)
 
@@ -139,7 +135,7 @@ class BlockSummary:
         return block_summary
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

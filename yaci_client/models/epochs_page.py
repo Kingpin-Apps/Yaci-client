@@ -1,11 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
-    Union,
 )
 
 from attrs import define as _attrs_define
@@ -29,25 +25,25 @@ class EpochsPage:
         epochs (Union[Unset, List['Epoch']]):
     """
 
-    total: Union[Unset, int] = UNSET
-    total_pages: Union[Unset, int] = UNSET
-    epochs: Union[Unset, List["Epoch"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    total: Unset | int = UNSET
+    total_pages: Unset | int = UNSET
+    epochs: Unset | list["Epoch"] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         total = self.total
 
         total_pages = self.total_pages
 
-        epochs: Union[Unset, List[Dict[str, Any]]] = UNSET
+        epochs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.epochs, Unset):
             epochs = []
             for epochs_item_data in self.epochs:
                 epochs_item = epochs_item_data.to_dict()
                 epochs.append(epochs_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if total is not UNSET:
@@ -60,7 +56,7 @@ class EpochsPage:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.epoch import Epoch
 
         d = src_dict.copy()
@@ -85,7 +81,7 @@ class EpochsPage:
         return epochs_page
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

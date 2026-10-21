@@ -1,9 +1,6 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Dict,
-    List,
-    Type,
     TypeVar,
     Union,
 )
@@ -78,61 +75,61 @@ class ProtocolParamsDto:
         n_opt (Union[Unset, int]):
     """
 
-    min_fee_a: Union[Unset, int] = UNSET
-    min_fee_b: Union[Unset, int] = UNSET
-    max_block_size: Union[Unset, int] = UNSET
-    max_tx_size: Union[Unset, int] = UNSET
-    max_block_header_size: Union[Unset, int] = UNSET
-    key_deposit: Union[Unset, str] = UNSET
-    pool_deposit: Union[Unset, str] = UNSET
-    a0: Union[Unset, float] = UNSET
-    rho: Union[Unset, float] = UNSET
-    tau: Union[Unset, float] = UNSET
-    decentralisation_param: Union[Unset, float] = UNSET
-    extra_entropy: Union[Unset, str] = UNSET
-    protocol_major_ver: Union[Unset, int] = UNSET
-    protocol_minor_ver: Union[Unset, int] = UNSET
-    min_utxo: Union[Unset, str] = UNSET
-    min_pool_cost: Union[Unset, str] = UNSET
-    nonce: Union[Unset, str] = UNSET
+    min_fee_a: Unset | int = UNSET
+    min_fee_b: Unset | int = UNSET
+    max_block_size: Unset | int = UNSET
+    max_tx_size: Unset | int = UNSET
+    max_block_header_size: Unset | int = UNSET
+    key_deposit: Unset | str = UNSET
+    pool_deposit: Unset | str = UNSET
+    a0: Unset | float = UNSET
+    rho: Unset | float = UNSET
+    tau: Unset | float = UNSET
+    decentralisation_param: Unset | float = UNSET
+    extra_entropy: Unset | str = UNSET
+    protocol_major_ver: Unset | int = UNSET
+    protocol_minor_ver: Unset | int = UNSET
+    min_utxo: Unset | str = UNSET
+    min_pool_cost: Unset | str = UNSET
+    nonce: Unset | str = UNSET
     cost_models: Union[Unset, "ProtocolParamsDtoCostModels"] = UNSET
-    price_mem: Union[Unset, float] = UNSET
-    price_step: Union[Unset, float] = UNSET
-    max_tx_ex_mem: Union[Unset, str] = UNSET
-    max_tx_ex_steps: Union[Unset, str] = UNSET
-    max_block_ex_mem: Union[Unset, str] = UNSET
-    max_block_ex_steps: Union[Unset, str] = UNSET
-    max_val_size: Union[Unset, str] = UNSET
-    collateral_percent: Union[Unset, float] = UNSET
-    max_collateral_inputs: Union[Unset, int] = UNSET
-    coins_per_utxo_size: Union[Unset, str] = UNSET
-    coins_per_utxo_word: Union[Unset, str] = UNSET
-    pvt_motion_no_confidence: Union[Unset, float] = UNSET
-    pvt_committee_normal: Union[Unset, float] = UNSET
-    pvt_committee_no_confidence: Union[Unset, float] = UNSET
-    pvt_hard_fork_initiation: Union[Unset, float] = UNSET
-    dvt_motion_no_confidence: Union[Unset, float] = UNSET
-    dvt_committee_normal: Union[Unset, float] = UNSET
-    dvt_committee_no_confidence: Union[Unset, float] = UNSET
-    dvt_update_to_constitution: Union[Unset, float] = UNSET
-    dvt_hard_fork_initiation: Union[Unset, float] = UNSET
-    dvt_ppnetwork_group: Union[Unset, float] = UNSET
-    dvt_ppeconomic_group: Union[Unset, float] = UNSET
-    dvt_pptechnical_group: Union[Unset, float] = UNSET
-    dvt_ppgov_group: Union[Unset, float] = UNSET
-    dvt_treasury_withdrawal: Union[Unset, float] = UNSET
-    committee_min_size: Union[Unset, int] = UNSET
-    committee_max_term_length: Union[Unset, int] = UNSET
-    gov_action_lifetime: Union[Unset, int] = UNSET
-    gov_action_deposit: Union[Unset, int] = UNSET
-    drep_deposit: Union[Unset, int] = UNSET
-    drep_activity: Union[Unset, int] = UNSET
-    min_fee_ref_script_cost_per_byte: Union[Unset, float] = UNSET
-    e_max: Union[Unset, int] = UNSET
-    n_opt: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    price_mem: Unset | float = UNSET
+    price_step: Unset | float = UNSET
+    max_tx_ex_mem: Unset | str = UNSET
+    max_tx_ex_steps: Unset | str = UNSET
+    max_block_ex_mem: Unset | str = UNSET
+    max_block_ex_steps: Unset | str = UNSET
+    max_val_size: Unset | str = UNSET
+    collateral_percent: Unset | float = UNSET
+    max_collateral_inputs: Unset | int = UNSET
+    coins_per_utxo_size: Unset | str = UNSET
+    coins_per_utxo_word: Unset | str = UNSET
+    pvt_motion_no_confidence: Unset | float = UNSET
+    pvt_committee_normal: Unset | float = UNSET
+    pvt_committee_no_confidence: Unset | float = UNSET
+    pvt_hard_fork_initiation: Unset | float = UNSET
+    dvt_motion_no_confidence: Unset | float = UNSET
+    dvt_committee_normal: Unset | float = UNSET
+    dvt_committee_no_confidence: Unset | float = UNSET
+    dvt_update_to_constitution: Unset | float = UNSET
+    dvt_hard_fork_initiation: Unset | float = UNSET
+    dvt_ppnetwork_group: Unset | float = UNSET
+    dvt_ppeconomic_group: Unset | float = UNSET
+    dvt_pptechnical_group: Unset | float = UNSET
+    dvt_ppgov_group: Unset | float = UNSET
+    dvt_treasury_withdrawal: Unset | float = UNSET
+    committee_min_size: Unset | int = UNSET
+    committee_max_term_length: Unset | int = UNSET
+    gov_action_lifetime: Unset | int = UNSET
+    gov_action_deposit: Unset | int = UNSET
+    drep_deposit: Unset | int = UNSET
+    drep_activity: Unset | int = UNSET
+    min_fee_ref_script_cost_per_byte: Unset | float = UNSET
+    e_max: Unset | int = UNSET
+    n_opt: Unset | int = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
 
         min_fee_a = self.min_fee_a
 
@@ -168,7 +165,7 @@ class ProtocolParamsDto:
 
         nonce = self.nonce
 
-        cost_models: Union[Unset, Dict[str, Any]] = UNSET
+        cost_models: Unset | dict[str, Any] = UNSET
         if not isinstance(self.cost_models, Unset):
             cost_models = self.cost_models.to_dict()
 
@@ -240,7 +237,7 @@ class ProtocolParamsDto:
 
         n_opt = self.n_opt
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if min_fee_a is not UNSET:
@@ -342,9 +339,7 @@ class ProtocolParamsDto:
         if drep_activity is not UNSET:
             field_dict["drep_activity"] = drep_activity
         if min_fee_ref_script_cost_per_byte is not UNSET:
-            field_dict["min_fee_ref_script_cost_per_byte"] = (
-                min_fee_ref_script_cost_per_byte
-            )
+            field_dict["min_fee_ref_script_cost_per_byte"] = min_fee_ref_script_cost_per_byte
         if e_max is not UNSET:
             field_dict["e_max"] = e_max
         if n_opt is not UNSET:
@@ -353,7 +348,7 @@ class ProtocolParamsDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.protocol_params_dto_cost_models import ProtocolParamsDtoCostModels
 
         d = src_dict.copy()
@@ -392,7 +387,7 @@ class ProtocolParamsDto:
         nonce = d.pop("nonce", UNSET)
 
         _cost_models = d.pop("cost_models", UNSET)
-        cost_models: Union[Unset, ProtocolParamsDtoCostModels]
+        cost_models: Unset | ProtocolParamsDtoCostModels
         if isinstance(_cost_models, Unset):
             cost_models = UNSET
         else:
@@ -460,9 +455,7 @@ class ProtocolParamsDto:
 
         drep_activity = d.pop("drep_activity", UNSET)
 
-        min_fee_ref_script_cost_per_byte = d.pop(
-            "min_fee_ref_script_cost_per_byte", UNSET
-        )
+        min_fee_ref_script_cost_per_byte = d.pop("min_fee_ref_script_cost_per_byte", UNSET)
 
         e_max = d.pop("e_max", UNSET)
 
@@ -527,7 +520,7 @@ class ProtocolParamsDto:
         return protocol_params_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

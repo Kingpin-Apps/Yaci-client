@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/votes/id/{id}".format(
-            id=id,
-        ),
+        "url": f"/api/v1/governance/votes/id/{id}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[VotingProcedureDto]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> VotingProcedureDto | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = VotingProcedureDto.from_dict(response.json())
 
@@ -36,9 +32,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[VotingProcedureDto]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[VotingProcedureDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def _build_response(
 def sync_detailed(
     id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[VotingProcedureDto]:
     """Get voting procedure by id
 
@@ -79,8 +73,8 @@ def sync_detailed(
 def sync(
     id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[VotingProcedureDto]:
+    client: AuthenticatedClient | Client,
+) -> VotingProcedureDto | None:
     """Get voting procedure by id
 
     Args:
@@ -103,7 +97,7 @@ def sync(
 async def asyncio_detailed(
     id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[VotingProcedureDto]:
     """Get voting procedure by id
 
@@ -130,8 +124,8 @@ async def asyncio_detailed(
 async def asyncio(
     id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[VotingProcedureDto]:
+    client: AuthenticatedClient | Client,
+) -> VotingProcedureDto | None:
     """Get voting procedure by id
 
     Args:

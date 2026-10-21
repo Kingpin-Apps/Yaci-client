@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,21 +11,17 @@ from ...types import Response
 
 def _get_kwargs(
     stake_address: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/accounts/{stake_address}".format(
-            stake_address=stake_address,
-        ),
+        "url": f"/api/v1/accounts/{stake_address}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[StakeAccountInfo]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> StakeAccountInfo | None:
     if response.status_code == HTTPStatus.OK:
         response_200 = StakeAccountInfo.from_dict(response.json())
 
@@ -36,9 +32,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[StakeAccountInfo]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[StakeAccountInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +44,7 @@ def _build_response(
 def sync_detailed(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[StakeAccountInfo]:
     """Obtain information about a specific stake account.It gets stake account balance from aggregated
     stake account balance if aggregation is enabled, otherwise it calculates the current lovelace
@@ -82,8 +76,8 @@ def sync_detailed(
 def sync(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[StakeAccountInfo]:
+    client: AuthenticatedClient | Client,
+) -> StakeAccountInfo | None:
     """Obtain information about a specific stake account.It gets stake account balance from aggregated
     stake account balance if aggregation is enabled, otherwise it calculates the current lovelace
     balance by aggregating all current utxos for the stake addressand get rewards amount directly from
@@ -109,7 +103,7 @@ def sync(
 async def asyncio_detailed(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[StakeAccountInfo]:
     """Obtain information about a specific stake account.It gets stake account balance from aggregated
     stake account balance if aggregation is enabled, otherwise it calculates the current lovelace
@@ -139,8 +133,8 @@ async def asyncio_detailed(
 async def asyncio(
     stake_address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[StakeAccountInfo]:
+    client: AuthenticatedClient | Client,
+) -> StakeAccountInfo | None:
     """Obtain information about a specific stake account.It gets stake account balance from aggregated
     stake account balance if aggregation is enabled, otherwise it calculates the current lovelace
     balance by aggregating all current utxos for the stake addressand get rewards amount directly from
