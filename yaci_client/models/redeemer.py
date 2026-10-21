@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,21 +20,20 @@ T = TypeVar("T", bound="Redeemer")
 class Redeemer:
     """
     Attributes:
-        tag (Union[Unset, RedeemerTag]):
-        index (Union[Unset, int]):
-        data (Union[Unset, str]):
-        ex_units (Union[Unset, ExUnits]):
+        tag (RedeemerTag | Unset):
+        index (int | Unset):
+        data (str | Unset):
+        ex_units (ExUnits | Unset):
     """
 
-    tag: Union[Unset, RedeemerTag] = UNSET
-    index: Union[Unset, int] = UNSET
-    data: Union[Unset, str] = UNSET
-    ex_units: Union[Unset, "ExUnits"] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tag: RedeemerTag | Unset = UNSET
+    index: int | Unset = UNSET
+    data: str | Unset = UNSET
+    ex_units: ExUnits | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
-        tag: Union[Unset, str] = UNSET
+    def to_dict(self) -> dict[str, Any]:
+        tag: str | Unset = UNSET
         if not isinstance(self.tag, Unset):
             tag = self.tag.value
 
@@ -47,11 +41,11 @@ class Redeemer:
 
         data = self.data
 
-        ex_units: Union[Unset, Dict[str, Any]] = UNSET
+        ex_units: dict[str, Any] | Unset = UNSET
         if not isinstance(self.ex_units, Unset):
             ex_units = self.ex_units.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tag is not UNSET:
@@ -66,12 +60,12 @@ class Redeemer:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.ex_units import ExUnits
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         _tag = d.pop("tag", UNSET)
-        tag: Union[Unset, RedeemerTag]
+        tag: RedeemerTag | Unset
         if isinstance(_tag, Unset):
             tag = UNSET
         else:
@@ -82,7 +76,7 @@ class Redeemer:
         data = d.pop("data", UNSET)
 
         _ex_units = d.pop("ex_units", UNSET)
-        ex_units: Union[Unset, ExUnits]
+        ex_units: ExUnits | Unset
         if isinstance(_ex_units, Unset):
             ex_units = UNSET
         else:
@@ -99,7 +93,7 @@ class Redeemer:
         return redeemer
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

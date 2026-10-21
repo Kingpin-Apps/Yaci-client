@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,33 +15,33 @@ T = TypeVar("T", bound="BlockSummary")
 class BlockSummary:
     """
     Attributes:
-        time (Union[Unset, int]):
-        number (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        epoch (Union[Unset, int]):
-        era (Union[Unset, int]):
-        output (Union[Unset, int]):
-        fees (Union[Unset, int]):
-        slot_leader (Union[Unset, str]):
-        size (Union[Unset, int]):
-        tx_count (Union[Unset, int]):
-        issuer_vkey (Union[Unset, str]):
+        time (int | Unset):
+        number (int | Unset):
+        slot (int | Unset):
+        epoch (int | Unset):
+        era (int | Unset):
+        output (int | Unset):
+        fees (int | Unset):
+        slot_leader (str | Unset):
+        size (int | Unset):
+        tx_count (int | Unset):
+        issuer_vkey (str | Unset):
     """
 
-    time: Union[Unset, int] = UNSET
-    number: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    era: Union[Unset, int] = UNSET
-    output: Union[Unset, int] = UNSET
-    fees: Union[Unset, int] = UNSET
-    slot_leader: Union[Unset, str] = UNSET
-    size: Union[Unset, int] = UNSET
-    tx_count: Union[Unset, int] = UNSET
-    issuer_vkey: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    time: int | Unset = UNSET
+    number: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    epoch: int | Unset = UNSET
+    era: int | Unset = UNSET
+    output: int | Unset = UNSET
+    fees: int | Unset = UNSET
+    slot_leader: str | Unset = UNSET
+    size: int | Unset = UNSET
+    tx_count: int | Unset = UNSET
+    issuer_vkey: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         time = self.time
 
         number = self.number
@@ -68,7 +64,7 @@ class BlockSummary:
 
         issuer_vkey = self.issuer_vkey
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if time is not UNSET:
@@ -97,8 +93,8 @@ class BlockSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         time = d.pop("time", UNSET)
 
         number = d.pop("number", UNSET)
@@ -139,7 +135,7 @@ class BlockSummary:
         return block_summary
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

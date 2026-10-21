@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,19 +15,19 @@ T = TypeVar("T", bound="Relay")
 class Relay:
     """
     Attributes:
-        port (Union[Unset, int]):
-        ipv4 (Union[Unset, str]):
-        ipv6 (Union[Unset, str]):
-        dns_name (Union[Unset, str]):
+        port (int | Unset):
+        ipv4 (str | Unset):
+        ipv6 (str | Unset):
+        dns_name (str | Unset):
     """
 
-    port: Union[Unset, int] = UNSET
-    ipv4: Union[Unset, str] = UNSET
-    ipv6: Union[Unset, str] = UNSET
-    dns_name: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    port: int | Unset = UNSET
+    ipv4: str | Unset = UNSET
+    ipv6: str | Unset = UNSET
+    dns_name: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         port = self.port
 
         ipv4 = self.ipv4
@@ -40,7 +36,7 @@ class Relay:
 
         dns_name = self.dns_name
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if port is not UNSET:
@@ -55,8 +51,8 @@ class Relay:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         port = d.pop("port", UNSET)
 
         ipv4 = d.pop("ipv4", UNSET)
@@ -76,7 +72,7 @@ class Relay:
         return relay
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,31 +16,31 @@ T = TypeVar("T", bound="StakeRegistrationDetail")
 class StakeRegistrationDetail:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        credential (Union[Unset, str]):
-        address (Union[Unset, str]):
-        tx_hash (Union[Unset, str]):
-        cert_index (Union[Unset, int]):
-        type (Union[Unset, StakeRegistrationDetailType]):
-        epoch (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        block_hash (Union[Unset, str]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        credential (str | Unset):
+        address (str | Unset):
+        tx_hash (str | Unset):
+        cert_index (int | Unset):
+        type_ (StakeRegistrationDetailType | Unset):
+        epoch (int | Unset):
+        slot (int | Unset):
+        block_hash (str | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    credential: Union[Unset, str] = UNSET
-    address: Union[Unset, str] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    type: Union[Unset, StakeRegistrationDetailType] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_hash: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    credential: str | Unset = UNSET
+    address: str | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    cert_index: int | Unset = UNSET
+    type_: StakeRegistrationDetailType | Unset = UNSET
+    epoch: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    block_hash: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -57,9 +53,9 @@ class StakeRegistrationDetail:
 
         cert_index = self.cert_index
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+        type_: str | Unset = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
         epoch = self.epoch
 
@@ -67,7 +63,7 @@ class StakeRegistrationDetail:
 
         block_hash = self.block_hash
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -82,8 +78,8 @@ class StakeRegistrationDetail:
             field_dict["tx_hash"] = tx_hash
         if cert_index is not UNSET:
             field_dict["cert_index"] = cert_index
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if epoch is not UNSET:
             field_dict["epoch"] = epoch
         if slot is not UNSET:
@@ -94,8 +90,8 @@ class StakeRegistrationDetail:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -108,12 +104,12 @@ class StakeRegistrationDetail:
 
         cert_index = d.pop("cert_index", UNSET)
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, StakeRegistrationDetailType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: StakeRegistrationDetailType | Unset
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = StakeRegistrationDetailType(_type)
+            type_ = StakeRegistrationDetailType(_type_)
 
         epoch = d.pop("epoch", UNSET)
 
@@ -128,7 +124,7 @@ class StakeRegistrationDetail:
             address=address,
             tx_hash=tx_hash,
             cert_index=cert_index,
-            type=type,
+            type_=type_,
             epoch=epoch,
             slot=slot,
             block_hash=block_hash,
@@ -138,7 +134,7 @@ class StakeRegistrationDetail:
         return stake_registration_detail
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

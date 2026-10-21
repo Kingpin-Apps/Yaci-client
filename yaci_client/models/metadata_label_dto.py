@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,31 +19,30 @@ T = TypeVar("T", bound="MetadataLabelDto")
 class MetadataLabelDto:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        tx_hash (Union[Unset, str]):
-        json_metadata (Union[Unset, JsonNode]):
-        cbor_metadata (Union[Unset, str]):
-        slot (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        tx_hash (str | Unset):
+        json_metadata (JsonNode | Unset):
+        cbor_metadata (str | Unset):
+        slot (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    json_metadata: Union[Unset, "JsonNode"] = UNSET
-    cbor_metadata: Union[Unset, str] = UNSET
-    slot: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    json_metadata: JsonNode | Unset = UNSET
+    cbor_metadata: str | Unset = UNSET
+    slot: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
 
         tx_hash = self.tx_hash
 
-        json_metadata: Union[Unset, Dict[str, Any]] = UNSET
+        json_metadata: dict[str, Any] | Unset = UNSET
         if not isinstance(self.json_metadata, Unset):
             json_metadata = self.json_metadata.to_dict()
 
@@ -56,7 +50,7 @@ class MetadataLabelDto:
 
         slot = self.slot
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -75,10 +69,10 @@ class MetadataLabelDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -86,7 +80,7 @@ class MetadataLabelDto:
         tx_hash = d.pop("tx_hash", UNSET)
 
         _json_metadata = d.pop("json_metadata", UNSET)
-        json_metadata: Union[Unset, JsonNode]
+        json_metadata: JsonNode | Unset
         if isinstance(_json_metadata, Unset):
             json_metadata = UNSET
         else:
@@ -109,7 +103,7 @@ class MetadataLabelDto:
         return metadata_label_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

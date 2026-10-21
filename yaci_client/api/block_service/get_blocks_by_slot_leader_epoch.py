@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -13,29 +13,25 @@ def _get_kwargs(
     pool_id: str,
     *,
     epoch: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["epoch"] = epoch
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/blocks/pool/{pool_id}".format(
-            pool_id=pool_id,
-        ),
+        "url": f"/api/v1/blocks/pool/{pool_id}",
         "params": params,
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["PoolBlock"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[PoolBlock] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -44,15 +40,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["PoolBlock"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[PoolBlock]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,9 +59,9 @@ def _build_response(
 def sync_detailed(
     pool_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     epoch: int,
-) -> Response[List["PoolBlock"]]:
+) -> Response[list[PoolBlock]]:
     """Slot Leader Block List
 
      Get blocks of slot leader in a specific epoch.
@@ -80,7 +75,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['PoolBlock']]
+        Response[list[PoolBlock]]
     """
 
     kwargs = _get_kwargs(
@@ -98,9 +93,9 @@ def sync_detailed(
 def sync(
     pool_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     epoch: int,
-) -> Optional[List["PoolBlock"]]:
+) -> list[PoolBlock] | None:
     """Slot Leader Block List
 
      Get blocks of slot leader in a specific epoch.
@@ -114,7 +109,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['PoolBlock']
+        list[PoolBlock]
     """
 
     return sync_detailed(
@@ -127,9 +122,9 @@ def sync(
 async def asyncio_detailed(
     pool_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     epoch: int,
-) -> Response[List["PoolBlock"]]:
+) -> Response[list[PoolBlock]]:
     """Slot Leader Block List
 
      Get blocks of slot leader in a specific epoch.
@@ -143,7 +138,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['PoolBlock']]
+        Response[list[PoolBlock]]
     """
 
     kwargs = _get_kwargs(
@@ -159,9 +154,9 @@ async def asyncio_detailed(
 async def asyncio(
     pool_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     epoch: int,
-) -> Optional[List["PoolBlock"]]:
+) -> list[PoolBlock] | None:
     """Slot Leader Block List
 
      Get blocks of slot leader in a specific epoch.
@@ -175,7 +170,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['PoolBlock']
+        list[PoolBlock]
     """
 
     return (

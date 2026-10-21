@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,22 +11,18 @@ from ...types import Response
 
 def _get_kwargs(
     tx_hash: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/txs/{tx_hash}/witnesses".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/txs/{tx_hash}/witnesses",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["TxnWitness"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[TxnWitness] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -35,15 +31,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["TxnWitness"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[TxnWitness]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +50,8 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxnWitness"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[TxnWitness]]:
     """Transaction Witnesses
 
      Return list of witnesses of a specific transaction.
@@ -69,7 +64,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['TxnWitness']]
+        Response[list[TxnWitness]]
     """
 
     kwargs = _get_kwargs(
@@ -86,8 +81,8 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxnWitness"]]:
+    client: AuthenticatedClient | Client,
+) -> list[TxnWitness] | None:
     """Transaction Witnesses
 
      Return list of witnesses of a specific transaction.
@@ -100,7 +95,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['TxnWitness']
+        list[TxnWitness]
     """
 
     return sync_detailed(
@@ -112,8 +107,8 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxnWitness"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[TxnWitness]]:
     """Transaction Witnesses
 
      Return list of witnesses of a specific transaction.
@@ -126,7 +121,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['TxnWitness']]
+        Response[list[TxnWitness]]
     """
 
     kwargs = _get_kwargs(
@@ -141,8 +136,8 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxnWitness"]]:
+    client: AuthenticatedClient | Client,
+) -> list[TxnWitness] | None:
     """Transaction Witnesses
 
      Return list of witnesses of a specific transaction.
@@ -155,7 +150,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['TxnWitness']
+        list[TxnWitness]
     """
 
     return (

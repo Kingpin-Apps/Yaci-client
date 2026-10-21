@@ -1,12 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-    cast,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,30 +15,30 @@ T = TypeVar("T", bound="TransactionSummary")
 class TransactionSummary:
     """
     Attributes:
-        tx_hash (Union[Unset, str]):
-        block_number (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        output_addresses (Union[Unset, List[str]]):
-        total_output (Union[Unset, int]):
-        fee (Union[Unset, int]):
+        tx_hash (str | Unset):
+        block_number (int | Unset):
+        slot (int | Unset):
+        output_addresses (list[str] | Unset):
+        total_output (int | Unset):
+        fee (int | Unset):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    block_number: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    output_addresses: Union[Unset, List[str]] = UNSET
-    total_output: Union[Unset, int] = UNSET
-    fee: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_hash: str | Unset = UNSET
+    block_number: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    output_addresses: list[str] | Unset = UNSET
+    total_output: int | Unset = UNSET
+    fee: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         tx_hash = self.tx_hash
 
         block_number = self.block_number
 
         slot = self.slot
 
-        output_addresses: Union[Unset, List[str]] = UNSET
+        output_addresses: list[str] | Unset = UNSET
         if not isinstance(self.output_addresses, Unset):
             output_addresses = self.output_addresses
 
@@ -51,7 +46,7 @@ class TransactionSummary:
 
         fee = self.fee
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -70,15 +65,15 @@ class TransactionSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         tx_hash = d.pop("tx_hash", UNSET)
 
         block_number = d.pop("block_number", UNSET)
 
         slot = d.pop("slot", UNSET)
 
-        output_addresses = cast(List[str], d.pop("output_addresses", UNSET))
+        output_addresses = cast(list[str], d.pop("output_addresses", UNSET))
 
         total_output = d.pop("total_output", UNSET)
 
@@ -97,7 +92,7 @@ class TransactionSummary:
         return transaction_summary
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

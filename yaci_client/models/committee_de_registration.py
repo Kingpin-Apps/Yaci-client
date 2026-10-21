@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,31 +16,31 @@ T = TypeVar("T", bound="CommitteeDeRegistration")
 class CommitteeDeRegistration:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        tx_hash (Union[Unset, str]):
-        cert_index (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        anchor_url (Union[Unset, str]):
-        anchor_hash (Union[Unset, str]):
-        cold_key (Union[Unset, str]):
-        cred_type (Union[Unset, CommitteeDeRegistrationCredType]):
-        epoch (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        tx_hash (str | Unset):
+        cert_index (int | Unset):
+        slot (int | Unset):
+        anchor_url (str | Unset):
+        anchor_hash (str | Unset):
+        cold_key (str | Unset):
+        cred_type (CommitteeDeRegistrationCredType | Unset):
+        epoch (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    anchor_url: Union[Unset, str] = UNSET
-    anchor_hash: Union[Unset, str] = UNSET
-    cold_key: Union[Unset, str] = UNSET
-    cred_type: Union[Unset, CommitteeDeRegistrationCredType] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    cert_index: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    anchor_url: str | Unset = UNSET
+    anchor_hash: str | Unset = UNSET
+    cold_key: str | Unset = UNSET
+    cred_type: CommitteeDeRegistrationCredType | Unset = UNSET
+    epoch: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -61,13 +57,13 @@ class CommitteeDeRegistration:
 
         cold_key = self.cold_key
 
-        cred_type: Union[Unset, str] = UNSET
+        cred_type: str | Unset = UNSET
         if not isinstance(self.cred_type, Unset):
             cred_type = self.cred_type.value
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -94,8 +90,8 @@ class CommitteeDeRegistration:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -113,7 +109,7 @@ class CommitteeDeRegistration:
         cold_key = d.pop("cold_key", UNSET)
 
         _cred_type = d.pop("cred_type", UNSET)
-        cred_type: Union[Unset, CommitteeDeRegistrationCredType]
+        cred_type: CommitteeDeRegistrationCredType | Unset
         if isinstance(_cred_type, Unset):
             cred_type = UNSET
         else:
@@ -138,7 +134,7 @@ class CommitteeDeRegistration:
         return committee_de_registration
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

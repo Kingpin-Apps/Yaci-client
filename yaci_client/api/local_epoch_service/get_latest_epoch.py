@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -9,9 +9,9 @@ from ...models.epoch_no import EpochNo
 from ...types import Response
 
 
-def _get_kwargs() -> Dict[str, Any]:
+def _get_kwargs() -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/epochs/latest",
     }
@@ -19,22 +19,19 @@ def _get_kwargs() -> Dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[EpochNo]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> EpochNo | None:
+    if response.status_code == 200:
         response_200 = EpochNo.from_dict(response.json())
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[EpochNo]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[EpochNo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -45,7 +42,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[EpochNo]:
     """Get the latest epoch no
 
@@ -68,8 +65,8 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[EpochNo]:
+    client: AuthenticatedClient | Client,
+) -> EpochNo | None:
     """Get the latest epoch no
 
     Raises:
@@ -87,7 +84,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[EpochNo]:
     """Get the latest epoch no
 
@@ -108,8 +105,8 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[EpochNo]:
+    client: AuthenticatedClient | Client,
+) -> EpochNo | None:
     """Get the latest epoch no
 
     Raises:

@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,25 +15,25 @@ T = TypeVar("T", bound="Withdrawal")
 class Withdrawal:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        address (Union[Unset, str]):
-        tx_hash (Union[Unset, str]):
-        amount (Union[Unset, int]):
-        epoch (Union[Unset, int]):
-        slot (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        address (str | Unset):
+        tx_hash (str | Unset):
+        amount (int | Unset):
+        epoch (int | Unset):
+        slot (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    amount: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    address: str | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    amount: int | Unset = UNSET
+    epoch: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -52,7 +48,7 @@ class Withdrawal:
 
         slot = self.slot
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -73,8 +69,8 @@ class Withdrawal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -103,7 +99,7 @@ class Withdrawal:
         return withdrawal
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

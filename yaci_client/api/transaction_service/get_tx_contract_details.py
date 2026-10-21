@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,22 +11,20 @@ from ...types import Response
 
 def _get_kwargs(
     tx_hash: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/txs/{tx_hash}/scripts".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/txs/{tx_hash}/scripts",
     }
 
     return _kwargs
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["TxContractDetails"]]:
-    if response.status_code == HTTPStatus.OK:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list[TxContractDetails] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -35,6 +33,7 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -42,8 +41,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["TxContractDetails"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list[TxContractDetails]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +54,8 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxContractDetails"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[TxContractDetails]]:
     """
     Args:
         tx_hash (str):
@@ -66,7 +65,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['TxContractDetails']]
+        Response[list[TxContractDetails]]
     """
 
     kwargs = _get_kwargs(
@@ -83,8 +82,8 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxContractDetails"]]:
+    client: AuthenticatedClient | Client,
+) -> list[TxContractDetails] | None:
     """
     Args:
         tx_hash (str):
@@ -94,7 +93,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['TxContractDetails']
+        list[TxContractDetails]
     """
 
     return sync_detailed(
@@ -106,8 +105,8 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["TxContractDetails"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[TxContractDetails]]:
     """
     Args:
         tx_hash (str):
@@ -117,7 +116,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['TxContractDetails']]
+        Response[list[TxContractDetails]]
     """
 
     kwargs = _get_kwargs(
@@ -132,8 +131,8 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["TxContractDetails"]]:
+    client: AuthenticatedClient | Client,
+) -> list[TxContractDetails] | None:
     """
     Args:
         tx_hash (str):
@@ -143,7 +142,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['TxContractDetails']
+        list[TxContractDetails]
     """
 
     return (

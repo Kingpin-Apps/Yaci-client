@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,19 +15,19 @@ T = TypeVar("T", bound="PoolBlock")
 class PoolBlock:
     """
     Attributes:
-        hash_ (Union[Unset, str]):
-        number (Union[Unset, int]):
-        epoch (Union[Unset, int]):
-        pool_id (Union[Unset, str]):
+        hash_ (str | Unset):
+        number (int | Unset):
+        epoch (int | Unset):
+        pool_id (str | Unset):
     """
 
-    hash_: Union[Unset, str] = UNSET
-    number: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    pool_id: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    hash_: str | Unset = UNSET
+    number: int | Unset = UNSET
+    epoch: int | Unset = UNSET
+    pool_id: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         hash_ = self.hash_
 
         number = self.number
@@ -40,7 +36,7 @@ class PoolBlock:
 
         pool_id = self.pool_id
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if hash_ is not UNSET:
@@ -55,8 +51,8 @@ class PoolBlock:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         hash_ = d.pop("hash", UNSET)
 
         number = d.pop("number", UNSET)
@@ -76,7 +72,7 @@ class PoolBlock:
         return pool_block
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

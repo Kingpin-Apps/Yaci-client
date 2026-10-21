@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,37 +20,36 @@ T = TypeVar("T", bound="TxContractDetails")
 class TxContractDetails:
     """
     Attributes:
-        tx_hash (Union[Unset, str]):
-        script_hash (Union[Unset, str]):
-        script_content (Union[Unset, str]):
-        type (Union[Unset, TxContractDetailsType]):
-        redeemer (Union[Unset, Redeemer]):
-        datum (Union[Unset, str]):
-        datum_hash (Union[Unset, str]):
+        tx_hash (str | Unset):
+        script_hash (str | Unset):
+        script_content (str | Unset):
+        type_ (TxContractDetailsType | Unset):
+        redeemer (Redeemer | Unset):
+        datum (str | Unset):
+        datum_hash (str | Unset):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    script_hash: Union[Unset, str] = UNSET
-    script_content: Union[Unset, str] = UNSET
-    type: Union[Unset, TxContractDetailsType] = UNSET
-    redeemer: Union[Unset, "Redeemer"] = UNSET
-    datum: Union[Unset, str] = UNSET
-    datum_hash: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_hash: str | Unset = UNSET
+    script_hash: str | Unset = UNSET
+    script_content: str | Unset = UNSET
+    type_: TxContractDetailsType | Unset = UNSET
+    redeemer: Redeemer | Unset = UNSET
+    datum: str | Unset = UNSET
+    datum_hash: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         tx_hash = self.tx_hash
 
         script_hash = self.script_hash
 
         script_content = self.script_content
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+        type_: str | Unset = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
-        redeemer: Union[Unset, Dict[str, Any]] = UNSET
+        redeemer: dict[str, Any] | Unset = UNSET
         if not isinstance(self.redeemer, Unset):
             redeemer = self.redeemer.to_dict()
 
@@ -63,7 +57,7 @@ class TxContractDetails:
 
         datum_hash = self.datum_hash
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -72,8 +66,8 @@ class TxContractDetails:
             field_dict["script_hash"] = script_hash
         if script_content is not UNSET:
             field_dict["script_content"] = script_content
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if redeemer is not UNSET:
             field_dict["redeemer"] = redeemer
         if datum is not UNSET:
@@ -84,25 +78,25 @@ class TxContractDetails:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.redeemer import Redeemer
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         tx_hash = d.pop("tx_hash", UNSET)
 
         script_hash = d.pop("script_hash", UNSET)
 
         script_content = d.pop("script_content", UNSET)
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, TxContractDetailsType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: TxContractDetailsType | Unset
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = TxContractDetailsType(_type)
+            type_ = TxContractDetailsType(_type_)
 
         _redeemer = d.pop("redeemer", UNSET)
-        redeemer: Union[Unset, Redeemer]
+        redeemer: Redeemer | Unset
         if isinstance(_redeemer, Unset):
             redeemer = UNSET
         else:
@@ -116,7 +110,7 @@ class TxContractDetails:
             tx_hash=tx_hash,
             script_hash=script_hash,
             script_content=script_content,
-            type=type,
+            type_=type_,
             redeemer=redeemer,
             datum=datum,
             datum_hash=datum_hash,
@@ -126,7 +120,7 @@ class TxContractDetails:
         return tx_contract_details
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,23 +15,23 @@ T = TypeVar("T", bound="StakeAddressBalance")
 class StakeAddressBalance:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        address (Union[Unset, str]):
-        slot (Union[Unset, int]):
-        quantity (Union[Unset, int]):
-        epoch (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        address (str | Unset):
+        slot (int | Unset):
+        quantity (int | Unset):
+        epoch (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    slot: Union[Unset, int] = UNSET
-    quantity: Union[Unset, int] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    address: str | Unset = UNSET
+    slot: int | Unset = UNSET
+    quantity: int | Unset = UNSET
+    epoch: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -48,7 +44,7 @@ class StakeAddressBalance:
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -67,8 +63,8 @@ class StakeAddressBalance:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -94,7 +90,7 @@ class StakeAddressBalance:
         return stake_address_balance
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

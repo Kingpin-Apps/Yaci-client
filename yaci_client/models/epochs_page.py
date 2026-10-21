@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,30 +19,29 @@ T = TypeVar("T", bound="EpochsPage")
 class EpochsPage:
     """
     Attributes:
-        total (Union[Unset, int]):
-        total_pages (Union[Unset, int]):
-        epochs (Union[Unset, List['Epoch']]):
+        total (int | Unset):
+        total_pages (int | Unset):
+        epochs (list[Epoch] | Unset):
     """
 
-    total: Union[Unset, int] = UNSET
-    total_pages: Union[Unset, int] = UNSET
-    epochs: Union[Unset, List["Epoch"]] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    total: int | Unset = UNSET
+    total_pages: int | Unset = UNSET
+    epochs: list[Epoch] | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         total = self.total
 
         total_pages = self.total_pages
 
-        epochs: Union[Unset, List[Dict[str, Any]]] = UNSET
+        epochs: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.epochs, Unset):
             epochs = []
             for epochs_item_data in self.epochs:
                 epochs_item = epochs_item_data.to_dict()
                 epochs.append(epochs_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if total is not UNSET:
@@ -60,20 +54,22 @@ class EpochsPage:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.epoch import Epoch
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         total = d.pop("total", UNSET)
 
         total_pages = d.pop("total_pages", UNSET)
 
-        epochs = []
         _epochs = d.pop("epochs", UNSET)
-        for epochs_item_data in _epochs or []:
-            epochs_item = Epoch.from_dict(epochs_item_data)
+        epochs: list[Epoch] | Unset = UNSET
+        if _epochs is not UNSET:
+            epochs = []
+            for epochs_item_data in _epochs:
+                epochs_item = Epoch.from_dict(epochs_item_data)
 
-            epochs.append(epochs_item)
+                epochs.append(epochs_item)
 
         epochs_page = cls(
             total=total,
@@ -85,7 +81,7 @@ class EpochsPage:
         return epochs_page
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

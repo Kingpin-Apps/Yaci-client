@@ -1,18 +1,12 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.move_instataneous_reward_summary_pot import (
-    MoveInstataneousRewardSummaryPot,
-)
+from ..models.move_instataneous_reward_summary_pot import MoveInstataneousRewardSummaryPot
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MoveInstataneousRewardSummary")
@@ -22,27 +16,27 @@ T = TypeVar("T", bound="MoveInstataneousRewardSummary")
 class MoveInstataneousRewardSummary:
     """
     Attributes:
-        tx_hash (Union[Unset, str]):
-        slot (Union[Unset, int]):
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        pot (Union[Unset, MoveInstataneousRewardSummaryPot]):
-        cert_index (Union[Unset, int]):
-        total_stake_keys (Union[Unset, int]):
-        total_rewards (Union[Unset, int]):
+        tx_hash (str | Unset):
+        slot (int | Unset):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        pot (MoveInstataneousRewardSummaryPot | Unset):
+        cert_index (int | Unset):
+        total_stake_keys (int | Unset):
+        total_rewards (int | Unset):
     """
 
-    tx_hash: Union[Unset, str] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    pot: Union[Unset, MoveInstataneousRewardSummaryPot] = UNSET
-    cert_index: Union[Unset, int] = UNSET
-    total_stake_keys: Union[Unset, int] = UNSET
-    total_rewards: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_hash: str | Unset = UNSET
+    slot: int | Unset = UNSET
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    pot: MoveInstataneousRewardSummaryPot | Unset = UNSET
+    cert_index: int | Unset = UNSET
+    total_stake_keys: int | Unset = UNSET
+    total_rewards: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         tx_hash = self.tx_hash
 
         slot = self.slot
@@ -51,7 +45,7 @@ class MoveInstataneousRewardSummary:
 
         block_time = self.block_time
 
-        pot: Union[Unset, str] = UNSET
+        pot: str | Unset = UNSET
         if not isinstance(self.pot, Unset):
             pot = self.pot.value
 
@@ -61,7 +55,7 @@ class MoveInstataneousRewardSummary:
 
         total_rewards = self.total_rewards
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_hash is not UNSET:
@@ -84,8 +78,8 @@ class MoveInstataneousRewardSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         tx_hash = d.pop("tx_hash", UNSET)
 
         slot = d.pop("slot", UNSET)
@@ -95,7 +89,7 @@ class MoveInstataneousRewardSummary:
         block_time = d.pop("block_time", UNSET)
 
         _pot = d.pop("pot", UNSET)
-        pot: Union[Unset, MoveInstataneousRewardSummaryPot]
+        pot: MoveInstataneousRewardSummaryPot | Unset
         if isinstance(_pot, Unset):
             pot = UNSET
         else:
@@ -122,7 +116,7 @@ class MoveInstataneousRewardSummary:
         return move_instataneous_reward_summary
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

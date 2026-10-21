@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,30 +20,29 @@ T = TypeVar("T", bound="ProtocolParamsProposal")
 class ProtocolParamsProposal:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        tx_hash (Union[Unset, str]):
-        key_hash (Union[Unset, str]):
-        target_epoch (Union[Unset, int]):
-        params (Union[Unset, ProtocolParams]):
-        epoch (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        era (Union[Unset, ProtocolParamsProposalEra]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        tx_hash (str | Unset):
+        key_hash (str | Unset):
+        target_epoch (int | Unset):
+        params (ProtocolParams | Unset):
+        epoch (int | Unset):
+        slot (int | Unset):
+        era (ProtocolParamsProposalEra | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    key_hash: Union[Unset, str] = UNSET
-    target_epoch: Union[Unset, int] = UNSET
-    params: Union[Unset, "ProtocolParams"] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    era: Union[Unset, ProtocolParamsProposalEra] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    key_hash: str | Unset = UNSET
+    target_epoch: int | Unset = UNSET
+    params: ProtocolParams | Unset = UNSET
+    epoch: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    era: ProtocolParamsProposalEra | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -59,7 +53,7 @@ class ProtocolParamsProposal:
 
         target_epoch = self.target_epoch
 
-        params: Union[Unset, Dict[str, Any]] = UNSET
+        params: dict[str, Any] | Unset = UNSET
         if not isinstance(self.params, Unset):
             params = self.params.to_dict()
 
@@ -67,11 +61,11 @@ class ProtocolParamsProposal:
 
         slot = self.slot
 
-        era: Union[Unset, str] = UNSET
+        era: str | Unset = UNSET
         if not isinstance(self.era, Unset):
             era = self.era.value
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -96,10 +90,10 @@ class ProtocolParamsProposal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.protocol_params import ProtocolParams
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -111,7 +105,7 @@ class ProtocolParamsProposal:
         target_epoch = d.pop("target_epoch", UNSET)
 
         _params = d.pop("params", UNSET)
-        params: Union[Unset, ProtocolParams]
+        params: ProtocolParams | Unset
         if isinstance(_params, Unset):
             params = UNSET
         else:
@@ -122,7 +116,7 @@ class ProtocolParamsProposal:
         slot = d.pop("slot", UNSET)
 
         _era = d.pop("era", UNSET)
-        era: Union[Unset, ProtocolParamsProposalEra]
+        era: ProtocolParamsProposalEra | Unset
         if isinstance(_era, Unset):
             era = UNSET
         else:
@@ -144,7 +138,7 @@ class ProtocolParamsProposal:
         return protocol_params_proposal
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,34 +11,29 @@ from ...types import Response
 
 def _get_kwargs(
     policy: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/assets/supply/policy/{policy}".format(
-            policy=policy,
-        ),
+        "url": f"/api/v1/assets/supply/policy/{policy}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[PolicySupply]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PolicySupply | None:
+    if response.status_code == 200:
         response_200 = PolicySupply.from_dict(response.json())
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[PolicySupply]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PolicySupply]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +45,7 @@ def _build_response(
 def sync_detailed(
     policy: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[PolicySupply]:
     """Assets Supply by Policy
 
@@ -81,8 +76,8 @@ def sync_detailed(
 def sync(
     policy: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[PolicySupply]:
+    client: AuthenticatedClient | Client,
+) -> PolicySupply | None:
     """Assets Supply by Policy
 
      Returns the entire assets supply of a specific policy.
@@ -107,7 +102,7 @@ def sync(
 async def asyncio_detailed(
     policy: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[PolicySupply]:
     """Assets Supply by Policy
 
@@ -136,8 +131,8 @@ async def asyncio_detailed(
 async def asyncio(
     policy: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[PolicySupply]:
+    client: AuthenticatedClient | Client,
+) -> PolicySupply | None:
     """Assets Supply by Policy
 
      Returns the entire assets supply of a specific policy.

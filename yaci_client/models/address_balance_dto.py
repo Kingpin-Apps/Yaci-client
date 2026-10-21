@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,31 +19,30 @@ T = TypeVar("T", bound="AddressBalanceDto")
 class AddressBalanceDto:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        address (Union[Unset, str]):
-        amounts (Union[Unset, List['Amt']]):
-        slot (Union[Unset, int]):
-        last_balance_calculation_block (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        address (str | Unset):
+        amounts (list[Amt] | Unset):
+        slot (int | Unset):
+        last_balance_calculation_block (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    address: Union[Unset, str] = UNSET
-    amounts: Union[Unset, List["Amt"]] = UNSET
-    slot: Union[Unset, int] = UNSET
-    last_balance_calculation_block: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    address: str | Unset = UNSET
+    amounts: list[Amt] | Unset = UNSET
+    slot: int | Unset = UNSET
+    last_balance_calculation_block: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
 
         address = self.address
 
-        amounts: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amounts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -59,7 +53,7 @@ class AddressBalanceDto:
 
         last_balance_calculation_block = self.last_balance_calculation_block
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -73,29 +67,29 @@ class AddressBalanceDto:
         if slot is not UNSET:
             field_dict["slot"] = slot
         if last_balance_calculation_block is not UNSET:
-            field_dict["last_balance_calculation_block"] = (
-                last_balance_calculation_block
-            )
+            field_dict["last_balance_calculation_block"] = last_balance_calculation_block
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.amt import Amt
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
 
         address = d.pop("address", UNSET)
 
-        amounts = []
         _amounts = d.pop("amounts", UNSET)
-        for amounts_item_data in _amounts or []:
-            amounts_item = Amt.from_dict(amounts_item_data)
+        amounts: list[Amt] | Unset = UNSET
+        if _amounts is not UNSET:
+            amounts = []
+            for amounts_item_data in _amounts:
+                amounts_item = Amt.from_dict(amounts_item_data)
 
-            amounts.append(amounts_item)
+                amounts.append(amounts_item)
 
         slot = d.pop("slot", UNSET)
 
@@ -114,7 +108,7 @@ class AddressBalanceDto:
         return address_balance_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

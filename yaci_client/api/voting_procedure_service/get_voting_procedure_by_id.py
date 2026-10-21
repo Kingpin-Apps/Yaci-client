@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
+from uuid import UUID
 
 import httpx
 
@@ -10,35 +11,30 @@ from ...types import Response
 
 
 def _get_kwargs(
-    id: str,
-) -> Dict[str, Any]:
+    id: UUID,
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/votes/id/{id}".format(
-            id=id,
-        ),
+        "url": f"/api/v1/governance/votes/id/{id}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[VotingProcedureDto]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> VotingProcedureDto | None:
+    if response.status_code == 200:
         response_200 = VotingProcedureDto.from_dict(response.json())
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[VotingProcedureDto]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[VotingProcedureDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -48,14 +44,14 @@ def _build_response(
 
 
 def sync_detailed(
-    id: str,
+    id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[VotingProcedureDto]:
     """Get voting procedure by id
 
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -77,14 +73,14 @@ def sync_detailed(
 
 
 def sync(
-    id: str,
+    id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[VotingProcedureDto]:
+    client: AuthenticatedClient | Client,
+) -> VotingProcedureDto | None:
     """Get voting procedure by id
 
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -101,14 +97,14 @@ def sync(
 
 
 async def asyncio_detailed(
-    id: str,
+    id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[VotingProcedureDto]:
     """Get voting procedure by id
 
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -128,14 +124,14 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    id: str,
+    id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[VotingProcedureDto]:
+    client: AuthenticatedClient | Client,
+) -> VotingProcedureDto | None:
     """Get voting procedure by id
 
     Args:
-        id (str):
+        id (UUID):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

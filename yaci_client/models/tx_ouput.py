@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,25 +19,24 @@ T = TypeVar("T", bound="TxOuput")
 class TxOuput:
     """
     Attributes:
-        address (Union[Unset, str]):
-        amounts (Union[Unset, List['Amt']]):
-        data_hash (Union[Unset, str]):
-        inline_datum (Union[Unset, str]):
-        reference_script_hash (Union[Unset, str]):
+        address (str | Unset):
+        amounts (list[Amt] | Unset):
+        data_hash (str | Unset):
+        inline_datum (str | Unset):
+        reference_script_hash (str | Unset):
     """
 
-    address: Union[Unset, str] = UNSET
-    amounts: Union[Unset, List["Amt"]] = UNSET
-    data_hash: Union[Unset, str] = UNSET
-    inline_datum: Union[Unset, str] = UNSET
-    reference_script_hash: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    address: str | Unset = UNSET
+    amounts: list[Amt] | Unset = UNSET
+    data_hash: str | Unset = UNSET
+    inline_datum: str | Unset = UNSET
+    reference_script_hash: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         address = self.address
 
-        amounts: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amounts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -55,7 +49,7 @@ class TxOuput:
 
         reference_script_hash = self.reference_script_hash
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if address is not UNSET:
@@ -72,18 +66,20 @@ class TxOuput:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.amt import Amt
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         address = d.pop("address", UNSET)
 
-        amounts = []
         _amounts = d.pop("amounts", UNSET)
-        for amounts_item_data in _amounts or []:
-            amounts_item = Amt.from_dict(amounts_item_data)
+        amounts: list[Amt] | Unset = UNSET
+        if _amounts is not UNSET:
+            amounts = []
+            for amounts_item_data in _amounts:
+                amounts_item = Amt.from_dict(amounts_item_data)
 
-            amounts.append(amounts_item)
+                amounts.append(amounts_item)
 
         data_hash = d.pop("dataHash", UNSET)
 
@@ -103,7 +99,7 @@ class TxOuput:
         return tx_ouput
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

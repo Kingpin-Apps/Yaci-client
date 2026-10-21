@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,34 +11,29 @@ from ...types import Response
 
 def _get_kwargs(
     fingerprint: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/assets/supply/fingerprint/{fingerprint}".format(
-            fingerprint=fingerprint,
-        ),
+        "url": f"/api/v1/assets/supply/fingerprint/{fingerprint}",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[FingerprintSupply]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> FingerprintSupply | None:
+    if response.status_code == 200:
         response_200 = FingerprintSupply.from_dict(response.json())
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[FingerprintSupply]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[FingerprintSupply]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,7 +45,7 @@ def _build_response(
 def sync_detailed(
     fingerprint: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[FingerprintSupply]:
     """Assets Supply by Fingerprint
 
@@ -81,8 +76,8 @@ def sync_detailed(
 def sync(
     fingerprint: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[FingerprintSupply]:
+    client: AuthenticatedClient | Client,
+) -> FingerprintSupply | None:
     """Assets Supply by Fingerprint
 
      Returns the entire supply of a specific asset by fingerprint.
@@ -107,7 +102,7 @@ def sync(
 async def asyncio_detailed(
     fingerprint: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[FingerprintSupply]:
     """Assets Supply by Fingerprint
 
@@ -136,8 +131,8 @@ async def asyncio_detailed(
 async def asyncio(
     fingerprint: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[FingerprintSupply]:
+    client: AuthenticatedClient | Client,
+) -> FingerprintSupply | None:
     """Assets Supply by Fingerprint
 
      Returns the entire supply of a specific asset by fingerprint.

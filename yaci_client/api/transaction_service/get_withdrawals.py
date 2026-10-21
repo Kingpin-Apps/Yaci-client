@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,11 +11,11 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Dict[str, Any]:
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/txs/withdrawals",
         "params": params,
@@ -32,10 +32,8 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Withdrawal"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[Withdrawal] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -44,15 +42,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Withdrawal"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[Withdrawal]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,24 +60,24 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+) -> Response[list[Withdrawal]]:
     """Get withdrawals
 
      Get withdrawals
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Withdrawal']]
+        Response[list[Withdrawal]]
     """
 
     kwargs = _get_kwargs(
@@ -97,24 +94,24 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+) -> list[Withdrawal] | None:
     """Get withdrawals
 
      Get withdrawals
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Withdrawal']
+        list[Withdrawal]
     """
 
     return sync_detailed(
@@ -126,24 +123,24 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Response[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+) -> Response[list[Withdrawal]]:
     """Get withdrawals
 
      Get withdrawals
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Withdrawal']]
+        Response[list[Withdrawal]]
     """
 
     kwargs = _get_kwargs(
@@ -158,24 +155,24 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-) -> Optional[List["Withdrawal"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+) -> list[Withdrawal] | None:
     """Get withdrawals
 
      Get withdrawals
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Withdrawal']
+        list[Withdrawal]
     """
 
     return (

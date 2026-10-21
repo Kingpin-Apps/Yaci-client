@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,31 +12,28 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: List["UtxoKey"],
-) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
+    body: list[UtxoKey],
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/api/v1/utxos",
     }
 
-    _body = []
+    _kwargs["json"] = []
     for body_item_data in body:
         body_item = body_item_data.to_dict()
-        _body.append(body_item)
+        _kwargs["json"].append(body_item)
 
-    _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["AddressUtxo"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[AddressUtxo] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -45,15 +42,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["AddressUtxo"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[AddressUtxo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,19 +60,19 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Response[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list[UtxoKey],
+) -> Response[list[AddressUtxo]]:
     """
     Args:
-        body (List['UtxoKey']):
+        body (list[UtxoKey]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['AddressUtxo']]
+        Response[list[AddressUtxo]]
     """
 
     kwargs = _get_kwargs(
@@ -92,19 +88,19 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Optional[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list[UtxoKey],
+) -> list[AddressUtxo] | None:
     """
     Args:
-        body (List['UtxoKey']):
+        body (list[UtxoKey]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['AddressUtxo']
+        list[AddressUtxo]
     """
 
     return sync_detailed(
@@ -115,19 +111,19 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Response[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list[UtxoKey],
+) -> Response[list[AddressUtxo]]:
     """
     Args:
-        body (List['UtxoKey']):
+        body (list[UtxoKey]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['AddressUtxo']]
+        Response[list[AddressUtxo]]
     """
 
     kwargs = _get_kwargs(
@@ -141,19 +137,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: List["UtxoKey"],
-) -> Optional[List["AddressUtxo"]]:
+    client: AuthenticatedClient | Client,
+    body: list[UtxoKey],
+) -> list[AddressUtxo] | None:
     """
     Args:
-        body (List['UtxoKey']):
+        body (list[UtxoKey]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['AddressUtxo']
+        list[AddressUtxo]
     """
 
     return (

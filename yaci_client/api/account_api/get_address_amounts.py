@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -11,22 +11,18 @@ from ...types import Response
 
 def _get_kwargs(
     address: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/addresses/{address}/amounts".format(
-            address=address,
-        ),
+        "url": f"/api/v1/addresses/{address}/amounts",
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Amount"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[Amount] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -35,15 +31,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Amount"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[Amount]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +50,8 @@ def _build_response(
 def sync_detailed(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["Amount"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[Amount]]:
     """Get amounts at an address. For stake address, only lovelace is returned.It calculates the current
     balance at the address by aggregating all currrent utxos for the stake address. It may be slow for
     addresses with too many utxos.
@@ -69,7 +64,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Amount']]
+        Response[list[Amount]]
     """
 
     kwargs = _get_kwargs(
@@ -86,8 +81,8 @@ def sync_detailed(
 def sync(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["Amount"]]:
+    client: AuthenticatedClient | Client,
+) -> list[Amount] | None:
     """Get amounts at an address. For stake address, only lovelace is returned.It calculates the current
     balance at the address by aggregating all currrent utxos for the stake address. It may be slow for
     addresses with too many utxos.
@@ -100,7 +95,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Amount']
+        list[Amount]
     """
 
     return sync_detailed(
@@ -112,8 +107,8 @@ def sync(
 async def asyncio_detailed(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Response[List["Amount"]]:
+    client: AuthenticatedClient | Client,
+) -> Response[list[Amount]]:
     """Get amounts at an address. For stake address, only lovelace is returned.It calculates the current
     balance at the address by aggregating all currrent utxos for the stake address. It may be slow for
     addresses with too many utxos.
@@ -126,7 +121,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Amount']]
+        Response[list[Amount]]
     """
 
     kwargs = _get_kwargs(
@@ -141,8 +136,8 @@ async def asyncio_detailed(
 async def asyncio(
     address: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[List["Amount"]]:
+    client: AuthenticatedClient | Client,
+) -> list[Amount] | None:
     """Get amounts at an address. For stake address, only lovelace is returned.It calculates the current
     balance at the address by aggregating all currrent utxos for the stake address. It may be slow for
     addresses with too many utxos.
@@ -155,7 +150,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Amount']
+        list[Amount]
     """
 
     return (

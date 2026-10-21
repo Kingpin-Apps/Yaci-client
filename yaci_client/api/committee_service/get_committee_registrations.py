@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,20 +12,18 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetCommitteeRegistrationsOrder
-    ] = GetCommitteeRegistrationsOrder.DESC,
-) -> Dict[str, Any]:
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetCommitteeRegistrationsOrder | Unset = GetCommitteeRegistrationsOrder.DESC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["count"] = count
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: str | Unset = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -33,7 +31,7 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/governance/committees/registrations",
         "params": params,
@@ -43,9 +41,9 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["CommitteeRegistration"]]:
-    if response.status_code == HTTPStatus.OK:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list[CommitteeRegistration] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -54,6 +52,7 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -61,8 +60,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["CommitteeRegistration"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list[CommitteeRegistration]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,19 +72,17 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetCommitteeRegistrationsOrder
-    ] = GetCommitteeRegistrationsOrder.DESC,
-) -> Response[List["CommitteeRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetCommitteeRegistrationsOrder | Unset = GetCommitteeRegistrationsOrder.DESC,
+) -> Response[list[CommitteeRegistration]]:
     """Get committee registrations by page number and count
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetCommitteeRegistrationsOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetCommitteeRegistrationsOrder | Unset):  Default:
             GetCommitteeRegistrationsOrder.DESC.
 
     Raises:
@@ -93,7 +90,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['CommitteeRegistration']]
+        Response[list[CommitteeRegistration]]
     """
 
     kwargs = _get_kwargs(
@@ -111,19 +108,17 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetCommitteeRegistrationsOrder
-    ] = GetCommitteeRegistrationsOrder.DESC,
-) -> Optional[List["CommitteeRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetCommitteeRegistrationsOrder | Unset = GetCommitteeRegistrationsOrder.DESC,
+) -> list[CommitteeRegistration] | None:
     """Get committee registrations by page number and count
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetCommitteeRegistrationsOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetCommitteeRegistrationsOrder | Unset):  Default:
             GetCommitteeRegistrationsOrder.DESC.
 
     Raises:
@@ -131,7 +126,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['CommitteeRegistration']
+        list[CommitteeRegistration]
     """
 
     return sync_detailed(
@@ -144,19 +139,17 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetCommitteeRegistrationsOrder
-    ] = GetCommitteeRegistrationsOrder.DESC,
-) -> Response[List["CommitteeRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetCommitteeRegistrationsOrder | Unset = GetCommitteeRegistrationsOrder.DESC,
+) -> Response[list[CommitteeRegistration]]:
     """Get committee registrations by page number and count
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetCommitteeRegistrationsOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetCommitteeRegistrationsOrder | Unset):  Default:
             GetCommitteeRegistrationsOrder.DESC.
 
     Raises:
@@ -164,7 +157,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['CommitteeRegistration']]
+        Response[list[CommitteeRegistration]]
     """
 
     kwargs = _get_kwargs(
@@ -180,19 +173,17 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetCommitteeRegistrationsOrder
-    ] = GetCommitteeRegistrationsOrder.DESC,
-) -> Optional[List["CommitteeRegistration"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetCommitteeRegistrationsOrder | Unset = GetCommitteeRegistrationsOrder.DESC,
+) -> list[CommitteeRegistration] | None:
     """Get committee registrations by page number and count
 
     Args:
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetCommitteeRegistrationsOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetCommitteeRegistrationsOrder | Unset):  Default:
             GetCommitteeRegistrationsOrder.DESC.
 
     Raises:
@@ -200,7 +191,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['CommitteeRegistration']
+        list[CommitteeRegistration]
     """
 
     return (

@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,25 +15,25 @@ T = TypeVar("T", bound="TxRedeemerDto")
 class TxRedeemerDto:
     """
     Attributes:
-        tx_index (Union[Unset, int]):
-        purpose (Union[Unset, str]):
-        script_hash (Union[Unset, str]):
-        datum_hash (Union[Unset, str]):
-        redeemer_data_hash (Union[Unset, str]):
-        unit_mem (Union[Unset, str]):
-        unit_steps (Union[Unset, str]):
+        tx_index (int | Unset):
+        purpose (str | Unset):
+        script_hash (str | Unset):
+        datum_hash (str | Unset):
+        redeemer_data_hash (str | Unset):
+        unit_mem (str | Unset):
+        unit_steps (str | Unset):
     """
 
-    tx_index: Union[Unset, int] = UNSET
-    purpose: Union[Unset, str] = UNSET
-    script_hash: Union[Unset, str] = UNSET
-    datum_hash: Union[Unset, str] = UNSET
-    redeemer_data_hash: Union[Unset, str] = UNSET
-    unit_mem: Union[Unset, str] = UNSET
-    unit_steps: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    tx_index: int | Unset = UNSET
+    purpose: str | Unset = UNSET
+    script_hash: str | Unset = UNSET
+    datum_hash: str | Unset = UNSET
+    redeemer_data_hash: str | Unset = UNSET
+    unit_mem: str | Unset = UNSET
+    unit_steps: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         tx_index = self.tx_index
 
         purpose = self.purpose
@@ -52,7 +48,7 @@ class TxRedeemerDto:
 
         unit_steps = self.unit_steps
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if tx_index is not UNSET:
@@ -73,8 +69,8 @@ class TxRedeemerDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         tx_index = d.pop("tx_index", UNSET)
 
         purpose = d.pop("purpose", UNSET)
@@ -103,7 +99,7 @@ class TxRedeemerDto:
         return tx_redeemer_dto
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

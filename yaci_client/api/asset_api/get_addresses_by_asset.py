@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -12,12 +12,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     unit: str,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Dict[str, Any]:
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    sort: str | Unset = "asc",
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
@@ -27,11 +27,9 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/assets/{unit}/addresses".format(
-            unit=unit,
-        ),
+        "url": f"/api/v1/assets/{unit}/addresses",
         "params": params,
     }
 
@@ -39,9 +37,9 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["AddressAssetBalanceDto"]]:
-    if response.status_code == HTTPStatus.OK:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list[AddressAssetBalanceDto] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -50,6 +48,7 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -57,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["AddressAssetBalanceDto"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list[AddressAssetBalanceDto]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,25 +69,25 @@ def _build_response(
 def sync_detailed(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Response[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    sort: str | Unset = "asc",
+) -> Response[list[AddressAssetBalanceDto]]:
     """Get addresses by asset
 
     Args:
         unit (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        sort (Union[Unset, str]):  Default: 'asc'.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        sort (str | Unset):  Default: 'asc'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['AddressAssetBalanceDto']]
+        Response[list[AddressAssetBalanceDto]]
     """
 
     kwargs = _get_kwargs(
@@ -108,25 +107,25 @@ def sync_detailed(
 def sync(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Optional[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    sort: str | Unset = "asc",
+) -> list[AddressAssetBalanceDto] | None:
     """Get addresses by asset
 
     Args:
         unit (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        sort (Union[Unset, str]):  Default: 'asc'.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        sort (str | Unset):  Default: 'asc'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['AddressAssetBalanceDto']
+        list[AddressAssetBalanceDto]
     """
 
     return sync_detailed(
@@ -141,25 +140,25 @@ def sync(
 async def asyncio_detailed(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Response[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    sort: str | Unset = "asc",
+) -> Response[list[AddressAssetBalanceDto]]:
     """Get addresses by asset
 
     Args:
         unit (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        sort (Union[Unset, str]):  Default: 'asc'.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        sort (str | Unset):  Default: 'asc'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['AddressAssetBalanceDto']]
+        Response[list[AddressAssetBalanceDto]]
     """
 
     kwargs = _get_kwargs(
@@ -177,25 +176,25 @@ async def asyncio_detailed(
 async def asyncio(
     unit: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    sort: Union[Unset, str] = "asc",
-) -> Optional[List["AddressAssetBalanceDto"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    sort: str | Unset = "asc",
+) -> list[AddressAssetBalanceDto] | None:
     """Get addresses by asset
 
     Args:
         unit (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        sort (Union[Unset, str]):  Default: 'asc'.
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        sort (str | Unset):  Default: 'asc'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['AddressAssetBalanceDto']
+        list[AddressAssetBalanceDto]
     """
 
     return (

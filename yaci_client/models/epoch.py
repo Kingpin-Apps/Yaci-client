@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,27 +15,27 @@ T = TypeVar("T", bound="Epoch")
 class Epoch:
     """
     Attributes:
-        number (Union[Unset, int]):
-        block_count (Union[Unset, int]):
-        transaction_count (Union[Unset, int]):
-        total_output (Union[Unset, int]):
-        total_fees (Union[Unset, int]):
-        start_time (Union[Unset, int]):
-        end_time (Union[Unset, int]):
-        max_slot (Union[Unset, int]):
+        number (int | Unset):
+        block_count (int | Unset):
+        transaction_count (int | Unset):
+        total_output (int | Unset):
+        total_fees (int | Unset):
+        start_time (int | Unset):
+        end_time (int | Unset):
+        max_slot (int | Unset):
     """
 
-    number: Union[Unset, int] = UNSET
-    block_count: Union[Unset, int] = UNSET
-    transaction_count: Union[Unset, int] = UNSET
-    total_output: Union[Unset, int] = UNSET
-    total_fees: Union[Unset, int] = UNSET
-    start_time: Union[Unset, int] = UNSET
-    end_time: Union[Unset, int] = UNSET
-    max_slot: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    number: int | Unset = UNSET
+    block_count: int | Unset = UNSET
+    transaction_count: int | Unset = UNSET
+    total_output: int | Unset = UNSET
+    total_fees: int | Unset = UNSET
+    start_time: int | Unset = UNSET
+    end_time: int | Unset = UNSET
+    max_slot: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         number = self.number
 
         block_count = self.block_count
@@ -56,7 +52,7 @@ class Epoch:
 
         max_slot = self.max_slot
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if number is not UNSET:
@@ -79,8 +75,8 @@ class Epoch:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         number = d.pop("number", UNSET)
 
         block_count = d.pop("block_count", UNSET)
@@ -112,7 +108,7 @@ class Epoch:
         return epoch
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

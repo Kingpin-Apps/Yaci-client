@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,48 +19,47 @@ T = TypeVar("T", bound="AddressUtxo")
 class AddressUtxo:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        tx_hash (Union[Unset, str]):
-        output_index (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        block_hash (Union[Unset, str]):
-        epoch (Union[Unset, int]):
-        owner_addr (Union[Unset, str]):
-        owner_stake_addr (Union[Unset, str]):
-        owner_payment_credential (Union[Unset, str]):
-        owner_stake_credential (Union[Unset, str]):
-        lovelace_amount (Union[Unset, int]):
-        amounts (Union[Unset, List['Amt']]):
-        data_hash (Union[Unset, str]):
-        inline_datum (Union[Unset, str]):
-        script_ref (Union[Unset, str]):
-        reference_script_hash (Union[Unset, str]):
-        is_collateral_return (Union[Unset, bool]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        tx_hash (str | Unset):
+        output_index (int | Unset):
+        slot (int | Unset):
+        block_hash (str | Unset):
+        epoch (int | Unset):
+        owner_addr (str | Unset):
+        owner_stake_addr (str | Unset):
+        owner_payment_credential (str | Unset):
+        owner_stake_credential (str | Unset):
+        lovelace_amount (int | Unset):
+        amounts (list[Amt] | Unset):
+        data_hash (str | Unset):
+        inline_datum (str | Unset):
+        script_ref (str | Unset):
+        reference_script_hash (str | Unset):
+        is_collateral_return (bool | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    output_index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    block_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    owner_addr: Union[Unset, str] = UNSET
-    owner_stake_addr: Union[Unset, str] = UNSET
-    owner_payment_credential: Union[Unset, str] = UNSET
-    owner_stake_credential: Union[Unset, str] = UNSET
-    lovelace_amount: Union[Unset, int] = UNSET
-    amounts: Union[Unset, List["Amt"]] = UNSET
-    data_hash: Union[Unset, str] = UNSET
-    inline_datum: Union[Unset, str] = UNSET
-    script_ref: Union[Unset, str] = UNSET
-    reference_script_hash: Union[Unset, str] = UNSET
-    is_collateral_return: Union[Unset, bool] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    output_index: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    block_hash: str | Unset = UNSET
+    epoch: int | Unset = UNSET
+    owner_addr: str | Unset = UNSET
+    owner_stake_addr: str | Unset = UNSET
+    owner_payment_credential: str | Unset = UNSET
+    owner_stake_credential: str | Unset = UNSET
+    lovelace_amount: int | Unset = UNSET
+    amounts: list[Amt] | Unset = UNSET
+    data_hash: str | Unset = UNSET
+    inline_datum: str | Unset = UNSET
+    script_ref: str | Unset = UNSET
+    reference_script_hash: str | Unset = UNSET
+    is_collateral_return: bool | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -90,7 +84,7 @@ class AddressUtxo:
 
         lovelace_amount = self.lovelace_amount
 
-        amounts: Union[Unset, List[Dict[str, Any]]] = UNSET
+        amounts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -107,7 +101,7 @@ class AddressUtxo:
 
         is_collateral_return = self.is_collateral_return
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -150,10 +144,10 @@ class AddressUtxo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.amt import Amt
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -178,12 +172,14 @@ class AddressUtxo:
 
         lovelace_amount = d.pop("lovelace_amount", UNSET)
 
-        amounts = []
         _amounts = d.pop("amounts", UNSET)
-        for amounts_item_data in _amounts or []:
-            amounts_item = Amt.from_dict(amounts_item_data)
+        amounts: list[Amt] | Unset = UNSET
+        if _amounts is not UNSET:
+            amounts = []
+            for amounts_item_data in _amounts:
+                amounts_item = Amt.from_dict(amounts_item_data)
 
-            amounts.append(amounts_item)
+                amounts.append(amounts_item)
 
         data_hash = d.pop("data_hash", UNSET)
 
@@ -220,7 +216,7 @@ class AddressUtxo:
         return address_utxo
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

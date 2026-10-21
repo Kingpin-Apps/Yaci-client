@@ -1,12 +1,7 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,36 +20,35 @@ T = TypeVar("T", bound="GovActionProposal")
 class GovActionProposal:
     """
     Attributes:
-        block_number (Union[Unset, int]):
-        block_time (Union[Unset, int]):
-        tx_hash (Union[Unset, str]):
-        index (Union[Unset, int]):
-        slot (Union[Unset, int]):
-        deposit (Union[Unset, int]):
-        return_address (Union[Unset, str]):
-        type (Union[Unset, GovActionProposalType]):
-        details (Union[Unset, JsonNode]):
-        anchor_url (Union[Unset, str]):
-        anchor_hash (Union[Unset, str]):
-        epoch (Union[Unset, int]):
+        block_number (int | Unset):
+        block_time (int | Unset):
+        tx_hash (str | Unset):
+        index (int | Unset):
+        slot (int | Unset):
+        deposit (int | Unset):
+        return_address (str | Unset):
+        type_ (GovActionProposalType | Unset):
+        details (JsonNode | Unset):
+        anchor_url (str | Unset):
+        anchor_hash (str | Unset):
+        epoch (int | Unset):
     """
 
-    block_number: Union[Unset, int] = UNSET
-    block_time: Union[Unset, int] = UNSET
-    tx_hash: Union[Unset, str] = UNSET
-    index: Union[Unset, int] = UNSET
-    slot: Union[Unset, int] = UNSET
-    deposit: Union[Unset, int] = UNSET
-    return_address: Union[Unset, str] = UNSET
-    type: Union[Unset, GovActionProposalType] = UNSET
-    details: Union[Unset, "JsonNode"] = UNSET
-    anchor_url: Union[Unset, str] = UNSET
-    anchor_hash: Union[Unset, str] = UNSET
-    epoch: Union[Unset, int] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    block_number: int | Unset = UNSET
+    block_time: int | Unset = UNSET
+    tx_hash: str | Unset = UNSET
+    index: int | Unset = UNSET
+    slot: int | Unset = UNSET
+    deposit: int | Unset = UNSET
+    return_address: str | Unset = UNSET
+    type_: GovActionProposalType | Unset = UNSET
+    details: JsonNode | Unset = UNSET
+    anchor_url: str | Unset = UNSET
+    anchor_hash: str | Unset = UNSET
+    epoch: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-
+    def to_dict(self) -> dict[str, Any]:
         block_number = self.block_number
 
         block_time = self.block_time
@@ -69,11 +63,11 @@ class GovActionProposal:
 
         return_address = self.return_address
 
-        type: Union[Unset, str] = UNSET
-        if not isinstance(self.type, Unset):
-            type = self.type.value
+        type_: str | Unset = UNSET
+        if not isinstance(self.type_, Unset):
+            type_ = self.type_.value
 
-        details: Union[Unset, Dict[str, Any]] = UNSET
+        details: dict[str, Any] | Unset = UNSET
         if not isinstance(self.details, Unset):
             details = self.details.to_dict()
 
@@ -83,7 +77,7 @@ class GovActionProposal:
 
         epoch = self.epoch
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if block_number is not UNSET:
@@ -100,8 +94,8 @@ class GovActionProposal:
             field_dict["deposit"] = deposit
         if return_address is not UNSET:
             field_dict["return_address"] = return_address
-        if type is not UNSET:
-            field_dict["type"] = type
+        if type_ is not UNSET:
+            field_dict["type"] = type_
         if details is not UNSET:
             field_dict["details"] = details
         if anchor_url is not UNSET:
@@ -114,10 +108,10 @@ class GovActionProposal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -132,15 +126,15 @@ class GovActionProposal:
 
         return_address = d.pop("return_address", UNSET)
 
-        _type = d.pop("type", UNSET)
-        type: Union[Unset, GovActionProposalType]
-        if isinstance(_type, Unset):
-            type = UNSET
+        _type_ = d.pop("type", UNSET)
+        type_: GovActionProposalType | Unset
+        if isinstance(_type_, Unset):
+            type_ = UNSET
         else:
-            type = GovActionProposalType(_type)
+            type_ = GovActionProposalType(_type_)
 
         _details = d.pop("details", UNSET)
-        details: Union[Unset, JsonNode]
+        details: JsonNode | Unset
         if isinstance(_details, Unset):
             details = UNSET
         else:
@@ -160,7 +154,7 @@ class GovActionProposal:
             slot=slot,
             deposit=deposit,
             return_address=return_address,
-            type=type,
+            type_=type_,
             details=details,
             anchor_url=anchor_url,
             anchor_hash=anchor_hash,
@@ -171,7 +165,7 @@ class GovActionProposal:
         return gov_action_proposal
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,18 +14,18 @@ def _get_kwargs(
     address: str,
     asset: str,
     *,
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Dict[str, Any]:
+    count: int | Unset = 10,
+    page: int | Unset = 0,
+    order: GetUtxosForAssetOrder | Unset = GetUtxosForAssetOrder.ASC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["count"] = count
 
     params["page"] = page
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: str | Unset = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -33,22 +33,17 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/addresses/{address}/utxos/{asset}".format(
-            address=address,
-            asset=asset,
-        ),
+        "url": f"/api/v1/addresses/{address}/utxos/{asset}",
         "params": params,
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["Utxo"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[Utxo] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -57,15 +52,14 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["Utxo"]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[Utxo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,11 +72,11 @@ def sync_detailed(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Response[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: int | Unset = 10,
+    page: int | Unset = 0,
+    order: GetUtxosForAssetOrder | Unset = GetUtxosForAssetOrder.ASC,
+) -> Response[list[Utxo]]:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -90,16 +84,16 @@ def sync_detailed(
     Args:
         address (str):
         asset (str):
-        count (Union[Unset, int]):  Default: 10.
-        page (Union[Unset, int]):  Default: 0.
-        order (Union[Unset, GetUtxosForAssetOrder]):  Default: GetUtxosForAssetOrder.ASC.
+        count (int | Unset):  Default: 10.
+        page (int | Unset):  Default: 0.
+        order (GetUtxosForAssetOrder | Unset):  Default: GetUtxosForAssetOrder.ASC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Utxo']]
+        Response[list[Utxo]]
     """
 
     kwargs = _get_kwargs(
@@ -121,11 +115,11 @@ def sync(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Optional[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: int | Unset = 10,
+    page: int | Unset = 0,
+    order: GetUtxosForAssetOrder | Unset = GetUtxosForAssetOrder.ASC,
+) -> list[Utxo] | None:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -133,16 +127,16 @@ def sync(
     Args:
         address (str):
         asset (str):
-        count (Union[Unset, int]):  Default: 10.
-        page (Union[Unset, int]):  Default: 0.
-        order (Union[Unset, GetUtxosForAssetOrder]):  Default: GetUtxosForAssetOrder.ASC.
+        count (int | Unset):  Default: 10.
+        page (int | Unset):  Default: 0.
+        order (GetUtxosForAssetOrder | Unset):  Default: GetUtxosForAssetOrder.ASC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Utxo']
+        list[Utxo]
     """
 
     return sync_detailed(
@@ -159,11 +153,11 @@ async def asyncio_detailed(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Response[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: int | Unset = 10,
+    page: int | Unset = 0,
+    order: GetUtxosForAssetOrder | Unset = GetUtxosForAssetOrder.ASC,
+) -> Response[list[Utxo]]:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -171,16 +165,16 @@ async def asyncio_detailed(
     Args:
         address (str):
         asset (str):
-        count (Union[Unset, int]):  Default: 10.
-        page (Union[Unset, int]):  Default: 0.
-        order (Union[Unset, GetUtxosForAssetOrder]):  Default: GetUtxosForAssetOrder.ASC.
+        count (int | Unset):  Default: 10.
+        page (int | Unset):  Default: 0.
+        order (GetUtxosForAssetOrder | Unset):  Default: GetUtxosForAssetOrder.ASC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['Utxo']]
+        Response[list[Utxo]]
     """
 
     kwargs = _get_kwargs(
@@ -200,11 +194,11 @@ async def asyncio(
     address: str,
     asset: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    count: Union[Unset, int] = 10,
-    page: Union[Unset, int] = 0,
-    order: Union[Unset, GetUtxosForAssetOrder] = GetUtxosForAssetOrder.ASC,
-) -> Optional[List["Utxo"]]:
+    client: AuthenticatedClient | Client,
+    count: int | Unset = 10,
+    page: int | Unset = 0,
+    order: GetUtxosForAssetOrder | Unset = GetUtxosForAssetOrder.ASC,
+) -> list[Utxo] | None:
     """Get UTxOs for an address or address verification key hash (addr_vkh) for a specific asset. If the
     address is a stake address, it will return UTXOs for all base addresses associated with the stake
     address
@@ -212,16 +206,16 @@ async def asyncio(
     Args:
         address (str):
         asset (str):
-        count (Union[Unset, int]):  Default: 10.
-        page (Union[Unset, int]):  Default: 0.
-        order (Union[Unset, GetUtxosForAssetOrder]):  Default: GetUtxosForAssetOrder.ASC.
+        count (int | Unset):  Default: 10.
+        page (int | Unset):  Default: 0.
+        order (GetUtxosForAssetOrder | Unset):  Default: GetUtxosForAssetOrder.ASC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['Utxo']
+        list[Utxo]
     """
 
     return (

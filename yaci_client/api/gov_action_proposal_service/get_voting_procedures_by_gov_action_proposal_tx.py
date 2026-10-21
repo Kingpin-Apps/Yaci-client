@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,20 +15,18 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     tx_hash: str,
     *,
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Dict[str, Any]:
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetVotingProceduresByGovActionProposalTxOrder | Unset = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> dict[str, Any]:
 
-    params: Dict[str, Any] = {}
+    params: dict[str, Any] = {}
 
     params["page"] = page
 
     params["count"] = count
 
-    json_order: Union[Unset, str] = UNSET
+    json_order: str | Unset = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -36,21 +34,17 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/v1/governance/proposals/{tx_hash}/votes".format(
-            tx_hash=tx_hash,
-        ),
+        "url": f"/api/v1/governance/proposals/{tx_hash}/votes",
         "params": params,
     }
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[List["VotingProcedure"]]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[VotingProcedure] | None:
+    if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -59,6 +53,7 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -66,8 +61,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[List["VotingProcedure"]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list[VotingProcedure]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,20 +74,18 @@ def _build_response(
 def sync_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Response[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetVotingProceduresByGovActionProposalTxOrder | Unset = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> Response[list[VotingProcedure]]:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
         tx_hash (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetVotingProceduresByGovActionProposalTxOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetVotingProceduresByGovActionProposalTxOrder | Unset):  Default:
             GetVotingProceduresByGovActionProposalTxOrder.DESC.
 
     Raises:
@@ -100,7 +93,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['VotingProcedure']]
+        Response[list[VotingProcedure]]
     """
 
     kwargs = _get_kwargs(
@@ -120,20 +113,18 @@ def sync_detailed(
 def sync(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Optional[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetVotingProceduresByGovActionProposalTxOrder | Unset = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> list[VotingProcedure] | None:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
         tx_hash (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetVotingProceduresByGovActionProposalTxOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetVotingProceduresByGovActionProposalTxOrder | Unset):  Default:
             GetVotingProceduresByGovActionProposalTxOrder.DESC.
 
     Raises:
@@ -141,7 +132,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['VotingProcedure']
+        list[VotingProcedure]
     """
 
     return sync_detailed(
@@ -156,20 +147,18 @@ def sync(
 async def asyncio_detailed(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Response[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetVotingProceduresByGovActionProposalTxOrder | Unset = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> Response[list[VotingProcedure]]:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
         tx_hash (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetVotingProceduresByGovActionProposalTxOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetVotingProceduresByGovActionProposalTxOrder | Unset):  Default:
             GetVotingProceduresByGovActionProposalTxOrder.DESC.
 
     Raises:
@@ -177,7 +166,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['VotingProcedure']]
+        Response[list[VotingProcedure]]
     """
 
     kwargs = _get_kwargs(
@@ -195,20 +184,18 @@ async def asyncio_detailed(
 async def asyncio(
     tx_hash: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    page: Union[Unset, int] = 0,
-    count: Union[Unset, int] = 10,
-    order: Union[
-        Unset, GetVotingProceduresByGovActionProposalTxOrder
-    ] = GetVotingProceduresByGovActionProposalTxOrder.DESC,
-) -> Optional[List["VotingProcedure"]]:
+    client: AuthenticatedClient | Client,
+    page: int | Unset = 0,
+    count: int | Unset = 10,
+    order: GetVotingProceduresByGovActionProposalTxOrder | Unset = GetVotingProceduresByGovActionProposalTxOrder.DESC,
+) -> list[VotingProcedure] | None:
     """Get voting procedure list by transaction hash of governance action proposal
 
     Args:
         tx_hash (str):
-        page (Union[Unset, int]):  Default: 0.
-        count (Union[Unset, int]):  Default: 10.
-        order (Union[Unset, GetVotingProceduresByGovActionProposalTxOrder]):  Default:
+        page (int | Unset):  Default: 0.
+        count (int | Unset):  Default: 10.
+        order (GetVotingProceduresByGovActionProposalTxOrder | Unset):  Default:
             GetVotingProceduresByGovActionProposalTxOrder.DESC.
 
     Raises:
@@ -216,7 +203,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['VotingProcedure']
+        list[VotingProcedure]
     """
 
     return (

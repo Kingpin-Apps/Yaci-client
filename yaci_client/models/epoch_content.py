@@ -1,11 +1,7 @@
-from typing import (
-    Any,
-    Dict,
-    List,
-    Type,
-    TypeVar,
-    Union,
-)
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,25 +15,25 @@ T = TypeVar("T", bound="EpochContent")
 class EpochContent:
     """
     Attributes:
-        epoch (Union[Unset, int]):
-        first_block_time (Union[Unset, int]):
-        last_block_time (Union[Unset, int]):
-        block_count (Union[Unset, int]):
-        tx_count (Union[Unset, int]):
-        output (Union[Unset, str]):
-        fees (Union[Unset, str]):
+        epoch (int | Unset):
+        first_block_time (int | Unset):
+        last_block_time (int | Unset):
+        block_count (int | Unset):
+        tx_count (int | Unset):
+        output (str | Unset):
+        fees (str | Unset):
     """
 
-    epoch: Union[Unset, int] = UNSET
-    first_block_time: Union[Unset, int] = UNSET
-    last_block_time: Union[Unset, int] = UNSET
-    block_count: Union[Unset, int] = UNSET
-    tx_count: Union[Unset, int] = UNSET
-    output: Union[Unset, str] = UNSET
-    fees: Union[Unset, str] = UNSET
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+    epoch: int | Unset = UNSET
+    first_block_time: int | Unset = UNSET
+    last_block_time: int | Unset = UNSET
+    block_count: int | Unset = UNSET
+    tx_count: int | Unset = UNSET
+    output: str | Unset = UNSET
+    fees: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         epoch = self.epoch
 
         first_block_time = self.first_block_time
@@ -52,7 +48,7 @@ class EpochContent:
 
         fees = self.fees
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if epoch is not UNSET:
@@ -73,8 +69,8 @@ class EpochContent:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         epoch = d.pop("epoch", UNSET)
 
         first_block_time = d.pop("first_block_time", UNSET)
@@ -103,7 +99,7 @@ class EpochContent:
         return epoch_content
 
     @property
-    def additional_keys(self) -> List[str]:
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

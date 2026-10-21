@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -9,9 +9,9 @@ from ...models.block_dto import BlockDto
 from ...types import Response
 
 
-def _get_kwargs() -> Dict[str, Any]:
+def _get_kwargs() -> dict[str, Any]:
 
-    _kwargs: Dict[str, Any] = {
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/api/v1/blocks/latest",
     }
@@ -19,22 +19,19 @@ def _get_kwargs() -> Dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[BlockDto]:
-    if response.status_code == HTTPStatus.OK:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> BlockDto | None:
+    if response.status_code == 200:
         response_200 = BlockDto.from_dict(response.json())
 
         return response_200
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[BlockDto]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[BlockDto]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -45,7 +42,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[BlockDto]:
     """Latest Block
 
@@ -70,8 +67,8 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[BlockDto]:
+    client: AuthenticatedClient | Client,
+) -> BlockDto | None:
     """Latest Block
 
      Get the Latest Block Information.
@@ -91,7 +88,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
 ) -> Response[BlockDto]:
     """Latest Block
 
@@ -114,8 +111,8 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[BlockDto]:
+    client: AuthenticatedClient | Client,
+) -> BlockDto | None:
     """Latest Block
 
      Get the Latest Block Information.
