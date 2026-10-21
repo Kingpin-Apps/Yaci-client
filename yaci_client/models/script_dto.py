@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+import builtins
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,22 +17,22 @@ T = TypeVar("T", bound="ScriptDto")
 class ScriptDto:
     """
     Attributes:
-        script_hash (str | Unset):
-        type_ (ScriptDtoType | Unset):
-        serialised_size (int | Unset):
+        script_hash (Union[Unset, str]):
+        type (Union[Unset, ScriptDtoType]):
+        serialised_size (Union[Unset, int]):
     """
 
-    script_hash: str | Unset = UNSET
-    type_: ScriptDtoType | Unset = UNSET
-    serialised_size: int | Unset = UNSET
+    script_hash: Unset | str = UNSET
+    type: Unset | ScriptDtoType = UNSET
+    serialised_size: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         script_hash = self.script_hash
 
-        type_: str | Unset = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        type: Unset | str = UNSET
+        if not isinstance(self.type, Unset):
+            type = self.type.value
 
         serialised_size = self.serialised_size
 
@@ -40,30 +41,30 @@ class ScriptDto:
         field_dict.update({})
         if script_hash is not UNSET:
             field_dict["script_hash"] = script_hash
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if type is not UNSET:
+            field_dict["type"] = type
         if serialised_size is not UNSET:
             field_dict["serialised_size"] = serialised_size
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         script_hash = d.pop("script_hash", UNSET)
 
-        _type_ = d.pop("type", UNSET)
-        type_: ScriptDtoType | Unset
-        if isinstance(_type_, Unset):
-            type_ = UNSET
+        _type = d.pop("type", UNSET)
+        type: Unset | ScriptDtoType
+        if isinstance(_type, Unset):
+            type = UNSET
         else:
-            type_ = ScriptDtoType(_type_)
+            type = ScriptDtoType(_type)
 
         serialised_size = d.pop("serialised_size", UNSET)
 
         script_dto = cls(
             script_hash=script_hash,
-            type_=type_,
+            type=type,
             serialised_size=serialised_size,
         )
 

@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +15,16 @@ T = TypeVar("T", bound="StakeAccountInfo")
 class StakeAccountInfo:
     """
     Attributes:
-        stake_address (str | Unset):
-        controlled_amount (int | Unset):
-        withdrawable_amount (int | Unset):
-        pool_id (str | Unset):
+        stake_address (Union[Unset, str]):
+        controlled_amount (Union[Unset, int]):
+        withdrawable_amount (Union[Unset, int]):
+        pool_id (Union[Unset, str]):
     """
 
-    stake_address: str | Unset = UNSET
-    controlled_amount: int | Unset = UNSET
-    withdrawable_amount: int | Unset = UNSET
-    pool_id: str | Unset = UNSET
+    stake_address: Unset | str = UNSET
+    controlled_amount: Unset | int = UNSET
+    withdrawable_amount: Unset | int = UNSET
+    pool_id: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,8 +51,8 @@ class StakeAccountInfo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         stake_address = d.pop("stake_address", UNSET)
 
         controlled_amount = d.pop("controlled_amount", UNSET)

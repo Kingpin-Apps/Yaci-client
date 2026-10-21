@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,31 +22,32 @@ T = TypeVar("T", bound="TxUtxo")
 class TxUtxo:
     """
     Attributes:
-        tx_hash (str | Unset):
-        output_index (int | Unset):
-        address (str | Unset):
-        stake_address (str | Unset):
-        amount (list[Amt] | Unset):
-        data_hash (str | Unset):
-        inline_datum (str | Unset):
-        script_ref (str | Unset):
-        reference_script_hash (str | Unset):
-        inline_datum_json (JsonNode | Unset):
+        tx_hash (Union[Unset, str]):
+        output_index (Union[Unset, int]):
+        address (Union[Unset, str]):
+        stake_address (Union[Unset, str]):
+        amount (Union[Unset, List['Amt']]):
+        data_hash (Union[Unset, str]):
+        inline_datum (Union[Unset, str]):
+        script_ref (Union[Unset, str]):
+        reference_script_hash (Union[Unset, str]):
+        inline_datum_json (Union[Unset, JsonNode]):
     """
 
-    tx_hash: str | Unset = UNSET
-    output_index: int | Unset = UNSET
-    address: str | Unset = UNSET
-    stake_address: str | Unset = UNSET
-    amount: list[Amt] | Unset = UNSET
-    data_hash: str | Unset = UNSET
-    inline_datum: str | Unset = UNSET
-    script_ref: str | Unset = UNSET
-    reference_script_hash: str | Unset = UNSET
-    inline_datum_json: JsonNode | Unset = UNSET
+    tx_hash: Unset | str = UNSET
+    output_index: Unset | int = UNSET
+    address: Unset | str = UNSET
+    stake_address: Unset | str = UNSET
+    amount: Unset | list["Amt"] = UNSET
+    data_hash: Unset | str = UNSET
+    inline_datum: Unset | str = UNSET
+    script_ref: Unset | str = UNSET
+    reference_script_hash: Unset | str = UNSET
+    inline_datum_json: Union[Unset, "JsonNode"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         tx_hash = self.tx_hash
 
         output_index = self.output_index
@@ -53,7 +56,7 @@ class TxUtxo:
 
         stake_address = self.stake_address
 
-        amount: list[dict[str, Any]] | Unset = UNSET
+        amount: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amount, Unset):
             amount = []
             for amount_item_data in self.amount:
@@ -68,7 +71,7 @@ class TxUtxo:
 
         reference_script_hash = self.reference_script_hash
 
-        inline_datum_json: dict[str, Any] | Unset = UNSET
+        inline_datum_json: Unset | dict[str, Any] = UNSET
         if not isinstance(self.inline_datum_json, Unset):
             inline_datum_json = self.inline_datum_json.to_dict()
 
@@ -99,11 +102,11 @@ class TxUtxo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
         output_index = d.pop("output_index", UNSET)
@@ -112,14 +115,12 @@ class TxUtxo:
 
         stake_address = d.pop("stake_address", UNSET)
 
+        amount = []
         _amount = d.pop("amount", UNSET)
-        amount: list[Amt] | Unset = UNSET
-        if _amount is not UNSET:
-            amount = []
-            for amount_item_data in _amount:
-                amount_item = Amt.from_dict(amount_item_data)
+        for amount_item_data in _amount or []:
+            amount_item = Amt.from_dict(amount_item_data)
 
-                amount.append(amount_item)
+            amount.append(amount_item)
 
         data_hash = d.pop("data_hash", UNSET)
 
@@ -130,7 +131,7 @@ class TxUtxo:
         reference_script_hash = d.pop("reference_script_hash", UNSET)
 
         _inline_datum_json = d.pop("inline_datum_json", UNSET)
-        inline_datum_json: JsonNode | Unset
+        inline_datum_json: Unset | JsonNode
         if isinstance(_inline_datum_json, Unset):
             inline_datum_json = UNSET
         else:

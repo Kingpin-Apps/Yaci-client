@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,22 +20,23 @@ T = TypeVar("T", bound="TransactionPage")
 class TransactionPage:
     """
     Attributes:
-        total (int | Unset):
-        total_pages (int | Unset):
-        transaction_summaries (list[TransactionSummary] | Unset):
+        total (Union[Unset, int]):
+        total_pages (Union[Unset, int]):
+        transaction_summaries (Union[Unset, List['TransactionSummary']]):
     """
 
-    total: int | Unset = UNSET
-    total_pages: int | Unset = UNSET
-    transaction_summaries: list[TransactionSummary] | Unset = UNSET
+    total: Unset | int = UNSET
+    total_pages: Unset | int = UNSET
+    transaction_summaries: Unset | list["TransactionSummary"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         total = self.total
 
         total_pages = self.total_pages
 
-        transaction_summaries: list[dict[str, Any]] | Unset = UNSET
+        transaction_summaries: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.transaction_summaries, Unset):
             transaction_summaries = []
             for transaction_summaries_item_data in self.transaction_summaries:
@@ -54,22 +56,20 @@ class TransactionPage:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.transaction_summary import TransactionSummary
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         total = d.pop("total", UNSET)
 
         total_pages = d.pop("total_pages", UNSET)
 
+        transaction_summaries = []
         _transaction_summaries = d.pop("transaction_summaries", UNSET)
-        transaction_summaries: list[TransactionSummary] | Unset = UNSET
-        if _transaction_summaries is not UNSET:
-            transaction_summaries = []
-            for transaction_summaries_item_data in _transaction_summaries:
-                transaction_summaries_item = TransactionSummary.from_dict(transaction_summaries_item_data)
+        for transaction_summaries_item_data in _transaction_summaries or []:
+            transaction_summaries_item = TransactionSummary.from_dict(transaction_summaries_item_data)
 
-                transaction_summaries.append(transaction_summaries_item)
+            transaction_summaries.append(transaction_summaries_item)
 
         transaction_page = cls(
             total=total,

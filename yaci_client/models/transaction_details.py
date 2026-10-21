@@ -1,7 +1,10 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+    cast,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,63 +23,64 @@ T = TypeVar("T", bound="TransactionDetails")
 class TransactionDetails:
     """
     Attributes:
-        hash_ (str | Unset):
-        block_height (int | Unset):
-        slot (int | Unset):
-        inputs (list[TxUtxo] | Unset):
-        outputs (list[TxUtxo] | Unset):
-        utxo_count (int | Unset):
-        total_output (int | Unset):
-        fees (int | Unset):
-        ttl (int | Unset):
-        auxiliary_data_hash (str | Unset):
-        validity_interval_start (int | Unset):
-        script_data_hash (str | Unset):
-        collateral_inputs (list[TxUtxo] | Unset):
-        required_signers (list[str] | Unset):
-        netowrk_id (int | Unset):
-        collateral_return (TxOuput | Unset):
-        total_collateral (int | Unset):
-        reference_inputs (list[TxUtxo] | Unset):
-        invalid (bool | Unset):
+        hash_ (Union[Unset, str]):
+        block_height (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        inputs (Union[Unset, List['TxUtxo']]):
+        outputs (Union[Unset, List['TxUtxo']]):
+        utxo_count (Union[Unset, int]):
+        total_output (Union[Unset, int]):
+        fees (Union[Unset, int]):
+        ttl (Union[Unset, int]):
+        auxiliary_data_hash (Union[Unset, str]):
+        validity_interval_start (Union[Unset, int]):
+        script_data_hash (Union[Unset, str]):
+        collateral_inputs (Union[Unset, List['TxUtxo']]):
+        required_signers (Union[Unset, List[str]]):
+        netowrk_id (Union[Unset, int]):
+        collateral_return (Union[Unset, TxOuput]):
+        total_collateral (Union[Unset, int]):
+        reference_inputs (Union[Unset, List['TxUtxo']]):
+        invalid (Union[Unset, bool]):
     """
 
-    hash_: str | Unset = UNSET
-    block_height: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    inputs: list[TxUtxo] | Unset = UNSET
-    outputs: list[TxUtxo] | Unset = UNSET
-    utxo_count: int | Unset = UNSET
-    total_output: int | Unset = UNSET
-    fees: int | Unset = UNSET
-    ttl: int | Unset = UNSET
-    auxiliary_data_hash: str | Unset = UNSET
-    validity_interval_start: int | Unset = UNSET
-    script_data_hash: str | Unset = UNSET
-    collateral_inputs: list[TxUtxo] | Unset = UNSET
-    required_signers: list[str] | Unset = UNSET
-    netowrk_id: int | Unset = UNSET
-    collateral_return: TxOuput | Unset = UNSET
-    total_collateral: int | Unset = UNSET
-    reference_inputs: list[TxUtxo] | Unset = UNSET
-    invalid: bool | Unset = UNSET
+    hash_: Unset | str = UNSET
+    block_height: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    inputs: Unset | list["TxUtxo"] = UNSET
+    outputs: Unset | list["TxUtxo"] = UNSET
+    utxo_count: Unset | int = UNSET
+    total_output: Unset | int = UNSET
+    fees: Unset | int = UNSET
+    ttl: Unset | int = UNSET
+    auxiliary_data_hash: Unset | str = UNSET
+    validity_interval_start: Unset | int = UNSET
+    script_data_hash: Unset | str = UNSET
+    collateral_inputs: Unset | list["TxUtxo"] = UNSET
+    required_signers: Unset | list[str] = UNSET
+    netowrk_id: Unset | int = UNSET
+    collateral_return: Union[Unset, "TxOuput"] = UNSET
+    total_collateral: Unset | int = UNSET
+    reference_inputs: Unset | list["TxUtxo"] = UNSET
+    invalid: Unset | bool = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         hash_ = self.hash_
 
         block_height = self.block_height
 
         slot = self.slot
 
-        inputs: list[dict[str, Any]] | Unset = UNSET
+        inputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.inputs, Unset):
             inputs = []
             for inputs_item_data in self.inputs:
                 inputs_item = inputs_item_data.to_dict()
                 inputs.append(inputs_item)
 
-        outputs: list[dict[str, Any]] | Unset = UNSET
+        outputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.outputs, Unset):
             outputs = []
             for outputs_item_data in self.outputs:
@@ -97,26 +101,26 @@ class TransactionDetails:
 
         script_data_hash = self.script_data_hash
 
-        collateral_inputs: list[dict[str, Any]] | Unset = UNSET
+        collateral_inputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.collateral_inputs, Unset):
             collateral_inputs = []
             for collateral_inputs_item_data in self.collateral_inputs:
                 collateral_inputs_item = collateral_inputs_item_data.to_dict()
                 collateral_inputs.append(collateral_inputs_item)
 
-        required_signers: list[str] | Unset = UNSET
+        required_signers: Unset | list[str] = UNSET
         if not isinstance(self.required_signers, Unset):
             required_signers = self.required_signers
 
         netowrk_id = self.netowrk_id
 
-        collateral_return: dict[str, Any] | Unset = UNSET
+        collateral_return: Unset | dict[str, Any] = UNSET
         if not isinstance(self.collateral_return, Unset):
             collateral_return = self.collateral_return.to_dict()
 
         total_collateral = self.total_collateral
 
-        reference_inputs: list[dict[str, Any]] | Unset = UNSET
+        reference_inputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.reference_inputs, Unset):
             reference_inputs = []
             for reference_inputs_item_data in self.reference_inputs:
@@ -170,34 +174,30 @@ class TransactionDetails:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.tx_ouput import TxOuput
         from ..models.tx_utxo import TxUtxo
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         hash_ = d.pop("hash", UNSET)
 
         block_height = d.pop("block_height", UNSET)
 
         slot = d.pop("slot", UNSET)
 
+        inputs = []
         _inputs = d.pop("inputs", UNSET)
-        inputs: list[TxUtxo] | Unset = UNSET
-        if _inputs is not UNSET:
-            inputs = []
-            for inputs_item_data in _inputs:
-                inputs_item = TxUtxo.from_dict(inputs_item_data)
+        for inputs_item_data in _inputs or []:
+            inputs_item = TxUtxo.from_dict(inputs_item_data)
 
-                inputs.append(inputs_item)
+            inputs.append(inputs_item)
 
+        outputs = []
         _outputs = d.pop("outputs", UNSET)
-        outputs: list[TxUtxo] | Unset = UNSET
-        if _outputs is not UNSET:
-            outputs = []
-            for outputs_item_data in _outputs:
-                outputs_item = TxUtxo.from_dict(outputs_item_data)
+        for outputs_item_data in _outputs or []:
+            outputs_item = TxUtxo.from_dict(outputs_item_data)
 
-                outputs.append(outputs_item)
+            outputs.append(outputs_item)
 
         utxo_count = d.pop("utxo_count", UNSET)
 
@@ -213,21 +213,19 @@ class TransactionDetails:
 
         script_data_hash = d.pop("script_data_hash", UNSET)
 
+        collateral_inputs = []
         _collateral_inputs = d.pop("collateral_inputs", UNSET)
-        collateral_inputs: list[TxUtxo] | Unset = UNSET
-        if _collateral_inputs is not UNSET:
-            collateral_inputs = []
-            for collateral_inputs_item_data in _collateral_inputs:
-                collateral_inputs_item = TxUtxo.from_dict(collateral_inputs_item_data)
+        for collateral_inputs_item_data in _collateral_inputs or []:
+            collateral_inputs_item = TxUtxo.from_dict(collateral_inputs_item_data)
 
-                collateral_inputs.append(collateral_inputs_item)
+            collateral_inputs.append(collateral_inputs_item)
 
         required_signers = cast(list[str], d.pop("required_signers", UNSET))
 
         netowrk_id = d.pop("netowrk_id", UNSET)
 
         _collateral_return = d.pop("collateral_return", UNSET)
-        collateral_return: TxOuput | Unset
+        collateral_return: Unset | TxOuput
         if isinstance(_collateral_return, Unset):
             collateral_return = UNSET
         else:
@@ -235,14 +233,12 @@ class TransactionDetails:
 
         total_collateral = d.pop("total_collateral", UNSET)
 
+        reference_inputs = []
         _reference_inputs = d.pop("reference_inputs", UNSET)
-        reference_inputs: list[TxUtxo] | Unset = UNSET
-        if _reference_inputs is not UNSET:
-            reference_inputs = []
-            for reference_inputs_item_data in _reference_inputs:
-                reference_inputs_item = TxUtxo.from_dict(reference_inputs_item_data)
+        for reference_inputs_item_data in _reference_inputs or []:
+            reference_inputs_item = TxUtxo.from_dict(reference_inputs_item_data)
 
-                reference_inputs.append(reference_inputs_item)
+            reference_inputs.append(reference_inputs_item)
 
         invalid = d.pop("invalid", UNSET)
 

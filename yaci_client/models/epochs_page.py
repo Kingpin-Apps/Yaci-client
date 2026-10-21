@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,22 +20,23 @@ T = TypeVar("T", bound="EpochsPage")
 class EpochsPage:
     """
     Attributes:
-        total (int | Unset):
-        total_pages (int | Unset):
-        epochs (list[Epoch] | Unset):
+        total (Union[Unset, int]):
+        total_pages (Union[Unset, int]):
+        epochs (Union[Unset, List['Epoch']]):
     """
 
-    total: int | Unset = UNSET
-    total_pages: int | Unset = UNSET
-    epochs: list[Epoch] | Unset = UNSET
+    total: Unset | int = UNSET
+    total_pages: Unset | int = UNSET
+    epochs: Unset | list["Epoch"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         total = self.total
 
         total_pages = self.total_pages
 
-        epochs: list[dict[str, Any]] | Unset = UNSET
+        epochs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.epochs, Unset):
             epochs = []
             for epochs_item_data in self.epochs:
@@ -54,22 +56,20 @@ class EpochsPage:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.epoch import Epoch
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         total = d.pop("total", UNSET)
 
         total_pages = d.pop("total_pages", UNSET)
 
+        epochs = []
         _epochs = d.pop("epochs", UNSET)
-        epochs: list[Epoch] | Unset = UNSET
-        if _epochs is not UNSET:
-            epochs = []
-            for epochs_item_data in _epochs:
-                epochs_item = Epoch.from_dict(epochs_item_data)
+        for epochs_item_data in _epochs or []:
+            epochs_item = Epoch.from_dict(epochs_item_data)
 
-                epochs.append(epochs_item)
+            epochs.append(epochs_item)
 
         epochs_page = cls(
             total=total,

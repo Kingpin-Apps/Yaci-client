@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,30 +15,30 @@ T = TypeVar("T", bound="BlockSummary")
 class BlockSummary:
     """
     Attributes:
-        time (int | Unset):
-        number (int | Unset):
-        slot (int | Unset):
-        epoch (int | Unset):
-        era (int | Unset):
-        output (int | Unset):
-        fees (int | Unset):
-        slot_leader (str | Unset):
-        size (int | Unset):
-        tx_count (int | Unset):
-        issuer_vkey (str | Unset):
+        time (Union[Unset, int]):
+        number (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        epoch (Union[Unset, int]):
+        era (Union[Unset, int]):
+        output (Union[Unset, int]):
+        fees (Union[Unset, int]):
+        slot_leader (Union[Unset, str]):
+        size (Union[Unset, int]):
+        tx_count (Union[Unset, int]):
+        issuer_vkey (Union[Unset, str]):
     """
 
-    time: int | Unset = UNSET
-    number: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    epoch: int | Unset = UNSET
-    era: int | Unset = UNSET
-    output: int | Unset = UNSET
-    fees: int | Unset = UNSET
-    slot_leader: str | Unset = UNSET
-    size: int | Unset = UNSET
-    tx_count: int | Unset = UNSET
-    issuer_vkey: str | Unset = UNSET
+    time: Unset | int = UNSET
+    number: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    era: Unset | int = UNSET
+    output: Unset | int = UNSET
+    fees: Unset | int = UNSET
+    slot_leader: Unset | str = UNSET
+    size: Unset | int = UNSET
+    tx_count: Unset | int = UNSET
+    issuer_vkey: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -93,8 +93,8 @@ class BlockSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         time = d.pop("time", UNSET)
 
         number = d.pop("number", UNSET)

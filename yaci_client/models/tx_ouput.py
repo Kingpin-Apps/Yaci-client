@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,24 +20,25 @@ T = TypeVar("T", bound="TxOuput")
 class TxOuput:
     """
     Attributes:
-        address (str | Unset):
-        amounts (list[Amt] | Unset):
-        data_hash (str | Unset):
-        inline_datum (str | Unset):
-        reference_script_hash (str | Unset):
+        address (Union[Unset, str]):
+        amounts (Union[Unset, List['Amt']]):
+        data_hash (Union[Unset, str]):
+        inline_datum (Union[Unset, str]):
+        reference_script_hash (Union[Unset, str]):
     """
 
-    address: str | Unset = UNSET
-    amounts: list[Amt] | Unset = UNSET
-    data_hash: str | Unset = UNSET
-    inline_datum: str | Unset = UNSET
-    reference_script_hash: str | Unset = UNSET
+    address: Unset | str = UNSET
+    amounts: Unset | list["Amt"] = UNSET
+    data_hash: Unset | str = UNSET
+    inline_datum: Unset | str = UNSET
+    reference_script_hash: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         address = self.address
 
-        amounts: list[dict[str, Any]] | Unset = UNSET
+        amounts: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -66,20 +68,18 @@ class TxOuput:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         address = d.pop("address", UNSET)
 
+        amounts = []
         _amounts = d.pop("amounts", UNSET)
-        amounts: list[Amt] | Unset = UNSET
-        if _amounts is not UNSET:
-            amounts = []
-            for amounts_item_data in _amounts:
-                amounts_item = Amt.from_dict(amounts_item_data)
+        for amounts_item_data in _amounts or []:
+            amounts_item = Amt.from_dict(amounts_item_data)
 
-                amounts.append(amounts_item)
+            amounts.append(amounts_item)
 
         data_hash = d.pop("dataHash", UNSET)
 

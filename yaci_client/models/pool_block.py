@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +15,16 @@ T = TypeVar("T", bound="PoolBlock")
 class PoolBlock:
     """
     Attributes:
-        hash_ (str | Unset):
-        number (int | Unset):
-        epoch (int | Unset):
-        pool_id (str | Unset):
+        hash_ (Union[Unset, str]):
+        number (Union[Unset, int]):
+        epoch (Union[Unset, int]):
+        pool_id (Union[Unset, str]):
     """
 
-    hash_: str | Unset = UNSET
-    number: int | Unset = UNSET
-    epoch: int | Unset = UNSET
-    pool_id: str | Unset = UNSET
+    hash_: Unset | str = UNSET
+    number: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    pool_id: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,8 +51,8 @@ class PoolBlock:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         hash_ = d.pop("hash", UNSET)
 
         number = d.pop("number", UNSET)

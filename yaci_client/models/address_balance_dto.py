@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,30 +20,31 @@ T = TypeVar("T", bound="AddressBalanceDto")
 class AddressBalanceDto:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        address (str | Unset):
-        amounts (list[Amt] | Unset):
-        slot (int | Unset):
-        last_balance_calculation_block (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        address (Union[Unset, str]):
+        amounts (Union[Unset, List['Amt']]):
+        slot (Union[Unset, int]):
+        last_balance_calculation_block (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    address: str | Unset = UNSET
-    amounts: list[Amt] | Unset = UNSET
-    slot: int | Unset = UNSET
-    last_balance_calculation_block: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    address: Unset | str = UNSET
+    amounts: Unset | list["Amt"] = UNSET
+    slot: Unset | int = UNSET
+    last_balance_calculation_block: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         block_number = self.block_number
 
         block_time = self.block_time
 
         address = self.address
 
-        amounts: list[dict[str, Any]] | Unset = UNSET
+        amounts: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.amounts, Unset):
             amounts = []
             for amounts_item_data in self.amounts:
@@ -72,24 +74,22 @@ class AddressBalanceDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.amt import Amt
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
 
         address = d.pop("address", UNSET)
 
+        amounts = []
         _amounts = d.pop("amounts", UNSET)
-        amounts: list[Amt] | Unset = UNSET
-        if _amounts is not UNSET:
-            amounts = []
-            for amounts_item_data in _amounts:
-                amounts_item = Amt.from_dict(amounts_item_data)
+        for amounts_item_data in _amounts or []:
+            amounts_item = Amt.from_dict(amounts_item_data)
 
-                amounts.append(amounts_item)
+            amounts.append(amounts_item)
 
         slot = d.pop("slot", UNSET)
 

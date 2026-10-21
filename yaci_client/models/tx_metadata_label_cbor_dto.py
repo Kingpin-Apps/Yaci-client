@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,18 +15,18 @@ T = TypeVar("T", bound="TxMetadataLabelCBORDto")
 class TxMetadataLabelCBORDto:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        label (str | Unset):
-        metadata (str | Unset):
-        slot (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        label (Union[Unset, str]):
+        metadata (Union[Unset, str]):
+        slot (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    label: str | Unset = UNSET
-    metadata: str | Unset = UNSET
-    slot: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    label: Unset | str = UNSET
+    metadata: Unset | str = UNSET
+    slot: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,8 +57,8 @@ class TxMetadataLabelCBORDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)

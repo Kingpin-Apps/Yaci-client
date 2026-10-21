@@ -12,9 +12,9 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDRepUpdatesOrder | Unset = GetDRepUpdatesOrder.DESC,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepUpdatesOrder = GetDRepUpdatesOrder.DESC,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params["count"] = count
 
-    json_order: str | Unset = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -40,8 +40,10 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[DRepRegistration] | None:
-    if response.status_code == 200:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> list["DRepRegistration"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -50,7 +52,6 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -59,7 +60,7 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[list[DRepRegistration]]:
+) -> Response[list["DRepRegistration"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,23 +72,23 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDRepUpdatesOrder | Unset = GetDRepUpdatesOrder.DESC,
-) -> Response[list[DRepRegistration]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepUpdatesOrder = GetDRepUpdatesOrder.DESC,
+) -> Response[list["DRepRegistration"]]:
     """Get dRep updates by page number and count
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDRepUpdatesOrder | Unset):  Default: GetDRepUpdatesOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDRepUpdatesOrder]):  Default: GetDRepUpdatesOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[DRepRegistration]]
+        Response[List['DRepRegistration']]
     """
 
     kwargs = _get_kwargs(
@@ -106,23 +107,23 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDRepUpdatesOrder | Unset = GetDRepUpdatesOrder.DESC,
-) -> list[DRepRegistration] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepUpdatesOrder = GetDRepUpdatesOrder.DESC,
+) -> list["DRepRegistration"] | None:
     """Get dRep updates by page number and count
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDRepUpdatesOrder | Unset):  Default: GetDRepUpdatesOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDRepUpdatesOrder]):  Default: GetDRepUpdatesOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[DRepRegistration]
+        List['DRepRegistration']
     """
 
     return sync_detailed(
@@ -136,23 +137,23 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDRepUpdatesOrder | Unset = GetDRepUpdatesOrder.DESC,
-) -> Response[list[DRepRegistration]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepUpdatesOrder = GetDRepUpdatesOrder.DESC,
+) -> Response[list["DRepRegistration"]]:
     """Get dRep updates by page number and count
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDRepUpdatesOrder | Unset):  Default: GetDRepUpdatesOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDRepUpdatesOrder]):  Default: GetDRepUpdatesOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[DRepRegistration]]
+        Response[List['DRepRegistration']]
     """
 
     kwargs = _get_kwargs(
@@ -169,23 +170,23 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDRepUpdatesOrder | Unset = GetDRepUpdatesOrder.DESC,
-) -> list[DRepRegistration] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDRepUpdatesOrder = GetDRepUpdatesOrder.DESC,
+) -> list["DRepRegistration"] | None:
     """Get dRep updates by page number and count
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDRepUpdatesOrder | Unset):  Default: GetDRepUpdatesOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDRepUpdatesOrder]):  Default: GetDRepUpdatesOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[DRepRegistration]
+        List['DRepRegistration']
     """
 
     return (

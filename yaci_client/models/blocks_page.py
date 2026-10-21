@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,22 +20,23 @@ T = TypeVar("T", bound="BlocksPage")
 class BlocksPage:
     """
     Attributes:
-        total (int | Unset):
-        total_pages (int | Unset):
-        blocks (list[BlockSummary] | Unset):
+        total (Union[Unset, int]):
+        total_pages (Union[Unset, int]):
+        blocks (Union[Unset, List['BlockSummary']]):
     """
 
-    total: int | Unset = UNSET
-    total_pages: int | Unset = UNSET
-    blocks: list[BlockSummary] | Unset = UNSET
+    total: Unset | int = UNSET
+    total_pages: Unset | int = UNSET
+    blocks: Unset | list["BlockSummary"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         total = self.total
 
         total_pages = self.total_pages
 
-        blocks: list[dict[str, Any]] | Unset = UNSET
+        blocks: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.blocks, Unset):
             blocks = []
             for blocks_item_data in self.blocks:
@@ -54,22 +56,20 @@ class BlocksPage:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.block_summary import BlockSummary
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         total = d.pop("total", UNSET)
 
         total_pages = d.pop("total_pages", UNSET)
 
+        blocks = []
         _blocks = d.pop("blocks", UNSET)
-        blocks: list[BlockSummary] | Unset = UNSET
-        if _blocks is not UNSET:
-            blocks = []
-            for blocks_item_data in _blocks:
-                blocks_item = BlockSummary.from_dict(blocks_item_data)
+        for blocks_item_data in _blocks or []:
+            blocks_item = BlockSummary.from_dict(blocks_item_data)
 
-                blocks.append(blocks_item)
+            blocks.append(blocks_item)
 
         blocks_page = cls(
             total=total,

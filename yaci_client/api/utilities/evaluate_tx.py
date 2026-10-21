@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 
 import httpx
 
@@ -19,26 +19,26 @@ def _get_kwargs(
         "url": "/api/v1/utils/txs/evaluate",
     }
 
-    _kwargs["json"] = body
+    _body = body
 
+    _kwargs["content"] = _body
     headers["Content-Type"] = "application/cbor"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> str | None:
-    if response.status_code == 200:
-        response_200 = cast(str, response.json())
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> dict | None:
+    if response.status_code == HTTPStatus.OK or response.status_code == HTTPStatus.ACCEPTED:
+        response_200 = response.json()
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[str]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[dict]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,7 +51,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: str,
-) -> Response[str]:
+) -> Response[dict]:
     """
     Args:
         body (str):
@@ -61,7 +61,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[str]
+        Response[dict]
     """
 
     kwargs = _get_kwargs(
@@ -79,7 +79,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     body: str,
-) -> str | None:
+) -> dict | None:
     """
     Args:
         body (str):
@@ -102,7 +102,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: str,
-) -> Response[str]:
+) -> Response[dict]:
     """
     Args:
         body (str):
@@ -112,7 +112,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[str]
+        Response[dict]
     """
 
     kwargs = _get_kwargs(
@@ -128,7 +128,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: str,
-) -> str | None:
+) -> dict | None:
     """
     Args:
         body (str):

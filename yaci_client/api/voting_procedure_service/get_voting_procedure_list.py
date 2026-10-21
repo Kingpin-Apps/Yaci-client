@@ -12,9 +12,9 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetVotingProcedureListOrder | Unset = GetVotingProcedureListOrder.DESC,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProcedureListOrder = GetVotingProcedureListOrder.DESC,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -23,7 +23,7 @@ def _get_kwargs(
 
     params["count"] = count
 
-    json_order: str | Unset = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -42,8 +42,8 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> list[VotingProcedureDto] | None:
-    if response.status_code == 200:
+) -> list["VotingProcedureDto"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -52,7 +52,6 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -61,7 +60,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[list[VotingProcedureDto]]:
+) -> Response[list["VotingProcedureDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,23 +72,24 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetVotingProcedureListOrder | Unset = GetVotingProcedureListOrder.DESC,
-) -> Response[list[VotingProcedureDto]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProcedureListOrder = GetVotingProcedureListOrder.DESC,
+) -> Response[list["VotingProcedureDto"]]:
     """Get voting procedure list
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetVotingProcedureListOrder | Unset):  Default: GetVotingProcedureListOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetVotingProcedureListOrder]):  Default:
+            GetVotingProcedureListOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[VotingProcedureDto]]
+        Response[List['VotingProcedureDto']]
     """
 
     kwargs = _get_kwargs(
@@ -108,23 +108,24 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetVotingProcedureListOrder | Unset = GetVotingProcedureListOrder.DESC,
-) -> list[VotingProcedureDto] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProcedureListOrder = GetVotingProcedureListOrder.DESC,
+) -> list["VotingProcedureDto"] | None:
     """Get voting procedure list
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetVotingProcedureListOrder | Unset):  Default: GetVotingProcedureListOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetVotingProcedureListOrder]):  Default:
+            GetVotingProcedureListOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[VotingProcedureDto]
+        List['VotingProcedureDto']
     """
 
     return sync_detailed(
@@ -138,23 +139,24 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetVotingProcedureListOrder | Unset = GetVotingProcedureListOrder.DESC,
-) -> Response[list[VotingProcedureDto]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProcedureListOrder = GetVotingProcedureListOrder.DESC,
+) -> Response[list["VotingProcedureDto"]]:
     """Get voting procedure list
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetVotingProcedureListOrder | Unset):  Default: GetVotingProcedureListOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetVotingProcedureListOrder]):  Default:
+            GetVotingProcedureListOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[VotingProcedureDto]]
+        Response[List['VotingProcedureDto']]
     """
 
     kwargs = _get_kwargs(
@@ -171,23 +173,24 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetVotingProcedureListOrder | Unset = GetVotingProcedureListOrder.DESC,
-) -> list[VotingProcedureDto] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetVotingProcedureListOrder = GetVotingProcedureListOrder.DESC,
+) -> list["VotingProcedureDto"] | None:
     """Get voting procedure list
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetVotingProcedureListOrder | Unset):  Default: GetVotingProcedureListOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetVotingProcedureListOrder]):  Default:
+            GetVotingProcedureListOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[VotingProcedureDto]
+        List['VotingProcedureDto']
     """
 
     return (

@@ -21,8 +21,8 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[TxRedeemerDto] | None:
-    if response.status_code == 200:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["TxRedeemerDto"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -31,14 +31,15 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[TxRedeemerDto]]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[list["TxRedeemerDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,7 +52,7 @@ def sync_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxRedeemerDto]]:
+) -> Response[list["TxRedeemerDto"]]:
     """
     Args:
         tx_hash (str):
@@ -61,7 +62,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxRedeemerDto]]
+        Response[List['TxRedeemerDto']]
     """
 
     kwargs = _get_kwargs(
@@ -79,7 +80,7 @@ def sync(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxRedeemerDto] | None:
+) -> list["TxRedeemerDto"] | None:
     """
     Args:
         tx_hash (str):
@@ -89,7 +90,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxRedeemerDto]
+        List['TxRedeemerDto']
     """
 
     return sync_detailed(
@@ -102,7 +103,7 @@ async def asyncio_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxRedeemerDto]]:
+) -> Response[list["TxRedeemerDto"]]:
     """
     Args:
         tx_hash (str):
@@ -112,7 +113,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxRedeemerDto]]
+        Response[List['TxRedeemerDto']]
     """
 
     kwargs = _get_kwargs(
@@ -128,7 +129,7 @@ async def asyncio(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxRedeemerDto] | None:
+) -> list["TxRedeemerDto"] | None:
     """
     Args:
         tx_hash (str):
@@ -138,7 +139,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxRedeemerDto]
+        List['TxRedeemerDto']
     """
 
     return (

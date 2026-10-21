@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,28 +15,28 @@ T = TypeVar("T", bound="DrepVoteThresholds")
 class DrepVoteThresholds:
     """
     Attributes:
-        dvt_motion_no_confidence (float | Unset):
-        dvt_committee_normal (float | Unset):
-        dvt_committee_no_confidence (float | Unset):
-        dvt_update_to_constitution (float | Unset):
-        dvt_hard_fork_initiation (float | Unset):
-        dvt_ppnetwork_group (float | Unset):
-        dvt_ppeconomic_group (float | Unset):
-        dvt_pptechnical_group (float | Unset):
-        dvt_ppgov_group (float | Unset):
-        dvt_treasury_withdrawal (float | Unset):
+        dvt_motion_no_confidence (Union[Unset, float]):
+        dvt_committee_normal (Union[Unset, float]):
+        dvt_committee_no_confidence (Union[Unset, float]):
+        dvt_update_to_constitution (Union[Unset, float]):
+        dvt_hard_fork_initiation (Union[Unset, float]):
+        dvt_ppnetwork_group (Union[Unset, float]):
+        dvt_ppeconomic_group (Union[Unset, float]):
+        dvt_pptechnical_group (Union[Unset, float]):
+        dvt_ppgov_group (Union[Unset, float]):
+        dvt_treasury_withdrawal (Union[Unset, float]):
     """
 
-    dvt_motion_no_confidence: float | Unset = UNSET
-    dvt_committee_normal: float | Unset = UNSET
-    dvt_committee_no_confidence: float | Unset = UNSET
-    dvt_update_to_constitution: float | Unset = UNSET
-    dvt_hard_fork_initiation: float | Unset = UNSET
-    dvt_ppnetwork_group: float | Unset = UNSET
-    dvt_ppeconomic_group: float | Unset = UNSET
-    dvt_pptechnical_group: float | Unset = UNSET
-    dvt_ppgov_group: float | Unset = UNSET
-    dvt_treasury_withdrawal: float | Unset = UNSET
+    dvt_motion_no_confidence: Unset | float = UNSET
+    dvt_committee_normal: Unset | float = UNSET
+    dvt_committee_no_confidence: Unset | float = UNSET
+    dvt_update_to_constitution: Unset | float = UNSET
+    dvt_hard_fork_initiation: Unset | float = UNSET
+    dvt_ppnetwork_group: Unset | float = UNSET
+    dvt_ppeconomic_group: Unset | float = UNSET
+    dvt_pptechnical_group: Unset | float = UNSET
+    dvt_ppgov_group: Unset | float = UNSET
+    dvt_treasury_withdrawal: Unset | float = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -87,8 +87,8 @@ class DrepVoteThresholds:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         dvt_motion_no_confidence = d.pop("dvt_motion_no_confidence", UNSET)
 
         dvt_committee_normal = d.pop("dvt_committee_normal", UNSET)

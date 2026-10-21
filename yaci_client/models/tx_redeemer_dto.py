@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,22 +15,22 @@ T = TypeVar("T", bound="TxRedeemerDto")
 class TxRedeemerDto:
     """
     Attributes:
-        tx_index (int | Unset):
-        purpose (str | Unset):
-        script_hash (str | Unset):
-        datum_hash (str | Unset):
-        redeemer_data_hash (str | Unset):
-        unit_mem (str | Unset):
-        unit_steps (str | Unset):
+        tx_index (Union[Unset, int]):
+        purpose (Union[Unset, str]):
+        script_hash (Union[Unset, str]):
+        datum_hash (Union[Unset, str]):
+        redeemer_data_hash (Union[Unset, str]):
+        unit_mem (Union[Unset, str]):
+        unit_steps (Union[Unset, str]):
     """
 
-    tx_index: int | Unset = UNSET
-    purpose: str | Unset = UNSET
-    script_hash: str | Unset = UNSET
-    datum_hash: str | Unset = UNSET
-    redeemer_data_hash: str | Unset = UNSET
-    unit_mem: str | Unset = UNSET
-    unit_steps: str | Unset = UNSET
+    tx_index: Unset | int = UNSET
+    purpose: Unset | str = UNSET
+    script_hash: Unset | str = UNSET
+    datum_hash: Unset | str = UNSET
+    redeemer_data_hash: Unset | str = UNSET
+    unit_mem: Unset | str = UNSET
+    unit_steps: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -69,8 +69,8 @@ class TxRedeemerDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         tx_index = d.pop("tx_index", UNSET)
 
         purpose = d.pop("purpose", UNSET)

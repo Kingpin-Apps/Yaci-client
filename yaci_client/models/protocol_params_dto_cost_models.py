@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,7 +20,7 @@ T = TypeVar("T", bound="ProtocolParamsDtoCostModels")
 class ProtocolParamsDtoCostModels:
     """ """
 
-    additional_properties: dict[str, ProtocolParamsDtoCostModelsAdditionalProperty] = _attrs_field(
+    additional_properties: dict[str, "ProtocolParamsDtoCostModelsAdditionalProperty"] = _attrs_field(
         init=False, factory=dict
     )
 
@@ -32,12 +33,12 @@ class ProtocolParamsDtoCostModels:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.protocol_params_dto_cost_models_additional_property import (
             ProtocolParamsDtoCostModelsAdditionalProperty,
         )
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         protocol_params_dto_cost_models = cls()
 
         additional_properties = {}
@@ -53,10 +54,10 @@ class ProtocolParamsDtoCostModels:
     def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
-    def __getitem__(self, key: str) -> ProtocolParamsDtoCostModelsAdditionalProperty:
+    def __getitem__(self, key: str) -> "ProtocolParamsDtoCostModelsAdditionalProperty":
         return self.additional_properties[key]
 
-    def __setitem__(self, key: str, value: ProtocolParamsDtoCostModelsAdditionalProperty) -> None:
+    def __setitem__(self, key: str, value: "ProtocolParamsDtoCostModelsAdditionalProperty") -> None:
         self.additional_properties[key] = value
 
     def __delitem__(self, key: str) -> None:

@@ -23,8 +23,8 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> list[TxMetadataLabelDto] | None:
-    if response.status_code == 200:
+) -> list["TxMetadataLabelDto"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -33,7 +33,6 @@ def _parse_response(
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -42,7 +41,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[list[TxMetadataLabelDto]]:
+) -> Response[list["TxMetadataLabelDto"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,7 +54,7 @@ def sync_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxMetadataLabelDto]]:
+) -> Response[list["TxMetadataLabelDto"]]:
     """Transaction Metadata Labels
 
      Get a list of metadata labels included in a specific transaction.
@@ -68,7 +67,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxMetadataLabelDto]]
+        Response[List['TxMetadataLabelDto']]
     """
 
     kwargs = _get_kwargs(
@@ -86,7 +85,7 @@ def sync(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxMetadataLabelDto] | None:
+) -> list["TxMetadataLabelDto"] | None:
     """Transaction Metadata Labels
 
      Get a list of metadata labels included in a specific transaction.
@@ -99,7 +98,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxMetadataLabelDto]
+        List['TxMetadataLabelDto']
     """
 
     return sync_detailed(
@@ -112,7 +111,7 @@ async def asyncio_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxMetadataLabelDto]]:
+) -> Response[list["TxMetadataLabelDto"]]:
     """Transaction Metadata Labels
 
      Get a list of metadata labels included in a specific transaction.
@@ -125,7 +124,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxMetadataLabelDto]]
+        Response[List['TxMetadataLabelDto']]
     """
 
     kwargs = _get_kwargs(
@@ -141,7 +140,7 @@ async def asyncio(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxMetadataLabelDto] | None:
+) -> list["TxMetadataLabelDto"] | None:
     """Transaction Metadata Labels
 
      Get a list of metadata labels included in a specific transaction.
@@ -154,7 +153,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxMetadataLabelDto]
+        List['TxMetadataLabelDto']
     """
 
     return (

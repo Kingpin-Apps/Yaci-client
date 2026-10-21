@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +15,16 @@ T = TypeVar("T", bound="Relay")
 class Relay:
     """
     Attributes:
-        port (int | Unset):
-        ipv4 (str | Unset):
-        ipv6 (str | Unset):
-        dns_name (str | Unset):
+        port (Union[Unset, int]):
+        ipv4 (Union[Unset, str]):
+        ipv6 (Union[Unset, str]):
+        dns_name (Union[Unset, str]):
     """
 
-    port: int | Unset = UNSET
-    ipv4: str | Unset = UNSET
-    ipv6: str | Unset = UNSET
-    dns_name: str | Unset = UNSET
+    port: Unset | int = UNSET
+    ipv4: Unset | str = UNSET
+    ipv6: Unset | str = UNSET
+    dns_name: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,8 +51,8 @@ class Relay:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         port = d.pop("port", UNSET)
 
         ipv4 = d.pop("ipv4", UNSET)

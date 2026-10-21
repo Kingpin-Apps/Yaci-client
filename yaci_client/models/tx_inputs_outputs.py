@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,27 +20,28 @@ T = TypeVar("T", bound="TxInputsOutputs")
 class TxInputsOutputs:
     """
     Attributes:
-        hash_ (str | Unset):
-        inputs (list[TxUtxo] | Unset):
-        outputs (list[TxUtxo] | Unset):
+        hash_ (Union[Unset, str]):
+        inputs (Union[Unset, List['TxUtxo']]):
+        outputs (Union[Unset, List['TxUtxo']]):
     """
 
-    hash_: str | Unset = UNSET
-    inputs: list[TxUtxo] | Unset = UNSET
-    outputs: list[TxUtxo] | Unset = UNSET
+    hash_: Unset | str = UNSET
+    inputs: Unset | list["TxUtxo"] = UNSET
+    outputs: Unset | list["TxUtxo"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         hash_ = self.hash_
 
-        inputs: list[dict[str, Any]] | Unset = UNSET
+        inputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.inputs, Unset):
             inputs = []
             for inputs_item_data in self.inputs:
                 inputs_item = inputs_item_data.to_dict()
                 inputs.append(inputs_item)
 
-        outputs: list[dict[str, Any]] | Unset = UNSET
+        outputs: Unset | list[dict[str, Any]] = UNSET
         if not isinstance(self.outputs, Unset):
             outputs = []
             for outputs_item_data in self.outputs:
@@ -59,29 +61,25 @@ class TxInputsOutputs:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.tx_utxo import TxUtxo
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         hash_ = d.pop("hash", UNSET)
 
+        inputs = []
         _inputs = d.pop("inputs", UNSET)
-        inputs: list[TxUtxo] | Unset = UNSET
-        if _inputs is not UNSET:
-            inputs = []
-            for inputs_item_data in _inputs:
-                inputs_item = TxUtxo.from_dict(inputs_item_data)
+        for inputs_item_data in _inputs or []:
+            inputs_item = TxUtxo.from_dict(inputs_item_data)
 
-                inputs.append(inputs_item)
+            inputs.append(inputs_item)
 
+        outputs = []
         _outputs = d.pop("outputs", UNSET)
-        outputs: list[TxUtxo] | Unset = UNSET
-        if _outputs is not UNSET:
-            outputs = []
-            for outputs_item_data in _outputs:
-                outputs_item = TxUtxo.from_dict(outputs_item_data)
+        for outputs_item_data in _outputs or []:
+            outputs_item = TxUtxo.from_dict(outputs_item_data)
 
-                outputs.append(outputs_item)
+            outputs.append(outputs_item)
 
         tx_inputs_outputs = cls(
             hash_=hash_,

@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +15,16 @@ T = TypeVar("T", bound="Amt")
 class Amt:
     """
     Attributes:
-        unit (str | Unset):
-        policy_id (str | Unset):
-        asset_name (str | Unset):
-        quantity (int | Unset):
+        unit (Union[Unset, str]):
+        policy_id (Union[Unset, str]):
+        asset_name (Union[Unset, str]):
+        quantity (Union[Unset, int]):
     """
 
-    unit: str | Unset = UNSET
-    policy_id: str | Unset = UNSET
-    asset_name: str | Unset = UNSET
-    quantity: int | Unset = UNSET
+    unit: Unset | str = UNSET
+    policy_id: Unset | str = UNSET
+    asset_name: Unset | str = UNSET
+    quantity: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,8 +51,8 @@ class Amt:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         unit = d.pop("unit", UNSET)
 
         policy_id = d.pop("policy_id", UNSET)

@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,89 +23,90 @@ T = TypeVar("T", bound="ProtocolParams")
 class ProtocolParams:
     """
     Attributes:
-        min_fee_a (int | Unset):
-        min_fee_b (int | Unset):
-        max_block_size (int | Unset):
-        max_tx_size (int | Unset):
-        max_block_header_size (int | Unset):
-        key_deposit (int | Unset):
-        pool_deposit (int | Unset):
-        max_epoch (int | Unset):
-        pool_pledge_influence (float | Unset):
-        expansion_rate (float | Unset):
-        treasury_growth_rate (float | Unset):
-        decentralisation_param (float | Unset):
-        extra_entropy (str | Unset):
-        protocol_major_ver (int | Unset):
-        protocol_minor_ver (int | Unset):
-        min_utxo (int | Unset):
-        min_pool_cost (int | Unset):
-        ada_per_utxo_byte (int | Unset):
-        cost_models (ProtocolParamsCostModels | Unset):
-        cost_models_hash (str | Unset):
-        price_mem (float | Unset):
-        price_step (float | Unset):
-        max_tx_ex_mem (int | Unset):
-        max_tx_ex_steps (int | Unset):
-        max_block_ex_mem (int | Unset):
-        max_block_ex_steps (int | Unset):
-        max_val_size (int | Unset):
-        collateral_percent (int | Unset):
-        max_collateral_inputs (int | Unset):
-        pool_voting_thresholds (PoolVotingThresholds | Unset):
-        drep_voting_thresholds (DrepVoteThresholds | Unset):
-        committee_min_size (int | Unset):
-        committee_max_term_length (int | Unset):
-        gov_action_lifetime (int | Unset):
-        gov_action_deposit (int | Unset):
-        drep_deposit (int | Unset):
-        drep_activity (int | Unset):
-        min_fee_ref_script_cost_per_byte (float | Unset):
-        nopt (int | Unset):
+        min_fee_a (Union[Unset, int]):
+        min_fee_b (Union[Unset, int]):
+        max_block_size (Union[Unset, int]):
+        max_tx_size (Union[Unset, int]):
+        max_block_header_size (Union[Unset, int]):
+        key_deposit (Union[Unset, int]):
+        pool_deposit (Union[Unset, int]):
+        max_epoch (Union[Unset, int]):
+        pool_pledge_influence (Union[Unset, float]):
+        expansion_rate (Union[Unset, float]):
+        treasury_growth_rate (Union[Unset, float]):
+        decentralisation_param (Union[Unset, float]):
+        extra_entropy (Union[Unset, str]):
+        protocol_major_ver (Union[Unset, int]):
+        protocol_minor_ver (Union[Unset, int]):
+        min_utxo (Union[Unset, int]):
+        min_pool_cost (Union[Unset, int]):
+        ada_per_utxo_byte (Union[Unset, int]):
+        cost_models (Union[Unset, ProtocolParamsCostModels]):
+        cost_models_hash (Union[Unset, str]):
+        price_mem (Union[Unset, float]):
+        price_step (Union[Unset, float]):
+        max_tx_ex_mem (Union[Unset, int]):
+        max_tx_ex_steps (Union[Unset, int]):
+        max_block_ex_mem (Union[Unset, int]):
+        max_block_ex_steps (Union[Unset, int]):
+        max_val_size (Union[Unset, int]):
+        collateral_percent (Union[Unset, int]):
+        max_collateral_inputs (Union[Unset, int]):
+        pool_voting_thresholds (Union[Unset, PoolVotingThresholds]):
+        drep_voting_thresholds (Union[Unset, DrepVoteThresholds]):
+        committee_min_size (Union[Unset, int]):
+        committee_max_term_length (Union[Unset, int]):
+        gov_action_lifetime (Union[Unset, int]):
+        gov_action_deposit (Union[Unset, int]):
+        drep_deposit (Union[Unset, int]):
+        drep_activity (Union[Unset, int]):
+        min_fee_ref_script_cost_per_byte (Union[Unset, float]):
+        nopt (Union[Unset, int]):
     """
 
-    min_fee_a: int | Unset = UNSET
-    min_fee_b: int | Unset = UNSET
-    max_block_size: int | Unset = UNSET
-    max_tx_size: int | Unset = UNSET
-    max_block_header_size: int | Unset = UNSET
-    key_deposit: int | Unset = UNSET
-    pool_deposit: int | Unset = UNSET
-    max_epoch: int | Unset = UNSET
-    pool_pledge_influence: float | Unset = UNSET
-    expansion_rate: float | Unset = UNSET
-    treasury_growth_rate: float | Unset = UNSET
-    decentralisation_param: float | Unset = UNSET
-    extra_entropy: str | Unset = UNSET
-    protocol_major_ver: int | Unset = UNSET
-    protocol_minor_ver: int | Unset = UNSET
-    min_utxo: int | Unset = UNSET
-    min_pool_cost: int | Unset = UNSET
-    ada_per_utxo_byte: int | Unset = UNSET
-    cost_models: ProtocolParamsCostModels | Unset = UNSET
-    cost_models_hash: str | Unset = UNSET
-    price_mem: float | Unset = UNSET
-    price_step: float | Unset = UNSET
-    max_tx_ex_mem: int | Unset = UNSET
-    max_tx_ex_steps: int | Unset = UNSET
-    max_block_ex_mem: int | Unset = UNSET
-    max_block_ex_steps: int | Unset = UNSET
-    max_val_size: int | Unset = UNSET
-    collateral_percent: int | Unset = UNSET
-    max_collateral_inputs: int | Unset = UNSET
-    pool_voting_thresholds: PoolVotingThresholds | Unset = UNSET
-    drep_voting_thresholds: DrepVoteThresholds | Unset = UNSET
-    committee_min_size: int | Unset = UNSET
-    committee_max_term_length: int | Unset = UNSET
-    gov_action_lifetime: int | Unset = UNSET
-    gov_action_deposit: int | Unset = UNSET
-    drep_deposit: int | Unset = UNSET
-    drep_activity: int | Unset = UNSET
-    min_fee_ref_script_cost_per_byte: float | Unset = UNSET
-    nopt: int | Unset = UNSET
+    min_fee_a: Unset | int = UNSET
+    min_fee_b: Unset | int = UNSET
+    max_block_size: Unset | int = UNSET
+    max_tx_size: Unset | int = UNSET
+    max_block_header_size: Unset | int = UNSET
+    key_deposit: Unset | int = UNSET
+    pool_deposit: Unset | int = UNSET
+    max_epoch: Unset | int = UNSET
+    pool_pledge_influence: Unset | float = UNSET
+    expansion_rate: Unset | float = UNSET
+    treasury_growth_rate: Unset | float = UNSET
+    decentralisation_param: Unset | float = UNSET
+    extra_entropy: Unset | str = UNSET
+    protocol_major_ver: Unset | int = UNSET
+    protocol_minor_ver: Unset | int = UNSET
+    min_utxo: Unset | int = UNSET
+    min_pool_cost: Unset | int = UNSET
+    ada_per_utxo_byte: Unset | int = UNSET
+    cost_models: Union[Unset, "ProtocolParamsCostModels"] = UNSET
+    cost_models_hash: Unset | str = UNSET
+    price_mem: Unset | float = UNSET
+    price_step: Unset | float = UNSET
+    max_tx_ex_mem: Unset | int = UNSET
+    max_tx_ex_steps: Unset | int = UNSET
+    max_block_ex_mem: Unset | int = UNSET
+    max_block_ex_steps: Unset | int = UNSET
+    max_val_size: Unset | int = UNSET
+    collateral_percent: Unset | int = UNSET
+    max_collateral_inputs: Unset | int = UNSET
+    pool_voting_thresholds: Union[Unset, "PoolVotingThresholds"] = UNSET
+    drep_voting_thresholds: Union[Unset, "DrepVoteThresholds"] = UNSET
+    committee_min_size: Unset | int = UNSET
+    committee_max_term_length: Unset | int = UNSET
+    gov_action_lifetime: Unset | int = UNSET
+    gov_action_deposit: Unset | int = UNSET
+    drep_deposit: Unset | int = UNSET
+    drep_activity: Unset | int = UNSET
+    min_fee_ref_script_cost_per_byte: Unset | float = UNSET
+    nopt: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         min_fee_a = self.min_fee_a
 
         min_fee_b = self.min_fee_b
@@ -140,7 +143,7 @@ class ProtocolParams:
 
         ada_per_utxo_byte = self.ada_per_utxo_byte
 
-        cost_models: dict[str, Any] | Unset = UNSET
+        cost_models: Unset | dict[str, Any] = UNSET
         if not isinstance(self.cost_models, Unset):
             cost_models = self.cost_models.to_dict()
 
@@ -164,11 +167,11 @@ class ProtocolParams:
 
         max_collateral_inputs = self.max_collateral_inputs
 
-        pool_voting_thresholds: dict[str, Any] | Unset = UNSET
+        pool_voting_thresholds: Unset | dict[str, Any] = UNSET
         if not isinstance(self.pool_voting_thresholds, Unset):
             pool_voting_thresholds = self.pool_voting_thresholds.to_dict()
 
-        drep_voting_thresholds: dict[str, Any] | Unset = UNSET
+        drep_voting_thresholds: Unset | dict[str, Any] = UNSET
         if not isinstance(self.drep_voting_thresholds, Unset):
             drep_voting_thresholds = self.drep_voting_thresholds.to_dict()
 
@@ -273,12 +276,12 @@ class ProtocolParams:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.drep_vote_thresholds import DrepVoteThresholds
         from ..models.pool_voting_thresholds import PoolVotingThresholds
         from ..models.protocol_params_cost_models import ProtocolParamsCostModels
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         min_fee_a = d.pop("min_fee_a", UNSET)
 
         min_fee_b = d.pop("min_fee_b", UNSET)
@@ -316,7 +319,7 @@ class ProtocolParams:
         ada_per_utxo_byte = d.pop("ada_per_utxo_byte", UNSET)
 
         _cost_models = d.pop("cost_models", UNSET)
-        cost_models: ProtocolParamsCostModels | Unset
+        cost_models: Unset | ProtocolParamsCostModels
         if isinstance(_cost_models, Unset):
             cost_models = UNSET
         else:
@@ -343,14 +346,14 @@ class ProtocolParams:
         max_collateral_inputs = d.pop("max_collateral_inputs", UNSET)
 
         _pool_voting_thresholds = d.pop("pool_voting_thresholds", UNSET)
-        pool_voting_thresholds: PoolVotingThresholds | Unset
+        pool_voting_thresholds: Unset | PoolVotingThresholds
         if isinstance(_pool_voting_thresholds, Unset):
             pool_voting_thresholds = UNSET
         else:
             pool_voting_thresholds = PoolVotingThresholds.from_dict(_pool_voting_thresholds)
 
         _drep_voting_thresholds = d.pop("drep_voting_thresholds", UNSET)
-        drep_voting_thresholds: DrepVoteThresholds | Unset
+        drep_voting_thresholds: Unset | DrepVoteThresholds
         if isinstance(_drep_voting_thresholds, Unset):
             drep_voting_thresholds = UNSET
         else:

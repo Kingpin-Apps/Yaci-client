@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,30 +16,30 @@ T = TypeVar("T", bound="MoveInstataneousReward")
 class MoveInstataneousReward:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        pot (MoveInstataneousRewardPot | Unset):
-        tx_hash (str | Unset):
-        cert_index (int | Unset):
-        credential (str | Unset):
-        address (str | Unset):
-        amount (int | Unset):
-        epoch (int | Unset):
-        slot (int | Unset):
-        block_hash (str | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        pot (Union[Unset, MoveInstataneousRewardPot]):
+        tx_hash (Union[Unset, str]):
+        cert_index (Union[Unset, int]):
+        credential (Union[Unset, str]):
+        address (Union[Unset, str]):
+        amount (Union[Unset, int]):
+        epoch (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        block_hash (Union[Unset, str]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    pot: MoveInstataneousRewardPot | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    cert_index: int | Unset = UNSET
-    credential: str | Unset = UNSET
-    address: str | Unset = UNSET
-    amount: int | Unset = UNSET
-    epoch: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    block_hash: str | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    pot: Unset | MoveInstataneousRewardPot = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    credential: Unset | str = UNSET
+    address: Unset | str = UNSET
+    amount: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    block_hash: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +47,7 @@ class MoveInstataneousReward:
 
         block_time = self.block_time
 
-        pot: str | Unset = UNSET
+        pot: Unset | str = UNSET
         if not isinstance(self.pot, Unset):
             pot = self.pot.value
 
@@ -96,14 +96,14 @@ class MoveInstataneousReward:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
 
         _pot = d.pop("pot", UNSET)
-        pot: MoveInstataneousRewardPot | Unset
+        pot: Unset | MoveInstataneousRewardPot
         if isinstance(_pot, Unset):
             pot = UNSET
         else:

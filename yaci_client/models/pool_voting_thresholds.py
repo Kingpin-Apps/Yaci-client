@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,18 +15,18 @@ T = TypeVar("T", bound="PoolVotingThresholds")
 class PoolVotingThresholds:
     """
     Attributes:
-        pvt_motion_no_confidence (float | Unset):
-        pvt_committee_normal (float | Unset):
-        pvt_committee_no_confidence (float | Unset):
-        pvt_hard_fork_initiation (float | Unset):
-        pvt_ppsecurity_group (float | Unset):
+        pvt_motion_no_confidence (Union[Unset, float]):
+        pvt_committee_normal (Union[Unset, float]):
+        pvt_committee_no_confidence (Union[Unset, float]):
+        pvt_hard_fork_initiation (Union[Unset, float]):
+        pvt_ppsecurity_group (Union[Unset, float]):
     """
 
-    pvt_motion_no_confidence: float | Unset = UNSET
-    pvt_committee_normal: float | Unset = UNSET
-    pvt_committee_no_confidence: float | Unset = UNSET
-    pvt_hard_fork_initiation: float | Unset = UNSET
-    pvt_ppsecurity_group: float | Unset = UNSET
+    pvt_motion_no_confidence: Unset | float = UNSET
+    pvt_committee_normal: Unset | float = UNSET
+    pvt_committee_no_confidence: Unset | float = UNSET
+    pvt_hard_fork_initiation: Unset | float = UNSET
+    pvt_ppsecurity_group: Unset | float = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,8 +57,8 @@ class PoolVotingThresholds:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         pvt_motion_no_confidence = d.pop("pvt_motion_no_confidence", UNSET)
 
         pvt_committee_normal = d.pop("pvt_committee_normal", UNSET)

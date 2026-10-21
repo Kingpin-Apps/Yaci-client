@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,30 +21,31 @@ T = TypeVar("T", bound="MetadataLabelDto")
 class MetadataLabelDto:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        tx_hash (str | Unset):
-        json_metadata (JsonNode | Unset):
-        cbor_metadata (str | Unset):
-        slot (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        tx_hash (Union[Unset, str]):
+        json_metadata (Union[Unset, JsonNode]):
+        cbor_metadata (Union[Unset, str]):
+        slot (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    json_metadata: JsonNode | Unset = UNSET
-    cbor_metadata: str | Unset = UNSET
-    slot: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    json_metadata: Union[Unset, "JsonNode"] = UNSET
+    cbor_metadata: Unset | str = UNSET
+    slot: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         block_number = self.block_number
 
         block_time = self.block_time
 
         tx_hash = self.tx_hash
 
-        json_metadata: dict[str, Any] | Unset = UNSET
+        json_metadata: Unset | dict[str, Any] = UNSET
         if not isinstance(self.json_metadata, Unset):
             json_metadata = self.json_metadata.to_dict()
 
@@ -69,10 +72,10 @@ class MetadataLabelDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -80,7 +83,7 @@ class MetadataLabelDto:
         tx_hash = d.pop("tx_hash", UNSET)
 
         _json_metadata = d.pop("json_metadata", UNSET)
-        json_metadata: JsonNode | Unset
+        json_metadata: Unset | JsonNode
         if isinstance(_json_metadata, Unset):
             json_metadata = UNSET
         else:

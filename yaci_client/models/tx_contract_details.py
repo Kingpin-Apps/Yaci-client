@@ -1,7 +1,10 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+import builtins
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,36 +23,37 @@ T = TypeVar("T", bound="TxContractDetails")
 class TxContractDetails:
     """
     Attributes:
-        tx_hash (str | Unset):
-        script_hash (str | Unset):
-        script_content (str | Unset):
-        type_ (TxContractDetailsType | Unset):
-        redeemer (Redeemer | Unset):
-        datum (str | Unset):
-        datum_hash (str | Unset):
+        tx_hash (Union[Unset, str]):
+        script_hash (Union[Unset, str]):
+        script_content (Union[Unset, str]):
+        type (Union[Unset, TxContractDetailsType]):
+        redeemer (Union[Unset, Redeemer]):
+        datum (Union[Unset, str]):
+        datum_hash (Union[Unset, str]):
     """
 
-    tx_hash: str | Unset = UNSET
-    script_hash: str | Unset = UNSET
-    script_content: str | Unset = UNSET
-    type_: TxContractDetailsType | Unset = UNSET
-    redeemer: Redeemer | Unset = UNSET
-    datum: str | Unset = UNSET
-    datum_hash: str | Unset = UNSET
+    tx_hash: Unset | str = UNSET
+    script_hash: Unset | str = UNSET
+    script_content: Unset | str = UNSET
+    type: Unset | TxContractDetailsType = UNSET
+    redeemer: Union[Unset, "Redeemer"] = UNSET
+    datum: Unset | str = UNSET
+    datum_hash: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         tx_hash = self.tx_hash
 
         script_hash = self.script_hash
 
         script_content = self.script_content
 
-        type_: str | Unset = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        type: Unset | str = UNSET
+        if not isinstance(self.type, Unset):
+            type = self.type.value
 
-        redeemer: dict[str, Any] | Unset = UNSET
+        redeemer: Unset | dict[str, Any] = UNSET
         if not isinstance(self.redeemer, Unset):
             redeemer = self.redeemer.to_dict()
 
@@ -66,8 +70,8 @@ class TxContractDetails:
             field_dict["script_hash"] = script_hash
         if script_content is not UNSET:
             field_dict["script_content"] = script_content
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if type is not UNSET:
+            field_dict["type"] = type
         if redeemer is not UNSET:
             field_dict["redeemer"] = redeemer
         if datum is not UNSET:
@@ -78,25 +82,25 @@ class TxContractDetails:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
         from ..models.redeemer import Redeemer
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
         script_hash = d.pop("script_hash", UNSET)
 
         script_content = d.pop("script_content", UNSET)
 
-        _type_ = d.pop("type", UNSET)
-        type_: TxContractDetailsType | Unset
-        if isinstance(_type_, Unset):
-            type_ = UNSET
+        _type = d.pop("type", UNSET)
+        type: Unset | TxContractDetailsType
+        if isinstance(_type, Unset):
+            type = UNSET
         else:
-            type_ = TxContractDetailsType(_type_)
+            type = TxContractDetailsType(_type)
 
         _redeemer = d.pop("redeemer", UNSET)
-        redeemer: Redeemer | Unset
+        redeemer: Unset | Redeemer
         if isinstance(_redeemer, Unset):
             redeemer = UNSET
         else:
@@ -110,7 +114,7 @@ class TxContractDetails:
             tx_hash=tx_hash,
             script_hash=script_hash,
             script_content=script_content,
-            type_=type_,
+            type=type,
             redeemer=redeemer,
             datum=datum,
             datum_hash=datum_hash,

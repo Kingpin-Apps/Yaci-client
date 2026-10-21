@@ -21,8 +21,8 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[TxAsset] | None:
-    if response.status_code == 200:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["TxAsset"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -31,14 +31,13 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list[TxAsset]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[list["TxAsset"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -51,7 +50,7 @@ def sync_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxAsset]]:
+) -> Response[list["TxAsset"]]:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -64,7 +63,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxAsset]]
+        Response[List['TxAsset']]
     """
 
     kwargs = _get_kwargs(
@@ -82,7 +81,7 @@ def sync(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxAsset] | None:
+) -> list["TxAsset"] | None:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -95,7 +94,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxAsset]
+        List['TxAsset']
     """
 
     return sync_detailed(
@@ -108,7 +107,7 @@ async def asyncio_detailed(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[list[TxAsset]]:
+) -> Response[list["TxAsset"]]:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -121,7 +120,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[TxAsset]]
+        Response[List['TxAsset']]
     """
 
     kwargs = _get_kwargs(
@@ -137,7 +136,7 @@ async def asyncio(
     tx_hash: str,
     *,
     client: AuthenticatedClient | Client,
-) -> list[TxAsset] | None:
+) -> list["TxAsset"] | None:
     """Assets History by Tx Hash
 
      Returns the Mint / Burn History for all assets included in a transaction.
@@ -150,7 +149,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[TxAsset]
+        List['TxAsset']
     """
 
     return (

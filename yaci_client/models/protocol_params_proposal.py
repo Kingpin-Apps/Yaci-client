@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,29 +22,30 @@ T = TypeVar("T", bound="ProtocolParamsProposal")
 class ProtocolParamsProposal:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        tx_hash (str | Unset):
-        key_hash (str | Unset):
-        target_epoch (int | Unset):
-        params (ProtocolParams | Unset):
-        epoch (int | Unset):
-        slot (int | Unset):
-        era (ProtocolParamsProposalEra | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        tx_hash (Union[Unset, str]):
+        key_hash (Union[Unset, str]):
+        target_epoch (Union[Unset, int]):
+        params (Union[Unset, ProtocolParams]):
+        epoch (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        era (Union[Unset, ProtocolParamsProposalEra]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    key_hash: str | Unset = UNSET
-    target_epoch: int | Unset = UNSET
-    params: ProtocolParams | Unset = UNSET
-    epoch: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    era: ProtocolParamsProposalEra | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    key_hash: Unset | str = UNSET
+    target_epoch: Unset | int = UNSET
+    params: Union[Unset, "ProtocolParams"] = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    era: Unset | ProtocolParamsProposalEra = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         block_number = self.block_number
 
         block_time = self.block_time
@@ -53,7 +56,7 @@ class ProtocolParamsProposal:
 
         target_epoch = self.target_epoch
 
-        params: dict[str, Any] | Unset = UNSET
+        params: Unset | dict[str, Any] = UNSET
         if not isinstance(self.params, Unset):
             params = self.params.to_dict()
 
@@ -61,7 +64,7 @@ class ProtocolParamsProposal:
 
         slot = self.slot
 
-        era: str | Unset = UNSET
+        era: Unset | str = UNSET
         if not isinstance(self.era, Unset):
             era = self.era.value
 
@@ -90,10 +93,10 @@ class ProtocolParamsProposal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.protocol_params import ProtocolParams
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -105,7 +108,7 @@ class ProtocolParamsProposal:
         target_epoch = d.pop("target_epoch", UNSET)
 
         _params = d.pop("params", UNSET)
-        params: ProtocolParams | Unset
+        params: Unset | ProtocolParams
         if isinstance(_params, Unset):
             params = UNSET
         else:
@@ -116,7 +119,7 @@ class ProtocolParamsProposal:
         slot = d.pop("slot", UNSET)
 
         _era = d.pop("era", UNSET)
-        era: ProtocolParamsProposalEra | Unset
+        era: Unset | ProtocolParamsProposalEra
         if isinstance(_era, Unset):
             era = UNSET
         else:

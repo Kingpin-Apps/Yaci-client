@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,12 +15,12 @@ T = TypeVar("T", bound="Vrf")
 class Vrf:
     """
     Attributes:
-        output (str | Unset):
-        proof (str | Unset):
+        output (Union[Unset, str]):
+        proof (Union[Unset, str]):
     """
 
-    output: str | Unset = UNSET
-    proof: str | Unset = UNSET
+    output: Unset | str = UNSET
+    proof: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,8 +39,8 @@ class Vrf:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         output = d.pop("output", UNSET)
 
         proof = d.pop("proof", UNSET)

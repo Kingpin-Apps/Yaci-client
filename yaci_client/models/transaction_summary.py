@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import (
+    Any,
+    TypeVar,
+    cast,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,20 +16,20 @@ T = TypeVar("T", bound="TransactionSummary")
 class TransactionSummary:
     """
     Attributes:
-        tx_hash (str | Unset):
-        block_number (int | Unset):
-        slot (int | Unset):
-        output_addresses (list[str] | Unset):
-        total_output (int | Unset):
-        fee (int | Unset):
+        tx_hash (Union[Unset, str]):
+        block_number (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        output_addresses (Union[Unset, List[str]]):
+        total_output (Union[Unset, int]):
+        fee (Union[Unset, int]):
     """
 
-    tx_hash: str | Unset = UNSET
-    block_number: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    output_addresses: list[str] | Unset = UNSET
-    total_output: int | Unset = UNSET
-    fee: int | Unset = UNSET
+    tx_hash: Unset | str = UNSET
+    block_number: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    output_addresses: Unset | list[str] = UNSET
+    total_output: Unset | int = UNSET
+    fee: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,7 +39,7 @@ class TransactionSummary:
 
         slot = self.slot
 
-        output_addresses: list[str] | Unset = UNSET
+        output_addresses: Unset | list[str] = UNSET
         if not isinstance(self.output_addresses, Unset):
             output_addresses = self.output_addresses
 
@@ -65,8 +66,8 @@ class TransactionSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
         block_number = d.pop("block_number", UNSET)

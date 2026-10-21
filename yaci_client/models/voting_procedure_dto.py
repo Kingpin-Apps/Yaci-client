@@ -1,8 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,38 +17,38 @@ T = TypeVar("T", bound="VotingProcedureDto")
 class VotingProcedureDto:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        id (UUID | Unset):
-        tx_hash (str | Unset):
-        index (int | Unset):
-        slot (int | Unset):
-        voter_type (VotingProcedureDtoVoterType | Unset):
-        voter_hash (str | Unset):
-        gov_action_tx_hash (str | Unset):
-        gov_action_index (int | Unset):
-        vote (VotingProcedureDtoVote | Unset):
-        anchor_url (str | Unset):
-        anchor_hash (str | Unset):
-        epoch (int | Unset):
-        drep_id (str | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        id (Union[Unset, str]):
+        tx_hash (Union[Unset, str]):
+        index (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        voter_type (Union[Unset, VotingProcedureDtoVoterType]):
+        voter_hash (Union[Unset, str]):
+        gov_action_tx_hash (Union[Unset, str]):
+        gov_action_index (Union[Unset, int]):
+        vote (Union[Unset, VotingProcedureDtoVote]):
+        anchor_url (Union[Unset, str]):
+        anchor_hash (Union[Unset, str]):
+        epoch (Union[Unset, int]):
+        drep_id (Union[Unset, str]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    id: UUID | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    index: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    voter_type: VotingProcedureDtoVoterType | Unset = UNSET
-    voter_hash: str | Unset = UNSET
-    gov_action_tx_hash: str | Unset = UNSET
-    gov_action_index: int | Unset = UNSET
-    vote: VotingProcedureDtoVote | Unset = UNSET
-    anchor_url: str | Unset = UNSET
-    anchor_hash: str | Unset = UNSET
-    epoch: int | Unset = UNSET
-    drep_id: str | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    id: Unset | str = UNSET
+    tx_hash: Unset | str = UNSET
+    index: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    voter_type: Unset | VotingProcedureDtoVoterType = UNSET
+    voter_hash: Unset | str = UNSET
+    gov_action_tx_hash: Unset | str = UNSET
+    gov_action_index: Unset | int = UNSET
+    vote: Unset | VotingProcedureDtoVote = UNSET
+    anchor_url: Unset | str = UNSET
+    anchor_hash: Unset | str = UNSET
+    epoch: Unset | int = UNSET
+    drep_id: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -57,9 +56,7 @@ class VotingProcedureDto:
 
         block_time = self.block_time
 
-        id: str | Unset = UNSET
-        if not isinstance(self.id, Unset):
-            id = str(self.id)
+        id = self.id
 
         tx_hash = self.tx_hash
 
@@ -67,7 +64,7 @@ class VotingProcedureDto:
 
         slot = self.slot
 
-        voter_type: str | Unset = UNSET
+        voter_type: Unset | str = UNSET
         if not isinstance(self.voter_type, Unset):
             voter_type = self.voter_type.value
 
@@ -77,7 +74,7 @@ class VotingProcedureDto:
 
         gov_action_index = self.gov_action_index
 
-        vote: str | Unset = UNSET
+        vote: Unset | str = UNSET
         if not isinstance(self.vote, Unset):
             vote = self.vote.value
 
@@ -126,18 +123,13 @@ class VotingProcedureDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
 
-        _id = d.pop("id", UNSET)
-        id: UUID | Unset
-        if isinstance(_id, Unset):
-            id = UNSET
-        else:
-            id = UUID(_id)
+        id = d.pop("id", UNSET)
 
         tx_hash = d.pop("tx_hash", UNSET)
 
@@ -146,7 +138,7 @@ class VotingProcedureDto:
         slot = d.pop("slot", UNSET)
 
         _voter_type = d.pop("voter_type", UNSET)
-        voter_type: VotingProcedureDtoVoterType | Unset
+        voter_type: Unset | VotingProcedureDtoVoterType
         if isinstance(_voter_type, Unset):
             voter_type = UNSET
         else:
@@ -159,7 +151,7 @@ class VotingProcedureDto:
         gov_action_index = d.pop("gov_action_index", UNSET)
 
         _vote = d.pop("vote", UNSET)
-        vote: VotingProcedureDtoVote | Unset
+        vote: Unset | VotingProcedureDtoVote
         if isinstance(_vote, Unset):
             vote = UNSET
         else:

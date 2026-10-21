@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,22 +15,22 @@ T = TypeVar("T", bound="EpochContent")
 class EpochContent:
     """
     Attributes:
-        epoch (int | Unset):
-        first_block_time (int | Unset):
-        last_block_time (int | Unset):
-        block_count (int | Unset):
-        tx_count (int | Unset):
-        output (str | Unset):
-        fees (str | Unset):
+        epoch (Union[Unset, int]):
+        first_block_time (Union[Unset, int]):
+        last_block_time (Union[Unset, int]):
+        block_count (Union[Unset, int]):
+        tx_count (Union[Unset, int]):
+        output (Union[Unset, str]):
+        fees (Union[Unset, str]):
     """
 
-    epoch: int | Unset = UNSET
-    first_block_time: int | Unset = UNSET
-    last_block_time: int | Unset = UNSET
-    block_count: int | Unset = UNSET
-    tx_count: int | Unset = UNSET
-    output: str | Unset = UNSET
-    fees: str | Unset = UNSET
+    epoch: Unset | int = UNSET
+    first_block_time: Unset | int = UNSET
+    last_block_time: Unset | int = UNSET
+    block_count: Unset | int = UNSET
+    tx_count: Unset | int = UNSET
+    output: Unset | str = UNSET
+    fees: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -69,8 +69,8 @@ class EpochContent:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         epoch = d.pop("epoch", UNSET)
 
         first_block_time = d.pop("first_block_time", UNSET)

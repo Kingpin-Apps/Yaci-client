@@ -11,8 +11,8 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -33,11 +33,10 @@ def _get_kwargs(
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> TransactionPage | None:
-    if response.status_code == 200:
+    if response.status_code == HTTPStatus.OK:
         response_200 = TransactionPage.from_dict(response.json())
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -56,16 +55,16 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
 ) -> Response[TransactionPage]:
     """Transactions List
 
      Return list of transaction information by paging parameters.
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -90,16 +89,16 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
 ) -> TransactionPage | None:
     """Transactions List
 
      Return list of transaction information by paging parameters.
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -119,16 +118,16 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
 ) -> Response[TransactionPage]:
     """Transactions List
 
      Return list of transaction information by paging parameters.
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,16 +150,16 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
 ) -> TransactionPage | None:
     """Transactions List
 
      Return list of transaction information by paging parameters.
 
     Args:
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

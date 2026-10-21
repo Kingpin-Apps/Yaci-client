@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,14 +21,15 @@ T = TypeVar("T", bound="ScriptJsonDto")
 class ScriptJsonDto:
     """
     Attributes:
-        json (JsonNode | Unset):
+        json (Union[Unset, JsonNode]):
     """
 
-    json: JsonNode | Unset = UNSET
+    json: Union[Unset, "JsonNode"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        json: dict[str, Any] | Unset = UNSET
+
+        json: Unset | dict[str, Any] = UNSET
         if not isinstance(self.json, Unset):
             json = self.json.to_dict()
 
@@ -39,12 +42,12 @@ class ScriptJsonDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         _json = d.pop("json", UNSET)
-        json: JsonNode | Unset
+        json: Unset | JsonNode
         if isinstance(_json, Unset):
             json = UNSET
         else:

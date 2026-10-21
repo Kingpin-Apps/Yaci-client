@@ -1,7 +1,10 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+import builtins
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,25 +23,26 @@ T = TypeVar("T", bound="TxnWitness")
 class TxnWitness:
     """
     Attributes:
-        tx_hash (str | Unset):
-        index (int | Unset):
-        pub_key (str | Unset):
-        signature (str | Unset):
-        pub_keyhash (str | Unset):
-        type_ (TxnWitnessType | Unset):
-        additional_data (JsonNode | Unset):
+        tx_hash (Union[Unset, str]):
+        index (Union[Unset, int]):
+        pub_key (Union[Unset, str]):
+        signature (Union[Unset, str]):
+        pub_keyhash (Union[Unset, str]):
+        type (Union[Unset, TxnWitnessType]):
+        additional_data (Union[Unset, JsonNode]):
     """
 
-    tx_hash: str | Unset = UNSET
-    index: int | Unset = UNSET
-    pub_key: str | Unset = UNSET
-    signature: str | Unset = UNSET
-    pub_keyhash: str | Unset = UNSET
-    type_: TxnWitnessType | Unset = UNSET
-    additional_data: JsonNode | Unset = UNSET
+    tx_hash: Unset | str = UNSET
+    index: Unset | int = UNSET
+    pub_key: Unset | str = UNSET
+    signature: Unset | str = UNSET
+    pub_keyhash: Unset | str = UNSET
+    type: Unset | TxnWitnessType = UNSET
+    additional_data: Union[Unset, "JsonNode"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         tx_hash = self.tx_hash
 
         index = self.index
@@ -49,11 +53,11 @@ class TxnWitness:
 
         pub_keyhash = self.pub_keyhash
 
-        type_: str | Unset = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        type: Unset | str = UNSET
+        if not isinstance(self.type, Unset):
+            type = self.type.value
 
-        additional_data: dict[str, Any] | Unset = UNSET
+        additional_data: Unset | dict[str, Any] = UNSET
         if not isinstance(self.additional_data, Unset):
             additional_data = self.additional_data.to_dict()
 
@@ -70,18 +74,18 @@ class TxnWitness:
             field_dict["signature"] = signature
         if pub_keyhash is not UNSET:
             field_dict["pub_keyhash"] = pub_keyhash
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if type is not UNSET:
+            field_dict["type"] = type
         if additional_data is not UNSET:
             field_dict["additional_data"] = additional_data
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
         index = d.pop("index", UNSET)
@@ -92,15 +96,15 @@ class TxnWitness:
 
         pub_keyhash = d.pop("pub_keyhash", UNSET)
 
-        _type_ = d.pop("type", UNSET)
-        type_: TxnWitnessType | Unset
-        if isinstance(_type_, Unset):
-            type_ = UNSET
+        _type = d.pop("type", UNSET)
+        type: Unset | TxnWitnessType
+        if isinstance(_type, Unset):
+            type = UNSET
         else:
-            type_ = TxnWitnessType(_type_)
+            type = TxnWitnessType(_type)
 
         _additional_data = d.pop("additional_data", UNSET)
-        additional_data: JsonNode | Unset
+        additional_data: Unset | JsonNode
         if isinstance(_additional_data, Unset):
             additional_data = UNSET
         else:
@@ -112,7 +116,7 @@ class TxnWitness:
             pub_key=pub_key,
             signature=signature,
             pub_keyhash=pub_keyhash,
-            type_=type_,
+            type=type,
             additional_data=additional_data,
         )
 

@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="EpochNo")
 class EpochNo:
     """
     Attributes:
-        epoch (int | Unset):
+        epoch (Union[Unset, int]):
     """
 
-    epoch: int | Unset = UNSET
+    epoch: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,8 +33,8 @@ class EpochNo:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         epoch = d.pop("epoch", UNSET)
 
         epoch_no = cls(

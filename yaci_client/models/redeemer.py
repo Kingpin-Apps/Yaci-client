@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,20 +22,21 @@ T = TypeVar("T", bound="Redeemer")
 class Redeemer:
     """
     Attributes:
-        tag (RedeemerTag | Unset):
-        index (int | Unset):
-        data (str | Unset):
-        ex_units (ExUnits | Unset):
+        tag (Union[Unset, RedeemerTag]):
+        index (Union[Unset, int]):
+        data (Union[Unset, str]):
+        ex_units (Union[Unset, ExUnits]):
     """
 
-    tag: RedeemerTag | Unset = UNSET
-    index: int | Unset = UNSET
-    data: str | Unset = UNSET
-    ex_units: ExUnits | Unset = UNSET
+    tag: Unset | RedeemerTag = UNSET
+    index: Unset | int = UNSET
+    data: Unset | str = UNSET
+    ex_units: Union[Unset, "ExUnits"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        tag: str | Unset = UNSET
+
+        tag: Unset | str = UNSET
         if not isinstance(self.tag, Unset):
             tag = self.tag.value
 
@@ -41,7 +44,7 @@ class Redeemer:
 
         data = self.data
 
-        ex_units: dict[str, Any] | Unset = UNSET
+        ex_units: Unset | dict[str, Any] = UNSET
         if not isinstance(self.ex_units, Unset):
             ex_units = self.ex_units.to_dict()
 
@@ -60,12 +63,12 @@ class Redeemer:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.ex_units import ExUnits
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         _tag = d.pop("tag", UNSET)
-        tag: RedeemerTag | Unset
+        tag: Unset | RedeemerTag
         if isinstance(_tag, Unset):
             tag = UNSET
         else:
@@ -76,7 +79,7 @@ class Redeemer:
         data = d.pop("data", UNSET)
 
         _ex_units = d.pop("ex_units", UNSET)
-        ex_units: ExUnits | Unset
+        ex_units: Unset | ExUnits
         if isinstance(_ex_units, Unset):
             ex_units = UNSET
         else:

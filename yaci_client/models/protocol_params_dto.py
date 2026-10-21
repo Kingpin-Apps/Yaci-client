@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,115 +21,116 @@ T = TypeVar("T", bound="ProtocolParamsDto")
 class ProtocolParamsDto:
     """
     Attributes:
-        min_fee_a (int | Unset):
-        min_fee_b (int | Unset):
-        max_block_size (int | Unset):
-        max_tx_size (int | Unset):
-        max_block_header_size (int | Unset):
-        key_deposit (str | Unset):
-        pool_deposit (str | Unset):
-        a0 (float | Unset):
-        rho (float | Unset):
-        tau (float | Unset):
-        decentralisation_param (float | Unset):
-        extra_entropy (str | Unset):
-        protocol_major_ver (int | Unset):
-        protocol_minor_ver (int | Unset):
-        min_utxo (str | Unset):
-        min_pool_cost (str | Unset):
-        nonce (str | Unset):
-        cost_models (ProtocolParamsDtoCostModels | Unset):
-        price_mem (float | Unset):
-        price_step (float | Unset):
-        max_tx_ex_mem (str | Unset):
-        max_tx_ex_steps (str | Unset):
-        max_block_ex_mem (str | Unset):
-        max_block_ex_steps (str | Unset):
-        max_val_size (str | Unset):
-        collateral_percent (float | Unset):
-        max_collateral_inputs (int | Unset):
-        coins_per_utxo_size (str | Unset):
-        coins_per_utxo_word (str | Unset):
-        pvt_motion_no_confidence (float | Unset):
-        pvt_committee_normal (float | Unset):
-        pvt_committee_no_confidence (float | Unset):
-        pvt_hard_fork_initiation (float | Unset):
-        dvt_motion_no_confidence (float | Unset):
-        dvt_committee_normal (float | Unset):
-        dvt_committee_no_confidence (float | Unset):
-        dvt_update_to_constitution (float | Unset):
-        dvt_hard_fork_initiation (float | Unset):
-        dvt_ppnetwork_group (float | Unset):
-        dvt_ppeconomic_group (float | Unset):
-        dvt_pptechnical_group (float | Unset):
-        dvt_ppgov_group (float | Unset):
-        dvt_treasury_withdrawal (float | Unset):
-        committee_min_size (int | Unset):
-        committee_max_term_length (int | Unset):
-        gov_action_lifetime (int | Unset):
-        gov_action_deposit (int | Unset):
-        drep_deposit (int | Unset):
-        drep_activity (int | Unset):
-        min_fee_ref_script_cost_per_byte (float | Unset):
-        e_max (int | Unset):
-        n_opt (int | Unset):
+        min_fee_a (Union[Unset, int]):
+        min_fee_b (Union[Unset, int]):
+        max_block_size (Union[Unset, int]):
+        max_tx_size (Union[Unset, int]):
+        max_block_header_size (Union[Unset, int]):
+        key_deposit (Union[Unset, str]):
+        pool_deposit (Union[Unset, str]):
+        a0 (Union[Unset, float]):
+        rho (Union[Unset, float]):
+        tau (Union[Unset, float]):
+        decentralisation_param (Union[Unset, float]):
+        extra_entropy (Union[Unset, str]):
+        protocol_major_ver (Union[Unset, int]):
+        protocol_minor_ver (Union[Unset, int]):
+        min_utxo (Union[Unset, str]):
+        min_pool_cost (Union[Unset, str]):
+        nonce (Union[Unset, str]):
+        cost_models (Union[Unset, ProtocolParamsDtoCostModels]):
+        price_mem (Union[Unset, float]):
+        price_step (Union[Unset, float]):
+        max_tx_ex_mem (Union[Unset, str]):
+        max_tx_ex_steps (Union[Unset, str]):
+        max_block_ex_mem (Union[Unset, str]):
+        max_block_ex_steps (Union[Unset, str]):
+        max_val_size (Union[Unset, str]):
+        collateral_percent (Union[Unset, float]):
+        max_collateral_inputs (Union[Unset, int]):
+        coins_per_utxo_size (Union[Unset, str]):
+        coins_per_utxo_word (Union[Unset, str]):
+        pvt_motion_no_confidence (Union[Unset, float]):
+        pvt_committee_normal (Union[Unset, float]):
+        pvt_committee_no_confidence (Union[Unset, float]):
+        pvt_hard_fork_initiation (Union[Unset, float]):
+        dvt_motion_no_confidence (Union[Unset, float]):
+        dvt_committee_normal (Union[Unset, float]):
+        dvt_committee_no_confidence (Union[Unset, float]):
+        dvt_update_to_constitution (Union[Unset, float]):
+        dvt_hard_fork_initiation (Union[Unset, float]):
+        dvt_ppnetwork_group (Union[Unset, float]):
+        dvt_ppeconomic_group (Union[Unset, float]):
+        dvt_pptechnical_group (Union[Unset, float]):
+        dvt_ppgov_group (Union[Unset, float]):
+        dvt_treasury_withdrawal (Union[Unset, float]):
+        committee_min_size (Union[Unset, int]):
+        committee_max_term_length (Union[Unset, int]):
+        gov_action_lifetime (Union[Unset, int]):
+        gov_action_deposit (Union[Unset, int]):
+        drep_deposit (Union[Unset, int]):
+        drep_activity (Union[Unset, int]):
+        min_fee_ref_script_cost_per_byte (Union[Unset, float]):
+        e_max (Union[Unset, int]):
+        n_opt (Union[Unset, int]):
     """
 
-    min_fee_a: int | Unset = UNSET
-    min_fee_b: int | Unset = UNSET
-    max_block_size: int | Unset = UNSET
-    max_tx_size: int | Unset = UNSET
-    max_block_header_size: int | Unset = UNSET
-    key_deposit: str | Unset = UNSET
-    pool_deposit: str | Unset = UNSET
-    a0: float | Unset = UNSET
-    rho: float | Unset = UNSET
-    tau: float | Unset = UNSET
-    decentralisation_param: float | Unset = UNSET
-    extra_entropy: str | Unset = UNSET
-    protocol_major_ver: int | Unset = UNSET
-    protocol_minor_ver: int | Unset = UNSET
-    min_utxo: str | Unset = UNSET
-    min_pool_cost: str | Unset = UNSET
-    nonce: str | Unset = UNSET
-    cost_models: ProtocolParamsDtoCostModels | Unset = UNSET
-    price_mem: float | Unset = UNSET
-    price_step: float | Unset = UNSET
-    max_tx_ex_mem: str | Unset = UNSET
-    max_tx_ex_steps: str | Unset = UNSET
-    max_block_ex_mem: str | Unset = UNSET
-    max_block_ex_steps: str | Unset = UNSET
-    max_val_size: str | Unset = UNSET
-    collateral_percent: float | Unset = UNSET
-    max_collateral_inputs: int | Unset = UNSET
-    coins_per_utxo_size: str | Unset = UNSET
-    coins_per_utxo_word: str | Unset = UNSET
-    pvt_motion_no_confidence: float | Unset = UNSET
-    pvt_committee_normal: float | Unset = UNSET
-    pvt_committee_no_confidence: float | Unset = UNSET
-    pvt_hard_fork_initiation: float | Unset = UNSET
-    dvt_motion_no_confidence: float | Unset = UNSET
-    dvt_committee_normal: float | Unset = UNSET
-    dvt_committee_no_confidence: float | Unset = UNSET
-    dvt_update_to_constitution: float | Unset = UNSET
-    dvt_hard_fork_initiation: float | Unset = UNSET
-    dvt_ppnetwork_group: float | Unset = UNSET
-    dvt_ppeconomic_group: float | Unset = UNSET
-    dvt_pptechnical_group: float | Unset = UNSET
-    dvt_ppgov_group: float | Unset = UNSET
-    dvt_treasury_withdrawal: float | Unset = UNSET
-    committee_min_size: int | Unset = UNSET
-    committee_max_term_length: int | Unset = UNSET
-    gov_action_lifetime: int | Unset = UNSET
-    gov_action_deposit: int | Unset = UNSET
-    drep_deposit: int | Unset = UNSET
-    drep_activity: int | Unset = UNSET
-    min_fee_ref_script_cost_per_byte: float | Unset = UNSET
-    e_max: int | Unset = UNSET
-    n_opt: int | Unset = UNSET
+    min_fee_a: Unset | int = UNSET
+    min_fee_b: Unset | int = UNSET
+    max_block_size: Unset | int = UNSET
+    max_tx_size: Unset | int = UNSET
+    max_block_header_size: Unset | int = UNSET
+    key_deposit: Unset | str = UNSET
+    pool_deposit: Unset | str = UNSET
+    a0: Unset | float = UNSET
+    rho: Unset | float = UNSET
+    tau: Unset | float = UNSET
+    decentralisation_param: Unset | float = UNSET
+    extra_entropy: Unset | str = UNSET
+    protocol_major_ver: Unset | int = UNSET
+    protocol_minor_ver: Unset | int = UNSET
+    min_utxo: Unset | str = UNSET
+    min_pool_cost: Unset | str = UNSET
+    nonce: Unset | str = UNSET
+    cost_models: Union[Unset, "ProtocolParamsDtoCostModels"] = UNSET
+    price_mem: Unset | float = UNSET
+    price_step: Unset | float = UNSET
+    max_tx_ex_mem: Unset | str = UNSET
+    max_tx_ex_steps: Unset | str = UNSET
+    max_block_ex_mem: Unset | str = UNSET
+    max_block_ex_steps: Unset | str = UNSET
+    max_val_size: Unset | str = UNSET
+    collateral_percent: Unset | float = UNSET
+    max_collateral_inputs: Unset | int = UNSET
+    coins_per_utxo_size: Unset | str = UNSET
+    coins_per_utxo_word: Unset | str = UNSET
+    pvt_motion_no_confidence: Unset | float = UNSET
+    pvt_committee_normal: Unset | float = UNSET
+    pvt_committee_no_confidence: Unset | float = UNSET
+    pvt_hard_fork_initiation: Unset | float = UNSET
+    dvt_motion_no_confidence: Unset | float = UNSET
+    dvt_committee_normal: Unset | float = UNSET
+    dvt_committee_no_confidence: Unset | float = UNSET
+    dvt_update_to_constitution: Unset | float = UNSET
+    dvt_hard_fork_initiation: Unset | float = UNSET
+    dvt_ppnetwork_group: Unset | float = UNSET
+    dvt_ppeconomic_group: Unset | float = UNSET
+    dvt_pptechnical_group: Unset | float = UNSET
+    dvt_ppgov_group: Unset | float = UNSET
+    dvt_treasury_withdrawal: Unset | float = UNSET
+    committee_min_size: Unset | int = UNSET
+    committee_max_term_length: Unset | int = UNSET
+    gov_action_lifetime: Unset | int = UNSET
+    gov_action_deposit: Unset | int = UNSET
+    drep_deposit: Unset | int = UNSET
+    drep_activity: Unset | int = UNSET
+    min_fee_ref_script_cost_per_byte: Unset | float = UNSET
+    e_max: Unset | int = UNSET
+    n_opt: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         min_fee_a = self.min_fee_a
 
         min_fee_b = self.min_fee_b
@@ -162,7 +165,7 @@ class ProtocolParamsDto:
 
         nonce = self.nonce
 
-        cost_models: dict[str, Any] | Unset = UNSET
+        cost_models: Unset | dict[str, Any] = UNSET
         if not isinstance(self.cost_models, Unset):
             cost_models = self.cost_models.to_dict()
 
@@ -345,10 +348,10 @@ class ProtocolParamsDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.protocol_params_dto_cost_models import ProtocolParamsDtoCostModels
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         min_fee_a = d.pop("min_fee_a", UNSET)
 
         min_fee_b = d.pop("min_fee_b", UNSET)
@@ -384,7 +387,7 @@ class ProtocolParamsDto:
         nonce = d.pop("nonce", UNSET)
 
         _cost_models = d.pop("cost_models", UNSET)
-        cost_models: ProtocolParamsDtoCostModels | Unset
+        cost_models: Unset | ProtocolParamsDtoCostModels
         if isinstance(_cost_models, Unset):
             cost_models = UNSET
         else:

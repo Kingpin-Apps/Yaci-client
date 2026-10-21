@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,22 +15,22 @@ T = TypeVar("T", bound="Withdrawal")
 class Withdrawal:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        address (str | Unset):
-        tx_hash (str | Unset):
-        amount (int | Unset):
-        epoch (int | Unset):
-        slot (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        address (Union[Unset, str]):
+        tx_hash (Union[Unset, str]):
+        amount (Union[Unset, int]):
+        epoch (Union[Unset, int]):
+        slot (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    address: str | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    amount: int | Unset = UNSET
-    epoch: int | Unset = UNSET
-    slot: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    address: Unset | str = UNSET
+    tx_hash: Unset | str = UNSET
+    amount: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -69,8 +69,8 @@ class Withdrawal:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)

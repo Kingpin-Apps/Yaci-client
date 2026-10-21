@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,24 +15,24 @@ T = TypeVar("T", bound="Epoch")
 class Epoch:
     """
     Attributes:
-        number (int | Unset):
-        block_count (int | Unset):
-        transaction_count (int | Unset):
-        total_output (int | Unset):
-        total_fees (int | Unset):
-        start_time (int | Unset):
-        end_time (int | Unset):
-        max_slot (int | Unset):
+        number (Union[Unset, int]):
+        block_count (Union[Unset, int]):
+        transaction_count (Union[Unset, int]):
+        total_output (Union[Unset, int]):
+        total_fees (Union[Unset, int]):
+        start_time (Union[Unset, int]):
+        end_time (Union[Unset, int]):
+        max_slot (Union[Unset, int]):
     """
 
-    number: int | Unset = UNSET
-    block_count: int | Unset = UNSET
-    transaction_count: int | Unset = UNSET
-    total_output: int | Unset = UNSET
-    total_fees: int | Unset = UNSET
-    start_time: int | Unset = UNSET
-    end_time: int | Unset = UNSET
-    max_slot: int | Unset = UNSET
+    number: Unset | int = UNSET
+    block_count: Unset | int = UNSET
+    transaction_count: Unset | int = UNSET
+    total_output: Unset | int = UNSET
+    total_fees: Unset | int = UNSET
+    start_time: Unset | int = UNSET
+    end_time: Unset | int = UNSET
+    max_slot: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -75,8 +75,8 @@ class Epoch:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         number = d.pop("number", UNSET)
 
         block_count = d.pop("block_count", UNSET)

@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,28 +15,28 @@ T = TypeVar("T", bound="Delegation")
 class Delegation:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        credential (str | Unset):
-        address (str | Unset):
-        pool_id (str | Unset):
-        tx_hash (str | Unset):
-        cert_index (int | Unset):
-        epoch (int | Unset):
-        slot (int | Unset):
-        block_hash (str | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        credential (Union[Unset, str]):
+        address (Union[Unset, str]):
+        pool_id (Union[Unset, str]):
+        tx_hash (Union[Unset, str]):
+        cert_index (Union[Unset, int]):
+        epoch (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        block_hash (Union[Unset, str]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    credential: str | Unset = UNSET
-    address: str | Unset = UNSET
-    pool_id: str | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    cert_index: int | Unset = UNSET
-    epoch: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    block_hash: str | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    credential: Unset | str = UNSET
+    address: Unset | str = UNSET
+    pool_id: Unset | str = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    epoch: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    block_hash: Unset | str = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -87,8 +87,8 @@ class Delegation:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)

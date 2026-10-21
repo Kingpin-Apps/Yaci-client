@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,28 +16,28 @@ T = TypeVar("T", bound="TxAsset")
 class TxAsset:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        slot (int | Unset):
-        tx_hash (str | Unset):
-        policy (str | Unset):
-        asset_name (str | Unset):
-        unit (str | Unset):
-        fingerprint (str | Unset):
-        quantity (int | Unset):
-        mint_type (TxAssetMintType | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        slot (Union[Unset, int]):
+        tx_hash (Union[Unset, str]):
+        policy (Union[Unset, str]):
+        asset_name (Union[Unset, str]):
+        unit (Union[Unset, str]):
+        fingerprint (Union[Unset, str]):
+        quantity (Union[Unset, int]):
+        mint_type (Union[Unset, TxAssetMintType]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    slot: int | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    policy: str | Unset = UNSET
-    asset_name: str | Unset = UNSET
-    unit: str | Unset = UNSET
-    fingerprint: str | Unset = UNSET
-    quantity: int | Unset = UNSET
-    mint_type: TxAssetMintType | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    slot: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    policy: Unset | str = UNSET
+    asset_name: Unset | str = UNSET
+    unit: Unset | str = UNSET
+    fingerprint: Unset | str = UNSET
+    quantity: Unset | int = UNSET
+    mint_type: Unset | TxAssetMintType = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -59,7 +59,7 @@ class TxAsset:
 
         quantity = self.quantity
 
-        mint_type: str | Unset = UNSET
+        mint_type: Unset | str = UNSET
         if not isinstance(self.mint_type, Unset):
             mint_type = self.mint_type.value
 
@@ -90,8 +90,8 @@ class TxAsset:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -111,7 +111,7 @@ class TxAsset:
         quantity = d.pop("quantity", UNSET)
 
         _mint_type = d.pop("mint_type", UNSET)
-        mint_type: TxAssetMintType | Unset
+        mint_type: Unset | TxAssetMintType
         if isinstance(_mint_type, Unset):
             mint_type = UNSET
         else:

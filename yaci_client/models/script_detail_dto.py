@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,24 +22,25 @@ T = TypeVar("T", bound="ScriptDetailDto")
 class ScriptDetailDto:
     """
     Attributes:
-        script_hash (str | Unset):
-        script_type (ScriptDetailDtoScriptType | Unset):
-        content (JsonNode | Unset):
+        script_hash (Union[Unset, str]):
+        script_type (Union[Unset, ScriptDetailDtoScriptType]):
+        content (Union[Unset, JsonNode]):
     """
 
-    script_hash: str | Unset = UNSET
-    script_type: ScriptDetailDtoScriptType | Unset = UNSET
-    content: JsonNode | Unset = UNSET
+    script_hash: Unset | str = UNSET
+    script_type: Unset | ScriptDetailDtoScriptType = UNSET
+    content: Union[Unset, "JsonNode"] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         script_hash = self.script_hash
 
-        script_type: str | Unset = UNSET
+        script_type: Unset | str = UNSET
         if not isinstance(self.script_type, Unset):
             script_type = self.script_type.value
 
-        content: dict[str, Any] | Unset = UNSET
+        content: Unset | dict[str, Any] = UNSET
         if not isinstance(self.content, Unset):
             content = self.content.to_dict()
 
@@ -54,21 +57,21 @@ class ScriptDetailDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         script_hash = d.pop("script_hash", UNSET)
 
         _script_type = d.pop("script_type", UNSET)
-        script_type: ScriptDetailDtoScriptType | Unset
+        script_type: Unset | ScriptDetailDtoScriptType
         if isinstance(_script_type, Unset):
             script_type = UNSET
         else:
             script_type = ScriptDetailDtoScriptType(_script_type)
 
         _content = d.pop("content", UNSET)
-        content: JsonNode | Unset
+        content: Unset | JsonNode
         if isinstance(_content, Unset):
             content = UNSET
         else:

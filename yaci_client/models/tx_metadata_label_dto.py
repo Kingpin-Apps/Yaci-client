@@ -1,7 +1,9 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,34 +21,35 @@ T = TypeVar("T", bound="TxMetadataLabelDto")
 class TxMetadataLabelDto:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        label (str | Unset):
-        body (JsonNode | Unset):
-        json_metadata (JsonNode | Unset):
-        slot (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        label (Union[Unset, str]):
+        body (Union[Unset, JsonNode]):
+        json_metadata (Union[Unset, JsonNode]):
+        slot (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    label: str | Unset = UNSET
-    body: JsonNode | Unset = UNSET
-    json_metadata: JsonNode | Unset = UNSET
-    slot: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    label: Unset | str = UNSET
+    body: Union[Unset, "JsonNode"] = UNSET
+    json_metadata: Union[Unset, "JsonNode"] = UNSET
+    slot: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+
         block_number = self.block_number
 
         block_time = self.block_time
 
         label = self.label
 
-        body: dict[str, Any] | Unset = UNSET
+        body: Unset | dict[str, Any] = UNSET
         if not isinstance(self.body, Unset):
             body = self.body.to_dict()
 
-        json_metadata: dict[str, Any] | Unset = UNSET
+        json_metadata: Unset | dict[str, Any] = UNSET
         if not isinstance(self.json_metadata, Unset):
             json_metadata = self.json_metadata.to_dict()
 
@@ -71,10 +74,10 @@ class TxMetadataLabelDto:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
         from ..models.json_node import JsonNode
 
-        d = dict(src_dict)
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -82,14 +85,14 @@ class TxMetadataLabelDto:
         label = d.pop("label", UNSET)
 
         _body = d.pop("body", UNSET)
-        body: JsonNode | Unset
+        body: Unset | JsonNode
         if isinstance(_body, Unset):
             body = UNSET
         else:
             body = JsonNode.from_dict(_body)
 
         _json_metadata = d.pop("json_metadata", UNSET)
-        json_metadata: JsonNode | Unset
+        json_metadata: Unset | JsonNode
         if isinstance(_json_metadata, Unset):
             json_metadata = UNSET
         else:

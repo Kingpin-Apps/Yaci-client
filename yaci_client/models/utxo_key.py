@@ -1,7 +1,7 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,12 +15,12 @@ T = TypeVar("T", bound="UtxoKey")
 class UtxoKey:
     """
     Attributes:
-        tx_hash (str | Unset):
-        output_index (int | Unset):
+        tx_hash (Union[Unset, str]):
+        output_index (Union[Unset, int]):
     """
 
-    tx_hash: str | Unset = UNSET
-    output_index: int | Unset = UNSET
+    tx_hash: Unset | str = UNSET
+    output_index: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,8 +39,8 @@ class UtxoKey:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         tx_hash = d.pop("tx_hash", UNSET)
 
         output_index = d.pop("output_index", UNSET)

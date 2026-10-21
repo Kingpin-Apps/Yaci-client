@@ -1,7 +1,8 @@
-from __future__ import annotations
-
-from collections.abc import Mapping
-from typing import Any, TypeVar
+import builtins
+from typing import (
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,34 +18,34 @@ T = TypeVar("T", bound="DRepRegistration")
 class DRepRegistration:
     """
     Attributes:
-        block_number (int | Unset):
-        block_time (int | Unset):
-        tx_hash (str | Unset):
-        cert_index (int | Unset):
-        type_ (DRepRegistrationType | Unset):
-        slot (int | Unset):
-        deposit (int | Unset):
-        drep_hash (str | Unset):
-        drep_id (str | Unset):
-        anchor_url (str | Unset):
-        anchor_hash (str | Unset):
-        cred_type (DRepRegistrationCredType | Unset):
-        epoch (int | Unset):
+        block_number (Union[Unset, int]):
+        block_time (Union[Unset, int]):
+        tx_hash (Union[Unset, str]):
+        cert_index (Union[Unset, int]):
+        type (Union[Unset, DRepRegistrationType]):
+        slot (Union[Unset, int]):
+        deposit (Union[Unset, int]):
+        drep_hash (Union[Unset, str]):
+        drep_id (Union[Unset, str]):
+        anchor_url (Union[Unset, str]):
+        anchor_hash (Union[Unset, str]):
+        cred_type (Union[Unset, DRepRegistrationCredType]):
+        epoch (Union[Unset, int]):
     """
 
-    block_number: int | Unset = UNSET
-    block_time: int | Unset = UNSET
-    tx_hash: str | Unset = UNSET
-    cert_index: int | Unset = UNSET
-    type_: DRepRegistrationType | Unset = UNSET
-    slot: int | Unset = UNSET
-    deposit: int | Unset = UNSET
-    drep_hash: str | Unset = UNSET
-    drep_id: str | Unset = UNSET
-    anchor_url: str | Unset = UNSET
-    anchor_hash: str | Unset = UNSET
-    cred_type: DRepRegistrationCredType | Unset = UNSET
-    epoch: int | Unset = UNSET
+    block_number: Unset | int = UNSET
+    block_time: Unset | int = UNSET
+    tx_hash: Unset | str = UNSET
+    cert_index: Unset | int = UNSET
+    type: Unset | DRepRegistrationType = UNSET
+    slot: Unset | int = UNSET
+    deposit: Unset | int = UNSET
+    drep_hash: Unset | str = UNSET
+    drep_id: Unset | str = UNSET
+    anchor_url: Unset | str = UNSET
+    anchor_hash: Unset | str = UNSET
+    cred_type: Unset | DRepRegistrationCredType = UNSET
+    epoch: Unset | int = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -56,9 +57,9 @@ class DRepRegistration:
 
         cert_index = self.cert_index
 
-        type_: str | Unset = UNSET
-        if not isinstance(self.type_, Unset):
-            type_ = self.type_.value
+        type: Unset | str = UNSET
+        if not isinstance(self.type, Unset):
+            type = self.type.value
 
         slot = self.slot
 
@@ -72,7 +73,7 @@ class DRepRegistration:
 
         anchor_hash = self.anchor_hash
 
-        cred_type: str | Unset = UNSET
+        cred_type: Unset | str = UNSET
         if not isinstance(self.cred_type, Unset):
             cred_type = self.cred_type.value
 
@@ -89,8 +90,8 @@ class DRepRegistration:
             field_dict["tx_hash"] = tx_hash
         if cert_index is not UNSET:
             field_dict["cert_index"] = cert_index
-        if type_ is not UNSET:
-            field_dict["type"] = type_
+        if type is not UNSET:
+            field_dict["type"] = type
         if slot is not UNSET:
             field_dict["slot"] = slot
         if deposit is not UNSET:
@@ -111,8 +112,8 @@ class DRepRegistration:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        d = dict(src_dict)
+    def from_dict(cls: builtins.type[T], src_dict: dict[str, Any]) -> T:
+        d = src_dict.copy()
         block_number = d.pop("block_number", UNSET)
 
         block_time = d.pop("block_time", UNSET)
@@ -121,12 +122,12 @@ class DRepRegistration:
 
         cert_index = d.pop("cert_index", UNSET)
 
-        _type_ = d.pop("type", UNSET)
-        type_: DRepRegistrationType | Unset
-        if isinstance(_type_, Unset):
-            type_ = UNSET
+        _type = d.pop("type", UNSET)
+        type: Unset | DRepRegistrationType
+        if isinstance(_type, Unset):
+            type = UNSET
         else:
-            type_ = DRepRegistrationType(_type_)
+            type = DRepRegistrationType(_type)
 
         slot = d.pop("slot", UNSET)
 
@@ -141,7 +142,7 @@ class DRepRegistration:
         anchor_hash = d.pop("anchor_hash", UNSET)
 
         _cred_type = d.pop("cred_type", UNSET)
-        cred_type: DRepRegistrationCredType | Unset
+        cred_type: Unset | DRepRegistrationCredType
         if isinstance(_cred_type, Unset):
             cred_type = UNSET
         else:
@@ -154,7 +155,7 @@ class DRepRegistration:
             block_time=block_time,
             tx_hash=tx_hash,
             cert_index=cert_index,
-            type_=type_,
+            type=type,
             slot=slot,
             deposit=deposit,
             drep_hash=drep_hash,

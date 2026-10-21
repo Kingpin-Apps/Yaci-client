@@ -13,9 +13,9 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     d_rep_id: str,
     *,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDelegationsOfDRepOrder | Unset = GetDelegationsOfDRepOrder.DESC,
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDelegationsOfDRepOrder = GetDelegationsOfDRepOrder.DESC,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -24,7 +24,7 @@ def _get_kwargs(
 
     params["count"] = count
 
-    json_order: str | Unset = UNSET
+    json_order: Unset | str = UNSET
     if not isinstance(order, Unset):
         json_order = order.value
 
@@ -41,8 +41,8 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list[DelegationVote] | None:
-    if response.status_code == 200:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> list["DelegationVote"] | None:
+    if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
@@ -51,7 +51,6 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
             response_200.append(response_200_item)
 
         return response_200
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -60,7 +59,7 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[list[DelegationVote]]:
+) -> Response[list["DelegationVote"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,24 +72,24 @@ def sync_detailed(
     d_rep_id: str,
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDelegationsOfDRepOrder | Unset = GetDelegationsOfDRepOrder.DESC,
-) -> Response[list[DelegationVote]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDelegationsOfDRepOrder = GetDelegationsOfDRepOrder.DESC,
+) -> Response[list["DelegationVote"]]:
     """Get delegations by DRep ID
 
     Args:
         d_rep_id (str):
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDelegationsOfDRepOrder | Unset):  Default: GetDelegationsOfDRepOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDelegationsOfDRepOrder]):  Default: GetDelegationsOfDRepOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[DelegationVote]]
+        Response[List['DelegationVote']]
     """
 
     kwargs = _get_kwargs(
@@ -111,24 +110,24 @@ def sync(
     d_rep_id: str,
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDelegationsOfDRepOrder | Unset = GetDelegationsOfDRepOrder.DESC,
-) -> list[DelegationVote] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDelegationsOfDRepOrder = GetDelegationsOfDRepOrder.DESC,
+) -> list["DelegationVote"] | None:
     """Get delegations by DRep ID
 
     Args:
         d_rep_id (str):
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDelegationsOfDRepOrder | Unset):  Default: GetDelegationsOfDRepOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDelegationsOfDRepOrder]):  Default: GetDelegationsOfDRepOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[DelegationVote]
+        List['DelegationVote']
     """
 
     return sync_detailed(
@@ -144,24 +143,24 @@ async def asyncio_detailed(
     d_rep_id: str,
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDelegationsOfDRepOrder | Unset = GetDelegationsOfDRepOrder.DESC,
-) -> Response[list[DelegationVote]]:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDelegationsOfDRepOrder = GetDelegationsOfDRepOrder.DESC,
+) -> Response[list["DelegationVote"]]:
     """Get delegations by DRep ID
 
     Args:
         d_rep_id (str):
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDelegationsOfDRepOrder | Unset):  Default: GetDelegationsOfDRepOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDelegationsOfDRepOrder]):  Default: GetDelegationsOfDRepOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[list[DelegationVote]]
+        Response[List['DelegationVote']]
     """
 
     kwargs = _get_kwargs(
@@ -180,24 +179,24 @@ async def asyncio(
     d_rep_id: str,
     *,
     client: AuthenticatedClient | Client,
-    page: int | Unset = 0,
-    count: int | Unset = 10,
-    order: GetDelegationsOfDRepOrder | Unset = GetDelegationsOfDRepOrder.DESC,
-) -> list[DelegationVote] | None:
+    page: Unset | int = 0,
+    count: Unset | int = 10,
+    order: Unset | GetDelegationsOfDRepOrder = GetDelegationsOfDRepOrder.DESC,
+) -> list["DelegationVote"] | None:
     """Get delegations by DRep ID
 
     Args:
         d_rep_id (str):
-        page (int | Unset):  Default: 0.
-        count (int | Unset):  Default: 10.
-        order (GetDelegationsOfDRepOrder | Unset):  Default: GetDelegationsOfDRepOrder.DESC.
+        page (Union[Unset, int]):  Default: 0.
+        count (Union[Unset, int]):  Default: 10.
+        order (Union[Unset, GetDelegationsOfDRepOrder]):  Default: GetDelegationsOfDRepOrder.DESC.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        list[DelegationVote]
+        List['DelegationVote']
     """
 
     return (
