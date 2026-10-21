@@ -2,3 +2,8 @@ content_type_overrides:
   '*/*': application/json
   application/cbor: application/json
   text/plain: application/json
+package_name_override: yaci_client
+# Run from the project root with its ruff settings, so regenerated code passes `just lint`.
+post_hooks:
+  - ruff check --fix-only .
+  - ruff format .

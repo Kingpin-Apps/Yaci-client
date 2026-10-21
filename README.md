@@ -36,14 +36,12 @@ from yaci_client.types import Response
 client = Client(base_url="http://localhost:8080", raise_on_unexpected_status=True)
 
 with client as client:
-     params: ProtocolParamsDto = get_latest_protocol_params.sync(client=client)
-     print(params)
-     
-     response: Response[ProtocolParamsDto] = (
-         get_latest_protocol_params.sync_detailed(client=client)
-     )
-     protocol_params_json = json.loads(response.content)
-     print(protocol_params_json)
+    params: ProtocolParamsDto = get_latest_protocol_params.sync(client=client)
+    print(params)
+
+    response: Response[ProtocolParamsDto] = get_latest_protocol_params.sync_detailed(client=client)
+    protocol_params_json = json.loads(response.content)
+    print(protocol_params_json)
 ```
 
 Or do the same thing with an async version:
@@ -69,12 +67,14 @@ async with client as client:
 By default, when you're calling an HTTPS API it will attempt to verify that SSL is working correctly. Using certificate verification is highly recommended most of the time, but sometimes you may need to authenticate to a server (especially an internal server) using a custom certificate bundle.
 
 ```python
+import ssl
+
 from yaci_client import AuthenticatedClient
 
 client = AuthenticatedClient(
-    base_url="https://localhost:8080", 
+    base_url="https://localhost:8080",
     token="SuperSecretToken",
-    verify_ssl="/path/to/certificate_bundle.pem",
+    verify_ssl=ssl.create_default_context(cafile="/path/to/certificate_bundle.pem"),
 )
 ```
 
@@ -83,11 +83,7 @@ You can also disable certificate validation altogether, but beware that **this i
 ```python
 from yaci_client import AuthenticatedClient
 
-client = AuthenticatedClient(
-    base_url="https://localhost:8080", 
-    token="SuperSecretToken", 
-    verify_ssl=False
-)
+client = AuthenticatedClient(base_url="https://localhost:8080", token="SuperSecretToken", verify_ssl=False)
 ```
 
 Things to know:
@@ -99,7 +95,7 @@ Things to know:
 
 1. All path/query params, and bodies become method arguments.
 1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
-1. Any endpoint which did not have a tag will be in `yaci_store_api_client.api.default`
+1. Any endpoint which did not have a tag will be in `yaci_client.api.default`
 
 ## Advanced customizations
 
@@ -136,19 +132,39 @@ client = Client(
     base_url="https://localhost:8080",
 )
 # Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://localhost:8080", proxies="http://localhost:8030"))
+client.set_httpx_client(httpx.Client(base_url="https://localhost:8080", proxy="http://localhost:8030"))
 ```
 
-## Building / publishing this package
-This project uses [Poetry](https://python-poetry.org/) to manage dependencies  and packaging.  Here are the basics:
-1. Update the metadata in pyproject.toml (e.g. authors, version)
-1. If you're using a private repository, configure it with Poetry
-    1. `poetry config repositories.<your-repository-name> <url-to-your-repository>`
-    1. `poetry config http-basic.<your-repository-name> <username> <password>`
-1. Publish the client with `poetry publish --build -r <your-repository-name>` or, if for public PyPI, just `poetry publish --build`
+## Installation
 
-If you want to install this client into another project without publishing it (e.g. for development) then:
-1. If that project **is using Poetry**, you can simply do `poetry add <path-to-this-client>` from that project
-1. If that project is not using Poetry:
-    1. Build a wheel with `poetry build -f wheel`
-    1. Install that wheel from the other project `pip install <path-to-wheel>`
+```bash
+pip install yaci-client
+```
+
+It needs Python 3.11 or newer and works with httpx up to 0.28.
+
+## Development
+
+The project uses [uv](https://docs.astral.sh/uv/), [ruff](https://docs.astral.sh/ruff/),
+[ty](https://docs.astral.sh/ty/) and [just](https://just.systems/). Run `just` to list every task.
+
+```bash
+just sync       # install the project and its development tools
+just check      # lint, type-check and test
+just test-all   # the tests on every supported Python
+```
+
+`yaci_client` is generated from the Yaci Store OpenAPI spec in `yaci_api.json` by
+[openapi-python-client](https://github.com/openapi-generators/openapi-python-client). After
+updating the spec, run `just regenerate`; ruff then formats the result, so it passes `just lint`.
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/). Run
+`uv run pre-commit install` once to check messages and formatting on each commit.
+
+## Releasing
+
+1. `just bump` sets the version and the changelog from the commits since the last release, and tags it `vX.Y.Z`.
+1. Push the commit and the tag: `git push --follow-tags`.
+1. The tag starts the [Release workflow](.github/workflows/release.yml), which builds the package, publishes it
+   to [PyPI](https://pypi.org/project/yaci-client/) with Trusted Publishing (no token in the repository) and
+   creates the GitHub release.

@@ -712,3 +712,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+
+# uv per-Python test environments (just test-all, just test-lowest)
+.venvs/
+.ruff_cache/
