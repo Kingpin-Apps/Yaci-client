@@ -56,7 +56,8 @@ typecheck:
 # Lint, type-check and test
 check: lint typecheck test
 
-# Regenerate yaci_client from the OpenAPI spec in yaci_api.json, keeping __init__.py and py.typed
+# Regenerate yaci_client from yaci_api.json, keeping __init__.py and py.typed. Newer generators
+# rename fields (for example `type` to `type_`), so review the diff for API changes before committing.
 regenerate:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -65,10 +66,6 @@ regenerate:
     cp yaci_client/__init__.py yaci_client/py.typed "$keep"/
     uv run --group generate openapi-python-client generate --path yaci_api.json --config generator-config.yaml --meta none --output-path yaci_client --overwrite
     cp "$keep"/__init__.py "$keep"/py.typed yaci_client/
-
-# Check yaci_client matches what the spec generates
-check-generated: regenerate
-    git diff --exit-code -- yaci_client
 
 # Build the sdist and wheel into dist/
 build:

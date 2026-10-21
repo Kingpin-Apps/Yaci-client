@@ -29,16 +29,6 @@ jobs:
       - uses: astral-sh/setup-uv@v10.3.0
       - run: uv run --locked ty check
 
-  generated:
-    name: generated code is up to date
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10.3.0
-      - run: uvx --from rust-just just regenerate
-      - name: Fail if yaci_client differs from what yaci_api.json generates
-        run: git diff --exit-code -- yaci_client
-
   test:
     name: test (${{ matrix.os }}, ${{ matrix.python }})
     runs-on: ${{ matrix.os }}

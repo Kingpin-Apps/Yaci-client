@@ -157,6 +157,8 @@ just test-all   # the tests on every supported Python
 `yaci_client` is generated from the Yaci Store OpenAPI spec in `yaci_api.json` by
 [openapi-python-client](https://github.com/openapi-generators/openapi-python-client). After
 updating the spec, run `just regenerate`; ruff then formats the result, so it passes `just lint`.
+Review the diff before committing: newer generators rename fields (for example `type` to `type_`), which
+breaks callers, so a rename belongs in a major release.
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org/). Run
 `uv run pre-commit install` once to check messages and formatting on each commit.
