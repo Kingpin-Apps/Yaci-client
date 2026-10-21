@@ -5,6 +5,7 @@ import importlib.metadata
 import pkgutil
 import ssl
 
+import attrs
 import httpx
 import pytest
 
@@ -118,3 +119,18 @@ def test_unexpected_status_is_none_by_default(store: FakeYaciStore) -> None:
     client = Client(base_url=BASE_URL, httpx_args={"transport": store.transport})
 
     assert get_latest_epoch.sync(client=client) is None
+
+
+@pytest.mark.parametrize(
+    ("model", "field"),
+    [
+        ("yaci_client.models.gov_action_proposal.GovActionProposal", "type"),
+        ("yaci_client.models.d_rep_registration.DRepRegistration", "type"),
+        ("yaci_client.models.block_dto.BlockDto", "hash_"),
+    ],
+)
+def test_public_field_names_are_stable(model: str, field: str) -> None:
+    """Newer generators rename fields that shadow builtins; that would break callers."""
+    module_name, class_name = model.rsplit(".", 1)
+    cls = getattr(importlib.import_module(module_name), class_name)
+    assert field in {attribute.name for attribute in attrs.fields(cls)}
