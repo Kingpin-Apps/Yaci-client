@@ -87,8 +87,7 @@ skip_covered = true
 [tool.ruff]
 target-version = "py311"
 line-length = 120
-# example.py talks to a running DevKit and has local edits pending; lint it once they land.
-extend-exclude = ["dist", "example.py"]
+extend-exclude = ["dist"]
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "ASYNC", "PT"]
@@ -100,7 +99,7 @@ ignore = ["E501", "UP042", "SIM108"]
 python-version = "3.11"
 
 [tool.ty.src]
-include = ["yaci_client", "tests"]
+include = ["yaci_client", "tests", "example.py"]
 
 [tool.ty.terminal]
 error-on-warning = true

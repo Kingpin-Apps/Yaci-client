@@ -1,8 +1,8 @@
 # See https://pre-commit.com for more information.
 # ruff and commitizen run from the uv environment, so uv.lock is the only place their versions are pinned.
 default_install_hook_types: [pre-commit, commit-msg]
-# The OpenAPI spec is kept exactly as Yaci Store publishes it; example.py has local edits pending.
-exclude: ^(yaci_api\.json|example\.py)$
+# The OpenAPI spec is kept exactly as Yaci Store publishes it.
+exclude: ^yaci_api\.json$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
